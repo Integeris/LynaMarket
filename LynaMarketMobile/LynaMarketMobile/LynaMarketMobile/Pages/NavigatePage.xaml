@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.NavigatePage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorNight}}">
+    <ContentPage.Content>
+        <Grid Style="{StaticResource MainGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <CarouselView x:Name="MainCaruselView"
+                          Style="{StaticResource MainCarouselView}"
+                          xmlns:local="clr-namespace:LynaMarketMobile.Pages">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView Content="{Binding Content}"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+                <CarouselView.ItemsSource>
+                    <x:Array Type="{x:Type Page}">
+                        <local:MainPage/>
+                        <local:CatalogPage/>
+                        <local:BasketPage/>
+                        <local:ProfilePage/>
+                    </x:Array>
+                </CarouselView.ItemsSource>
+            </CarouselView>
+            
+            <StackLayout Grid.Row="1"
+                         Style="{StaticResource NavigationStackLayout}">
+                <Frame Style="{StaticResource NavigationFrame}"/>
+                <Grid Style="{StaticResource NavigationGrid}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button x:Name="MainButton" 
+                            Grid.Column="0"
+                            Style="{StaticResource SelectedNavigationButton}"
+                            Text="Главная"
+                            Clicked="ButtonOnClicked"/>
+                    <Button x:Name="CatalogButton" 
+                            Grid.Column="1" 
+                            Style="{StaticResource NavigationButton}"
+                            Text="Каталог"
+                            Clicked="ButtonOnClicked"/>
+                    <Button x:Name="BasketButton" 
+                            Grid.Column="2" 
+                            Style="{StaticResource NavigationButton}"
+                            Text="Корзина"
+                            Clicked="ButtonOnClicked"/>
+                    <Button x:Name="ProfileButton" 
+                            Grid.Column="3" 
+                            Style="{StaticResource NavigationButton}"
+                            Text="Профиль"
+                            Clicked="ButtonOnClicked"/>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

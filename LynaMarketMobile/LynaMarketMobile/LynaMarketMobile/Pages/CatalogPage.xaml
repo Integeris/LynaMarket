@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.CatalogPage">
+    <ContentPage.Content>
+        <ListView x:Name="CatalogListView"
+                  Style="{StaticResource CatalogListView}">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                    <x:String>Привет</x:String>
+                </x:Array>
+            </ListView.ItemsSource>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

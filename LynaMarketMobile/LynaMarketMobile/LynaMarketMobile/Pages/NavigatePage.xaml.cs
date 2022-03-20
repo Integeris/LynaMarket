@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace LynaMarketMobile.Pages
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NavigatePage : ContentPage
+    {
+        private Button selectedButton;
+
+        public NavigatePage()
+        {
+            InitializeComponent();
+
+            selectedButton = MainButton;
+        }
+
+        private void ButtonOnClicked(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            if (clickedButton == selectedButton)
+            {
+                return;
+            }
+
+            clickedButton.Style = (Style)App.Current.Resources["SelectedNavigationButton"];
+            selectedButton.Style = (Style)App.Current.Resources["NavigationButton"];
+
+            selectedButton = clickedButton;
+
+            switch (clickedButton.Text)
+            {
+                case "Главная":
+                    MainCaruselView.Position = 0;
+                    break;
+                case "Каталог":
+                    MainCaruselView.Position = 1;
+                    break;
+                case "Корзина":
+                    MainCaruselView.Position = 2;
+                    break;
+                default:
+                    MainCaruselView.Position = 3;
+                    break;
+            }
+        }
+    }
+}
