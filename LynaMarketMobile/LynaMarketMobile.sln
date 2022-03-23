@@ -5,7 +5,11 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LynaMarketMobile.Android", "LynaMarketMobile\LynaMarketMobile.Android\LynaMarketMobile.Android.csproj", "{1E105773-8E02-4E3F-A6FA-26154C92D91F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LynaMarketMobile", "LynaMarketMobile\LynaMarketMobile\LynaMarketMobile.csproj", "{896AF04B-CDAE-47EB-B85E-A6F419D16ED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LynaMarketMobile", "LynaMarketMobile\LynaMarketMobile\LynaMarketMobile.csproj", "{896AF04B-CDAE-47EB-B85E-A6F419D16ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaMarketAdministration", "LunaMarketAdministration\LunaMarketAdministration.csproj", "{C05B1CD9-7774-46AD-886E-525C8BF398F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaMarketEngine", "LunaMarketEngine\LunaMarketEngine.csproj", "{01670149-C13C-4CD4-86BE-311D19984F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{896AF04B-CDAE-47EB-B85E-A6F419D16ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{896AF04B-CDAE-47EB-B85E-A6F419D16ED0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{896AF04B-CDAE-47EB-B85E-A6F419D16ED0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C05B1CD9-7774-46AD-886E-525C8BF398F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C05B1CD9-7774-46AD-886E-525C8BF398F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C05B1CD9-7774-46AD-886E-525C8BF398F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C05B1CD9-7774-46AD-886E-525C8BF398F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01670149-C13C-4CD4-86BE-311D19984F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01670149-C13C-4CD4-86BE-311D19984F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01670149-C13C-4CD4-86BE-311D19984F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01670149-C13C-4CD4-86BE-311D19984F62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
