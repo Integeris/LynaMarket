@@ -30,11 +30,6 @@ namespace LynaMarketMobile.Pages
                 return;
             }
 
-            clickedButton.Style = (Style)App.Current.Resources["SelectedNavigationButton"];
-            selectedButton.Style = (Style)App.Current.Resources["NavigationButton"];
-
-            selectedButton = clickedButton;
-
             switch (clickedButton.Text)
             {
                 case "Главная":
@@ -50,6 +45,31 @@ namespace LynaMarketMobile.Pages
                     MainCaruselView.Position = 3;
                     break;
             }
+        }
+
+        private void MainCaruselViewOnPositionChanged(object sender, PositionChangedEventArgs e)
+        {
+            Button clickedButton;
+
+            switch (e.CurrentPosition)
+            {
+                case 0:
+                    clickedButton = MainButton;
+                    break;
+                case 1:
+                    clickedButton = CatalogButton;
+                    break;
+                case 2:
+                    clickedButton = BasketButton;
+                    break;
+                default:
+                    clickedButton = ProfileButton;
+                    break;
+            }
+
+            clickedButton.Style = (Style)App.Current.Resources["SelectedNavigationButton"];
+            selectedButton.Style = (Style)App.Current.Resources["NavigationButton"];
+            selectedButton = clickedButton;
         }
     }
 }

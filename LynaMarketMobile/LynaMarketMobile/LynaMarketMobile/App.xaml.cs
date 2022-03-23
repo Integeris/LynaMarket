@@ -9,6 +9,8 @@ namespace LynaMarketMobile
     {
         public App()
         {
+            App.Current.UserAppTheme = OSAppTheme.Light;
+
             InitializeComponent();
 
             MainPage = new NavigatePage();

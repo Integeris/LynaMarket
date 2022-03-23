@@ -31,7 +31,19 @@
             <Color x:Key="SearchBarForegroundColorLight">Black</Color>
             <Color x:Key="SearchBarForegroundColorNight">White</Color>
             <Color x:Key="SearchBarPlaceholderColorColorLight">#BBBBBB</Color>
-            <Color x:Key="SearchBarPlaceholderColorColorNight">#5050505</Color>
+            <Color x:Key="SearchBarPlaceholderColorColorNight">#505050</Color>
+
+            <!-- Цвет ListView -->
+            <Color x:Key="CatalogListViewBackgroundColorLight">#E0E0E0</Color>
+            <Color x:Key="CatalogListViewBackgroundColorNight">#505050</Color>
+            <Color x:Key="CatalogListViewForegroundColorLight">Black</Color>
+            <Color x:Key="CatalogListViewForegroundColorNight">White</Color>
+            
+            <!-- Стандрат для кнопок -->
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
 
             <!-- StackLayout навигации -->
             <Style x:Key="NavigationStackLayout" TargetType="StackLayout">
@@ -130,10 +142,17 @@
                 <Setter Property="Placeholder" Value="Поиск"/>
                 <Setter Property="Margin" Value="10"/>
             </Style>
-            
-            <!-- Стиль ListView -->
+
+            <!-- Стиль CatalogListView -->
             <Style x:Key="CatalogListView" TargetType="ListView">
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorNight}}"/>
+                <Setter Property="ItemTemplate">
+                    <DataTemplate>
+                        <ViewCell>
+                            <Button Text="{Binding Title}" 
+                                    Margin="-6"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

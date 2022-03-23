@@ -4,35 +4,7 @@
              x:Class="LynaMarketMobile.Pages.CatalogPage">
     <ContentPage.Content>
         <ListView x:Name="CatalogListView"
-                  Style="{StaticResource CatalogListView}">
-            <ListView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                    <x:String>Привет</x:String>
-                </x:Array>
-            </ListView.ItemsSource>
+                  Style="{DynamicResource CatalogListView}">
         </ListView>
     </ContentPage.Content>
 </ContentPage>

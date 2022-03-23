@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LynaMarketMobile.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace LynaMarketMobile.Pages
         public CatalogPage()
         {
             InitializeComponent();
+
+            Category[] categories = new string[] { "dasgfds", "dasgfds" }.Select(c => new Category() { Title = c }).ToArray();
+            CatalogListView.ItemsSource = categories;
         }
     }
 }

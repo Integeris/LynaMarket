@@ -12,7 +12,8 @@
 
             <CarouselView x:Name="MainCaruselView"
                           Style="{StaticResource MainCarouselView}"
-                          xmlns:local="clr-namespace:LynaMarketMobile.Pages">
+                          xmlns:local="clr-namespace:LynaMarketMobile.Pages"
+                          PositionChanged="MainCaruselViewOnPositionChanged">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ContentView Content="{Binding Content}"/>
