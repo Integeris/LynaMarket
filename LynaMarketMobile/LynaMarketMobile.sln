@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaMarketAdministration", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaMarketEngine", "LunaMarketEngine\LunaMarketEngine.csproj", "{01670149-C13C-4CD4-86BE-311D19984F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaMarketEngineTests", "LunaMarketEngineTests\LunaMarketEngineTests.csproj", "{7B81D378-4D06-4BF4-A32A-E13B3E456236}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{01670149-C13C-4CD4-86BE-311D19984F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01670149-C13C-4CD4-86BE-311D19984F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01670149-C13C-4CD4-86BE-311D19984F62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B81D378-4D06-4BF4-A32A-E13B3E456236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B81D378-4D06-4BF4-A32A-E13B3E456236}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B81D378-4D06-4BF4-A32A-E13B3E456236}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B81D378-4D06-4BF4-A32A-E13B3E456236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

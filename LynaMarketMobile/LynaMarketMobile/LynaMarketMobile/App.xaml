@@ -154,18 +154,6 @@
                     </DataTemplate>
                 </Setter>
             </Style>
-
-            <!-- Стиль SettingsListView -->
-            <Style x:Key="SettingsListView" TargetType="ListView">
-                <Setter Property="RowHeight" Value="60"/>
-                <Setter Property="ItemTemplate">
-                    <DataTemplate>
-                        <ViewCell>
-                            <ContentView Content="{Binding .}"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
