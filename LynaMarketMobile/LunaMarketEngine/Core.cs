@@ -3,6 +3,7 @@ using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,7 +57,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Сервер.
         /// </summary>
-        internal static string Server
+        public static string Server
         {
             get => server;
         }
@@ -64,7 +65,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// База данных.
         /// </summary>
-        internal static string Database
+        public static string Database
         {
             get => server;
         }
@@ -72,7 +73,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Пользователь.
         /// </summary>
-        internal static string User
+        public static string User
         {
             get => server;
         }
@@ -80,9 +81,112 @@ namespace LunaMarketEngine
         /// <summary>
         /// Пароль.
         /// </summary>
-        internal static string Password
+        public static string Password
         {
             get => server;
+        }
+
+        /// <summary>
+        /// Получение списка категорий товаров.
+        /// </summary>
+        /// <returns>Список категорий товаров.</returns>
+        public static async Task<List<ProductCategory>> GetCategoryProducts()
+        {
+            return await GetObjectsListAsync<ProductCategory>();
+        }
+
+        /// <summary>
+        /// Добавление категории товара.
+        /// </summary>
+        /// <param name="title">Наименование категории товара.</param>
+        public static void AddCategoryProducts(string title)
+        {
+            ProductCategory productCategory = new ProductCategory
+            {
+                Title = title
+            };
+
+            ExecuteCommand(productCategory);
+        }
+
+        /// <summary>
+        /// Изменение названия категории товара.
+        /// </summary>
+        /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        /// <param name="title">Новое название категории товара.</param>
+        public static void UpdateCategoryProducts(int idProductCategory, string title)
+        {
+            ProductCategory productCategory = new ProductCategory
+            {
+                Title = title
+            };
+
+            ExecuteCommand(idProductCategory, "IdProductCategory", productCategory);
+        }
+
+        /// <summary>
+        /// Удаление категории товара.
+        /// </summary>
+        /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        public static void DeleteCategoryProduct(int idProductCategory)
+        {
+            ExecuteCommand("CategoryProduct", idProductCategory, "IdCategoryProduct");
+        }
+
+        /// <summary>
+        /// Получение списка цветов.
+        /// </summary>
+        /// <returns>Список цветов.</returns>
+        public static async Task<List<Color>> GetColors()
+        {
+            return await GetObjectsListAsync<Color>();
+        }
+
+        /// <summary>
+        /// Добавление цвета.
+        /// </summary>
+        /// <param name="title">Название цвета.</param>
+        public static void AddColor(string title)
+        {
+            Color color = new Color
+            {
+                Title = title
+            };
+
+            ExecuteCommand(color);
+        }
+
+        /// <summary>
+        /// Изменение цвета.
+        /// </summary>
+        /// <param name="idColor">Идентификатор цвета.</param>
+        /// <param name="title">Новое название цвета.</param>
+        public static void UpdateColor(int idColor, string title)
+        {
+            Color color = new Color
+            {
+                Title = title
+            };
+
+            ExecuteCommand(idColor, "IdColor", color);
+        }
+
+        /// <summary>
+        /// Удаление  цвета.
+        /// </summary>
+        /// <param name="idColor">Идентификатор цвета.</param>
+        public static void DeleteColor(int idColor)
+        {
+            ExecuteCommand("Color", idColor, "IdColor");
+        }
+
+        /// <summary>
+        /// Получение списка видов доставки.
+        /// </summary>
+        /// <returns>Список видов доставки.</returns>
+        public static async Task<List<DeliveryType>> GetDeliveryTypes()
+        {
+            return await GetObjectsListAsync<DeliveryType>();
         }
 
         /// <summary>
@@ -114,71 +218,119 @@ namespace LunaMarketEngine
             catch (Exception ex)
             {
                 throw new Exception("Не удалось закрыть подключение к базе данных.", ex);
-                throw;
             }
         }
 
         /// <summary>
-        /// Получение списка категорий товаров.
+        /// Получение списка объектов типа.
         /// </summary>
-        /// <returns>Список категорий товаров.</returns>
-        public static async Task<List<ProductCategory>> GetCategoryProducts()
+        /// <typeparam name="T">Тип элемента получаемых данных.</typeparam>
+        /// <returns>Список объектов типа.</returns>
+        private static async Task<List<T>> GetObjectsListAsync<T>()
         {
-            List<ProductCategory> categories = new List<ProductCategory>();
-            command.CommandText = "SELECT * FROM ProductCategory;";
+            Type type = typeof(T);
+            List<T> objectList = new List<T>();
+            command.CommandText = $"SELECT * FROM {type.Name};";
+            PropertyInfo[] properties = type.GetProperties();
 
             OpenConnection();
-
             MySqlDataReader reader = await command.ExecuteReaderAsync();
 
             while (reader.Read())
             {
-                ProductCategory category = new ProductCategory
-                {
-                    IdProductCategory = reader.GetInt32("IdProductCategory"),
-                    Title = reader.GetString("Title")
-                };
+                T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
 
-                categories.Add(category);
+                foreach (PropertyInfo property in properties)
+                {
+                    property.SetValue(obj, reader.GetValue(reader.GetOrdinal(property.Name)));
+                }
+
+                objectList.Add(obj);
             }
 
+            reader.Close();
             CloseConnection();
 
-            return categories;
+            return objectList;
         }
 
         /// <summary>
-        /// Добавление категории товара.
+        /// Получение названий свойств и значений свойств за исключением идентификатора.
         /// </summary>
-        /// <param name="title">Наименование категории товара.</param>
-        public static async void AddCategoryProducts(string title)
+        /// <typeparam name="T">Тип объекта получения данных.</typeparam>
+        /// <param name="obj">Объект получения данных.</param>
+        /// <returns>Списки имён свойств и значения свойств.</returns>
+        private static (List<string> Names, List<string> Values) GetPropertiesValues<T>(T obj)
         {
-            command.CommandText = $"ProductCategory (Title) VALUES ({title});";
-            OpenConnection();
-            await command.ExecuteNonQueryAsync();
-            CloseConnection();
+            (List<string> Names, List<string> Values) data = (new List<string>(), new List<string>());
+
+            PropertyInfo[] properties = typeof(T).GetProperties()
+                .Where(property => !System.Text.RegularExpressions.Regex.IsMatch(property.Name, @"^Id[A-Z][A-Za-z\d]*$"))
+                .ToArray();
+
+            foreach (PropertyInfo property in properties)
+            {
+                data.Names.Add(property.Name);
+                data.Values.Add(property.GetValue(obj).ToString());
+            }
+
+            return data;
         }
 
         /// <summary>
-        /// Изменение названия категории товара.
+        /// Добавление объекта.
         /// </summary>
-        /// <param name="idProductCategory">Идентификатор категории товара.</param>
-        /// <param name="title">Новое название категории товара.</param>
-        public static async void UpdateCategoryProducts(int idProductCategory, string title)
+        /// <typeparam name="T">Тип объекта.</typeparam>
+        /// <param name="obj">Объект.</param>
+        private static void ExecuteCommand<T>(T obj)
         {
-            command.CommandText = $"UPDATE ProductCategory SET Title = '{title}' WHERE (IdProductCategory = '{idProductCategory}');";
-            OpenConnection();
-            await command.ExecuteNonQueryAsync();
-            CloseConnection();
+            (List<string> Names, List<string> Values) = GetPropertiesValues(obj);
+
+            command.CommandText = $"INSERT INTO '{typeof(T).Name}' ({String.Join(", ", Names)}) VALUES ({String.Join(", ", Values)});";
+            SendDataAsync();
         }
 
         /// <summary>
-        /// Удаление категории товара.
+        /// Изменение объекта.
         /// </summary>
-        /// <param name="idProductCategory">Идентификатор категории товара.</param>
-        public static async void DeleteCategoryProducts(int idProductCategory)
+        /// <typeparam name="T">Тип объекта.</typeparam>
+        /// <param name="idObject">Идентификатор объекта.</param>
+        /// <param name="idPropertyName">Название свойства идентификатора объекта.</param>
+        /// <param name="obj">Объект.</param>
+        private static void ExecuteCommand<T>(int idObject, string idPropertyName, T obj)
         {
-            command.CommandText = $"DELETE FROM ProductCategory WHERE (IdProductCategory = '{idProductCategory}');";
+            (List<string> Names, List<string> Values) = GetPropertiesValues(obj);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"UPDATE {typeof(T).Name} SET");
+            List<string> parameters = new List<string>();
+
+            for (int i = 0; i < Names.Count; i++)
+            {
+                parameters.Add($"{Names[i]} = {Values[i]}");
+            }
+
+            stringBuilder.AppendLine(String.Join(", ", parameters));
+            stringBuilder.AppendLine($"WHERE ({idPropertyName} = '{idObject}');");
+            SendDataAsync();
+        }
+
+        /// <summary>
+        /// Удаление объекта.
+        /// </summary>
+        /// <param name="table">Название таблицы.</param>
+        /// <param name="idObject">Идентификатор объекта.</param>
+        /// <param name="idPropertyName">Название идентификатора объекта.</param>
+        private static void ExecuteCommand(string table, int idObject, string idPropertyName)
+        {
+            command.CommandText = $"DELETE FROM {table} WHERE({idPropertyName} = '{idObject}');";
+            SendDataAsync();
+        }
+
+        /// <summary>
+        /// Отправка данных команды.
+        /// </summary>
+        private static async void SendDataAsync()
+        {
             OpenConnection();
             await command.ExecuteNonQueryAsync();
             CloseConnection();
