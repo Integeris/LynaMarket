@@ -67,7 +67,10 @@
     <Compile Include="Core.cs" />
     <Compile Include="Entities\Color.cs" />
     <Compile Include="Entities\DeliveryType.cs" />
+    <Compile Include="Entities\Material.cs" />
+    <Compile Include="Entities\News.cs" />
     <Compile Include="Entities\ProductCategory.cs" />
+    <Compile Include="Entities\ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
