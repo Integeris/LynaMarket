@@ -66,11 +66,18 @@
   <ItemGroup>
     <Compile Include="Core.cs" />
     <Compile Include="Entities\Color.cs" />
+    <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\DeliveryType.cs" />
+    <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\Material.cs" />
     <Compile Include="Entities\News.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderProduct.cs" />
+    <Compile Include="Entities\OrderStatus.cs" />
+    <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductCategory.cs" />
     <Compile Include="Entities\ProductInfo.cs" />
+    <Compile Include="Entities\ProductPhoto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
