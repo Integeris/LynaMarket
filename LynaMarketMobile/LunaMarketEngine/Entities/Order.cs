@@ -40,5 +40,69 @@ namespace LunaMarketEngine.Entities
         /// Адресс.
         /// </summary>
         public string Adress { get; set; }
+
+        /// <summary>
+        /// Статус заказа.
+        /// </summary>
+        public OrderStatus OrderStatus
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdOrderStatus"] = IdOrderStatus.ToString()
+                };
+
+                return Core.GetObjectAsync<OrderStatus>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Заказчик.
+        /// </summary>
+        public Customer Customer
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdCustomer"] = IdCustomer.ToString()
+                };
+
+                return Core.GetObjectAsync<Customer>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Тип заказа.
+        /// </summary>
+        public DeliveryType DeliveryType
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdDeliveryType"] = IdDeliveryType.ToString()
+                };
+
+                return Core.GetObjectAsync<DeliveryType>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Продукты заказа.
+        /// </summary>
+        public List<OrderProduct> OrderProducts
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdOrder"] = IdOrder.ToString()
+                };
+
+                return Core.GetObjectsListAsync<OrderProduct>(properties).Result;
+            }
+        }
     }
 }

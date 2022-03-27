@@ -27,6 +27,11 @@ namespace LunaMarketEngine.Entities
         public int IdProductCategory { get; set; }
 
         /// <summary>
+        /// Идентификатор фотографии товара.
+        /// </summary>
+        public int IdProductPhoto { get; set; }
+
+        /// <summary>
         /// Название.
         /// </summary>
         public string Title { get; set; }
@@ -55,5 +60,53 @@ namespace LunaMarketEngine.Entities
         /// Удалён?
         /// </summary>
         public bool Deleted { get; set; }
+
+        /// <summary>
+        /// Категория товара.
+        /// </summary>
+        public ProductCategory ProductCategory
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdProductCategory"] = IdProductCategory.ToString()
+                };
+
+                return Core.GetObjectAsync<ProductCategory>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Фотографии продукта.
+        /// </summary>
+        public List<ProductPhoto> OrderProducts
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdProductPhoto"] = IdProductPhoto.ToString()
+                };
+
+                return Core.GetObjectsListAsync<ProductPhoto>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Производитель.
+        /// </summary>
+        public Manufacturer Manufacturer
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdManufacturer"] = IdManufacturer.ToString()
+                };
+
+                return Core.GetObjectAsync<Manufacturer>(properties).Result;
+            }
+        }
     }
 }

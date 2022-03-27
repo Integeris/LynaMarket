@@ -30,5 +30,37 @@ namespace LunaMarketEngine.Entities
         /// Количество.
         /// </summary>
         public int Amount { get; set; }
+
+        /// <summary>
+        /// Заказ.
+        /// </summary>
+        public Order Order
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdOrder"] = IdOrder.ToString()
+                };
+
+                return Core.GetObjectAsync<Order>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Товар.
+        /// </summary>
+        public Product Product
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdProduct"] = IdProduct.ToString()
+                };
+
+                return Core.GetObjectAsync<Product>(properties).Result;
+            }
+        }
     }
 }

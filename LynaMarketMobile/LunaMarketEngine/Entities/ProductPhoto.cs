@@ -25,5 +25,21 @@ namespace LunaMarketEngine.Entities
         /// Изображение.
         /// </summary>
         public byte[] Image { get; set; }
+
+        /// <summary>
+        /// Товар.
+        /// </summary>
+        public Product Product
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdProduct"] = IdProduct.ToString()
+                };
+
+                return Core.GetObjectAsync<Product>(properties).Result;
+            }
+        }
     }
 }

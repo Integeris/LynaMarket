@@ -20,5 +20,21 @@ namespace LunaMarketEngine.Entities
         /// Название.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Продукты заказа.
+        /// </summary>
+        public List<Order> Orders
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdDeliveryType"] = IdDeliveryType.ToString()
+                };
+
+                return Core.GetObjectsListAsync<Order>(properties).Result;
+            }
+        }
     }
 }

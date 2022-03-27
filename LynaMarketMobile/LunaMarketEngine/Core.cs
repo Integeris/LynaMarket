@@ -1078,18 +1078,20 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        /// <param name="idProductPhoto">Идентификатор фотографии товара.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void AddProduct(int idManufacturer, int idProductCategory, string title, int height, int width, int depth, string description, bool deleted = false)
+        public static void AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, int height, int width, int depth, string description, bool deleted = false)
         {
             Dictionary<string, string> properties = new Dictionary<string, string>
             {
                 ["IdManufacturer"] = idManufacturer.ToString(),
                 ["IdProductCategory"] = idProductCategory.ToString(),
+                ["IdProductPhoto"] = idProductPhoto.ToString(),
                 ["Title"] = title,
                 ["Height"] = height.ToString(),
                 ["Width"] = width.ToString(),
@@ -1107,13 +1109,14 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        /// <param name="idProductPhoto">Идентификатор фотографии товара.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, string title, int height, int width, int depth, string description, bool deleted = false)
+        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idProductPhoto, string title, int height, int width, int depth, string description, bool deleted = false)
         {
             Dictionary<string, string> properties = new Dictionary<string, string>
             {
@@ -1124,6 +1127,7 @@ namespace LunaMarketEngine
             {
                 ["IdManufacturer"] = idManufacturer.ToString(),
                 ["IdProductCategory"] = idProductCategory.ToString(),
+                ["IdProductPhoto"] = idProductPhoto.ToString(),
                 ["Title"] = title,
                 ["Height"] = height.ToString(),
                 ["Width"] = width.ToString(),
@@ -1185,12 +1189,32 @@ namespace LunaMarketEngine
         /// Получение списка объектов типа.
         /// </summary>
         /// <typeparam name="T">Тип элемента получаемых данных.</typeparam>
+        /// <param name="filteringProperties">Свойства фильтрации.</param>
         /// <returns>Список объектов типа.</returns>
-        private static async Task<List<T>> GetObjectsListAsync<T>()
+        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, string> filteringProperties = default)
         {
             Type type = typeof(T);
             List<T> objectList = new List<T>();
-            command.CommandText = $"SELECT * FROM {type.Name};";
+
+            {
+                List<string> properties = new List<string>();
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append($"SELECT * FROM {type.Name}");
+
+                if (filteringProperties != default)
+                {
+                    foreach (KeyValuePair<string, string> item in filteringProperties)
+                    {
+                        properties.Add($"{item.Key} = '{item.Value}'");
+                    }
+
+                    stringBuilder.Append($" WHERE({String.Join(", ", properties)})");
+                }
+
+                stringBuilder.Append(";");
+                command.CommandText = stringBuilder.ToString();
+            }
 
             OpenConnection();
             MySqlDataReader reader = await command.ExecuteReaderAsync();
@@ -1220,7 +1244,7 @@ namespace LunaMarketEngine
         /// <typeparam name="T">Тип получаемого объекта.</typeparam>
         /// <param name="properties">Свойства для поиска объекта.</param>
         /// <returns>Полученный объект.</returns>
-        private static async Task<T> GetObjectAsync<T>(Dictionary<string, string> properties)
+        internal static async Task<T> GetObjectAsync<T>(Dictionary<string, string> properties)
         {
             Type type = typeof(T);
             T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
@@ -1254,7 +1278,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="table">Название таблицы.</param>
         /// <param name="properties">Значения свойств.</param>
-        private static void AddObject(string table, Dictionary<string, string> properties)
+        internal static void AddObject(string table, Dictionary<string, string> properties)
         {
             command.CommandText = $"INSERT INTO '{table}' ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", properties.Values)});";
             SendDataAsync();
@@ -1266,7 +1290,7 @@ namespace LunaMarketEngine
         /// <param name="table">Название для поиска.</param>
         /// <param name="properties">Свойства для поиска.</param>
         /// <param name="newProperties">Новые значения свойств.</param>
-        private static void UpdateObject(string table, Dictionary<string, string> properties, Dictionary<string, string> newProperties)
+        internal static void UpdateObject(string table, Dictionary<string, string> properties, Dictionary<string, string> newProperties)
         {
             List<string> parameters = new List<string>();
             StringBuilder stringBuilder = new StringBuilder();
@@ -1296,7 +1320,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="table">Название таблицы.</param>
         /// <param name="properties">Свойства для поиска объекта.</param>
-        private static void DeleteObject(string table, Dictionary<string, string> properties)
+        internal static void DeleteObject(string table, Dictionary<string, string> properties)
         {
             List<string> parameters = new List<string>();
 
@@ -1312,7 +1336,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Отправка данных команды.
         /// </summary>
-        private static async void SendDataAsync()
+        internal static async void SendDataAsync()
         {
             OpenConnection();
             await command.ExecuteNonQueryAsync();

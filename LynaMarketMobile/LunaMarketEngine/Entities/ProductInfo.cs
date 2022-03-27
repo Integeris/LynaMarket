@@ -18,28 +18,50 @@ namespace LunaMarketEngine.Entities
         public int Amount { get; set; }
 
         /// <summary>
-        /// Цвета.
+        /// Цвет.
         /// </summary>
-        public List<Color> Colors
+        public Color Color
         {
             get
             {
-                return Core.GetColors().Result
-                    .Where(color => color.IdColor == IdColor)
-                    .ToList();
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdColor"] = IdColor.ToString()
+                };
+
+                return Core.GetObjectAsync<Color>(properties).Result;
             }
         }
 
         /// <summary>
-        /// Материалы.
+        /// Материал.
         /// </summary>
-        public List<Material> Materials
+        public Material Material
         {
             get
             {
-                return Core.GetMaterials().Result
-                    .Where(material => material.IdMaterial == IdMaterial)
-                    .ToList();
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdMaterial"] = IdMaterial.ToString()
+                };
+
+                return Core.GetObjectAsync<Material>(properties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Товар.
+        /// </summary>
+        public Product Product
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdProduct"] = IdProduct.ToString()
+                };
+
+                return Core.GetObjectAsync<Product>(properties).Result;
             }
         }
     }

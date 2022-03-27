@@ -45,5 +45,21 @@ namespace LunaMarketEngine.Entities
         /// Телефон.
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// Заказы.
+        /// </summary>
+        public List<Order> Orders
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>()
+                {
+                    ["IdCustomer"] = IdCustomer.ToString()
+                };
+
+                return Core.GetObjectsListAsync<Order>(properties).Result;
+            }
+        }
     }
 }
