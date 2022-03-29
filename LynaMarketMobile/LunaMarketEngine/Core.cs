@@ -1287,7 +1287,7 @@ namespace LunaMarketEngine
         /// <param name="properties">Значения свойств.</param>
         internal static void AddObject(string table, Dictionary<string, string> properties)
         {
-            command.CommandText = $"INSERT INTO '{table}' ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", properties.Values)});";
+            command.CommandText = $"INSERT INTO '{table}' ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", properties.Values.Select(value => $"'{value}'"))});";
             SendDataAsync();
         }
 
