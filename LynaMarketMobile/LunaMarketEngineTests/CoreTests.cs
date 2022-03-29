@@ -28,5 +28,22 @@ namespace LunaMarketEngine.Tests
                 Assert.Fail(ex.Message);
             }
         }
+
+        [TestMethod("Добавление объекта.")]
+        public void AddNewsTest()
+        {
+            News news = new News
+            {
+                Title = "asdasdas",
+                Description = "dasdas",
+                Date = DateTime.Now,
+                Photo = new byte[] { 1, 3, 5, 2 }
+            };
+
+            Core.AddNews(news.Title, news.Date, news.Photo, news.Description);
+            News news2 = Core.GetNews().Result.Last();
+
+            Assert.AreEqual(news.Date.Minute, news2.Date.Minute);
+        }
     }
 }

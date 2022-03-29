@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,9 +49,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdOrderStatus"] = IdOrderStatus.ToString()
+                    ["IdOrderStatus"] = (MySqlDbType.Int32, IdOrderStatus)
                 };
 
                 return Core.GetObjectAsync<OrderStatus>(properties).Result;
@@ -64,9 +65,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdCustomer"] = IdCustomer.ToString()
+                    ["IdCustomer"] = (MySqlDbType.Int32, IdCustomer)
                 };
 
                 return Core.GetObjectAsync<Customer>(properties).Result;
@@ -80,9 +81,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdDeliveryType"] = IdDeliveryType.ToString()
+                    ["IdDeliveryType"] = (MySqlDbType.Int32, IdDeliveryType)
                 };
 
                 return Core.GetObjectAsync<DeliveryType>(properties).Result;
@@ -96,9 +97,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdOrder"] = IdOrder.ToString()
+                    ["IdOrder"] = (MySqlDbType.Int32, IdOrder)
                 };
 
                 return Core.GetObjectsListAsync<OrderProduct>(properties).Result;

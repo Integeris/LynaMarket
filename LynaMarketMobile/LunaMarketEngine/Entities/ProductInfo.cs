@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,29 @@ namespace LunaMarketEngine.Entities
     /// </summary>
     public class ProductInfo
     {
+        /// <summary>
+        /// Идентификатор товара.
+        /// </summary>
         public int IdProduct { get; set; }
+
+        /// <summary>
+        /// Идентификатор цвета.
+        /// </summary>
         public int IdColor { get; set; }
+
+        /// <summary>
+        /// Идентификатор материала.
+        /// </summary>
         public int IdMaterial { get; set; }
+
+        /// <summary>
+        /// Цена.
+        /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Количество.
+        /// </summary>
         public int Amount { get; set; }
 
         /// <summary>
@@ -24,9 +44,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdColor"] = IdColor.ToString()
+                    ["IdColor"] = (MySqlDbType.Int32, IdColor)
                 };
 
                 return Core.GetObjectAsync<Color>(properties).Result;
@@ -40,9 +60,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdMaterial"] = IdMaterial.ToString()
+                    ["IdMaterial"] = (MySqlDbType.Int32, IdMaterial)
                 };
 
                 return Core.GetObjectAsync<Material>(properties).Result;
@@ -56,9 +76,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdProduct"] = IdProduct.ToString()
+                    ["IdProduct"] = (MySqlDbType.Int32, IdProduct)
                 };
 
                 return Core.GetObjectAsync<Product>(properties).Result;

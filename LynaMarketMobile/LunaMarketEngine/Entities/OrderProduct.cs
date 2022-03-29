@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,9 +39,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdOrder"] = IdOrder.ToString()
+                    ["IdOrder"] = (MySqlDbType.Int32, IdOrder)
                 };
 
                 return Core.GetObjectAsync<Order>(properties).Result;
@@ -54,9 +55,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdProduct"] = IdProduct.ToString()
+                    ["IdProduct"] = (MySqlDbType.Int32, IdProduct)
                 };
 
                 return Core.GetObjectAsync<Product>(properties).Result;

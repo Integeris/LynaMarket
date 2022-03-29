@@ -1,8 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LunaMarketEngine.Entities
 {
@@ -28,9 +25,9 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, string> properties = new Dictionary<string, string>()
+                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
                 {
-                    ["IdColor"] = IdColor.ToString()
+                    ["IdColor"] = (MySqlDbType.Int32, IdColor)
                 };
 
                 return Core.GetObjectsListAsync<ProductInfo>(properties).Result;
