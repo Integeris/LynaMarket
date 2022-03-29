@@ -416,7 +416,7 @@ namespace LunaMarketEngine
                 ["Description"] = description
             };
 
-            AddObject("Material", properties);
+            AddObject("News", properties);
         }
 
         /// <summary>
@@ -538,7 +538,7 @@ namespace LunaMarketEngine
                 ["Amount"] = amount.ToString()
             };
 
-            UpdateObject("News", properties, newProperties);
+            UpdateObject("ProductInfo", properties, newProperties);
         }
 
         /// <summary>
