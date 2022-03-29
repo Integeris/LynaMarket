@@ -122,5 +122,11 @@
   <ItemGroup>
     <None Include="Resources\no.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LunaMarketEngine\LunaMarketEngine.csproj">
+      <Project>{01670149-c13c-4cd4-86be-311d19984f62}</Project>
+      <Name>LunaMarketEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

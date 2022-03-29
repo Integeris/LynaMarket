@@ -1,8 +1,10 @@
-﻿using System;
+﻿using LunaMarketEngine;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -75,6 +77,12 @@ namespace LunaMarketAdministration.Forms
             else
             {
                 MessageBox.Show("Бан!");
+            }
+
+            if (actionComboBox.SelectedIndex == 0)
+            {
+                //byte[] image = File.ReadAllBytes(imagePath);
+                Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
             }
         }
     }
