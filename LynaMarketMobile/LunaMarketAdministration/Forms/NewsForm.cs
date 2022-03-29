@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -50,6 +51,29 @@ namespace LunaMarketAdministration.Forms
                 default:
                     editButton.Text = "Добавить";
                     break;
+            }
+        }
+
+        private void EditButtonOnClick(object sender, EventArgs e)
+        {
+            string patternTitle = @"^[А-ЯЁ][а-яё]+$";
+            if (Regex.IsMatch(titleTextBox.Text, patternTitle) && (titleTextBox.TextLength < 50))
+            {
+                MessageBox.Show("Все ОК!Title");
+            }
+            else
+            {
+                MessageBox.Show("Бан!Title");
+            }
+
+            string patternDescription = @"^[А-ЯЁ][а-яё\.\-\,\!\?]+$";
+            if (Regex.IsMatch(descriptionTextBox.Text, patternDescription) && (descriptionTextBox.TextLength < 50))
+            {
+                MessageBox.Show("Все ОК!");
+            }
+            else
+            {
+                MessageBox.Show("Бан!");
             }
         }
     }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.selectImageButton = new System.Windows.Forms.Button();
-            this.TitleTextBox = new System.Windows.Forms.TextBox();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.editButton = new System.Windows.Forms.Button();
             this.actionComboBox = new System.Windows.Forms.ComboBox();
-            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.imagePictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,12 +50,12 @@
             this.selectImageButton.UseVisualStyleBackColor = true;
             this.selectImageButton.Click += new System.EventHandler(this.SelectImageButtonOnClick);
             // 
-            // TitleTextBox
+            // titleTextBox
             // 
-            this.TitleTextBox.Location = new System.Drawing.Point(341, 96);
-            this.TitleTextBox.Name = "TitleTextBox";
-            this.TitleTextBox.Size = new System.Drawing.Size(231, 29);
-            this.TitleTextBox.TabIndex = 2;
+            this.titleTextBox.Location = new System.Drawing.Point(341, 96);
+            this.titleTextBox.Name = "titleTextBox";
+            this.titleTextBox.Size = new System.Drawing.Size(231, 29);
+            this.titleTextBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -91,9 +91,11 @@
             this.editButton.TabIndex = 6;
             this.editButton.Text = "Добавить";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.EditButtonOnClick);
             // 
             // actionComboBox
             // 
+            this.actionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.actionComboBox.FormattingEnabled = true;
             this.actionComboBox.Items.AddRange(new object[] {
             "Добавление",
@@ -105,15 +107,6 @@
             this.actionComboBox.TabIndex = 7;
             this.actionComboBox.SelectedIndexChanged += new System.EventHandler(this.ActionComboBoxOnSelectedIndexChanged);
             // 
-            // imagePictureBox
-            // 
-            this.imagePictureBox.Location = new System.Drawing.Point(12, 72);
-            this.imagePictureBox.Name = "imagePictureBox";
-            this.imagePictureBox.Size = new System.Drawing.Size(300, 240);
-            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imagePictureBox.TabIndex = 0;
-            this.imagePictureBox.TabStop = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -122,6 +115,16 @@
             this.label3.Size = new System.Drawing.Size(170, 21);
             this.label3.TabIndex = 8;
             this.label3.Text = "Выберите действие:";
+            // 
+            // imagePictureBox
+            // 
+            this.imagePictureBox.Image = global::LunaMarketAdministration.Properties.Resources.no;
+            this.imagePictureBox.Location = new System.Drawing.Point(12, 72);
+            this.imagePictureBox.Name = "imagePictureBox";
+            this.imagePictureBox.Size = new System.Drawing.Size(294, 240);
+            this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePictureBox.TabIndex = 0;
+            this.imagePictureBox.TabStop = false;
             // 
             // NewsForm
             // 
@@ -134,7 +137,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.TitleTextBox);
+            this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.selectImageButton);
             this.Controls.Add(this.imagePictureBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -152,7 +155,7 @@
 
         private System.Windows.Forms.PictureBox imagePictureBox;
         private System.Windows.Forms.Button selectImageButton;
-        private System.Windows.Forms.TextBox TitleTextBox;
+        private System.Windows.Forms.TextBox titleTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox descriptionTextBox;
         private System.Windows.Forms.Label label2;

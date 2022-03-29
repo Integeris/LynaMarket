@@ -19,8 +19,20 @@ namespace LunaMarketAdministration.Forms
 
         private void EditNewsButtonOnClick(object sender, EventArgs e)
         {
-            NewsForm newsForm = new NewsForm() ;
+            NewsForm newsForm = new NewsForm();
             newsForm.ShowDialog();
+        }
+
+        private void EditLookButtonOnClick(object sender, EventArgs e)
+        {
+            LookForm lookForm = new LookForm();
+            lookForm.ShowDialog();
+        }
+
+        private void EditManufacturerButtonOnClick(object sender, EventArgs e)
+        {
+            ManufacturerForm manufacturerForm = new ManufacturerForm();
+            manufacturerForm.ShowDialog();
         }
     }
 }
