@@ -58,14 +58,41 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ManufacturerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManufacturerForm.Designer.cs">
+      <DependentUpon>ManufacturerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\NewsForm.Designer.cs">
       <DependentUpon>NewsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProductCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductCategoryForm.Designer.cs">
+      <DependentUpon>ProductCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductForm.Designer.cs">
+      <DependentUpon>ProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectForm.Designer.cs">
+      <DependentUpon>SelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\NewsForm.resx">
+      <DependentUpon>NewsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,7 +101,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Fonts\ofont.ru_Futura Md.ttf" />
+    <None Include="Fonts\ofont.ru_Lifehack.ttf" />
+    <None Include="Fonts\ofont.ru_Magnolia.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

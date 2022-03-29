@@ -23,6 +23,7 @@ namespace LunaMarketAdministration.Forms
         private void NewsFormOnLoad(object sender, EventArgs e)
         {
             actionComboBox.SelectedIndex = 0;
+            imagePictureBox.Image = Properties.Resources.no;
         }
 
         private void SelectImageButtonOnClick(object sender, EventArgs e)

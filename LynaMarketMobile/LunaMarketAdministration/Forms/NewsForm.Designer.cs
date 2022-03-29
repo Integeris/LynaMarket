@@ -118,7 +118,6 @@
             // 
             // imagePictureBox
             // 
-            this.imagePictureBox.Image = global::LunaMarketAdministration.Properties.Resources.no;
             this.imagePictureBox.Location = new System.Drawing.Point(12, 72);
             this.imagePictureBox.Name = "imagePictureBox";
             this.imagePictureBox.Size = new System.Drawing.Size(294, 240);
