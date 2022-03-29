@@ -15,6 +15,8 @@ namespace LynaMarketMobile.Pages
         public MainPage()
         {
             InitializeComponent();
+
+            CatalogContentView.Content = new CatalogPage().Content;
         }
     }
 }

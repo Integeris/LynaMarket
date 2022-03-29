@@ -44,6 +44,12 @@
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="VerticalOptions" Value="FillAndExpand"/>
             </Style>
+            
+            <!-- Стандарт для Label -->
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
 
             <!-- StackLayout навигации -->
             <Style x:Key="NavigationStackLayout" TargetType="StackLayout">

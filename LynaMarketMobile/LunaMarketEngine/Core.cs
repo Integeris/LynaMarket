@@ -1261,13 +1261,20 @@ namespace LunaMarketEngine
             OpenConnection();
             MySqlDataReader reader = await command.ExecuteReaderAsync();
 
-            for (int i = 0; i < reader.FieldCount; i++)
+            try
             {
-                PropertyInfo property = type.GetProperty(reader.GetName(i));
-                property.SetValue(obj, reader.GetValue(i));
-            }
+                reader.Read();
 
-            reader.Close();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PropertyInfo property = type.GetProperty(reader.GetName(i));
+                    property.SetValue(obj, reader.GetValue(i));
+                }
+
+                reader.Close();
+            }
+            catch (Exception) { }
+
             CloseConnection();
 
             return obj;
