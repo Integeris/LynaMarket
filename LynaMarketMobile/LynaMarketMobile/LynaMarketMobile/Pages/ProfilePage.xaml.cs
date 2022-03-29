@@ -16,5 +16,11 @@ namespace LynaMarketMobile.Pages
         {
             InitializeComponent();
         }
+
+        private async void ProfileButtonOnClicked(object sender, EventArgs e)
+        {
+            await ((Page)this.Parent.Parent).Navigation.PushAsync(new AuthorizationPage());
+            //Navigation.PushAsync(new AuthorizationPage());
+        }
     }
 }

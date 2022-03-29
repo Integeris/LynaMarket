@@ -412,7 +412,7 @@ namespace LunaMarketEngine
             {
                 ["Title"] = title,
                 ["Date"] = date.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["Photo"] = String.Concat(photo.Select(data => data.ToString())),
+                ["Photo"] = String.Concat(photo.Select(data => Convert.ToString(data, 2))),
                 ["Description"] = description
             };
 
