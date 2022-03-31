@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LunaMarketAdministration.Classes;
+using LunaMarketEngine;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +21,14 @@ namespace LunaMarketAdministration.Forms
 
         private void SelectFormOnLoad(object sender, EventArgs e)
         {
-
+            switch (Database.Type)
+            {
+                case "News":
+                    dataGridView.DataSource = Core.GetNews().Result;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

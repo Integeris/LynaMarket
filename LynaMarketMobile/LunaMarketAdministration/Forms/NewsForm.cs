@@ -1,4 +1,5 @@
-﻿using LunaMarketEngine;
+﻿using LunaMarketAdministration.Classes;
+using LunaMarketEngine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,31 +60,38 @@ namespace LunaMarketAdministration.Forms
 
         private void EditButtonOnClick(object sender, EventArgs e)
         {
-            string patternTitle = @"^[А-ЯЁ][а-яё]+$";
-            if (Regex.IsMatch(titleTextBox.Text, patternTitle) && (titleTextBox.TextLength < 50))
-            {
-                MessageBox.Show("Все ОК!Title");
-            }
-            else
-            {
-                MessageBox.Show("Бан!Title");
-            }
+            //string patternTitle = @"^[А-ЯЁ][а-яё]+$";
+            //if (Regex.IsMatch(titleTextBox.Text, patternTitle) && (titleTextBox.TextLength < 50))
+            //{
+            //    MessageBox.Show("Все ОК!Title");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Бан!Title");
+            //}
 
-            string patternDescription = @"^[А-ЯЁ][а-яё\.\-\,\!\?]+$";
-            if (Regex.IsMatch(descriptionTextBox.Text, patternDescription) && (descriptionTextBox.TextLength < 50))
-            {
-                MessageBox.Show("Все ОК!");
-            }
-            else
-            {
-                MessageBox.Show("Бан!");
-            }
+            //string patternDescription = @"^[А-ЯЁ][а-яё\.\-\,\!\?]+$";
+            //if (Regex.IsMatch(descriptionTextBox.Text, patternDescription) && (descriptionTextBox.TextLength < 50))
+            //{
+            //    MessageBox.Show("Все ОК!");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Бан!");
+            //}
 
             if (actionComboBox.SelectedIndex == 0)
             {
                 //byte[] image = File.ReadAllBytes(imagePath);
                 Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
             }
+        }
+
+        private void SelectNewsButtonOnClick(object sender, EventArgs e)
+        {
+            Database.Type = "News";
+            SelectForm selectForm = new SelectForm();
+            selectForm.ShowDialog();
         }
     }
 }

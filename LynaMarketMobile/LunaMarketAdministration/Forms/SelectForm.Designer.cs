@@ -33,12 +33,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.categoriesComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.IdNewsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdNewsColumn});
             this.dataGridView.Location = new System.Drawing.Point(1, 141);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(482, 321);
@@ -77,6 +80,13 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Поиcк по категории";
             // 
+            // IdNewsColumn
+            // 
+            this.IdNewsColumn.DataPropertyName = "IdNews";
+            this.IdNewsColumn.HeaderText = "Код";
+            this.IdNewsColumn.Name = "IdNewsColumn";
+            this.IdNewsColumn.ReadOnly = true;
+            // 
             // SelectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -105,5 +115,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox categoriesComboBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdNewsColumn;
     }
 }

@@ -37,6 +37,7 @@
             this.actionComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.imagePictureBox = new System.Windows.Forms.PictureBox();
+            this.selectNewsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,11 +126,22 @@
             this.imagePictureBox.TabIndex = 0;
             this.imagePictureBox.TabStop = false;
             // 
+            // selectNewsButton
+            // 
+            this.selectNewsButton.Location = new System.Drawing.Point(369, 36);
+            this.selectNewsButton.Name = "selectNewsButton";
+            this.selectNewsButton.Size = new System.Drawing.Size(178, 28);
+            this.selectNewsButton.TabIndex = 9;
+            this.selectNewsButton.Text = "Выбрать новость";
+            this.selectNewsButton.UseVisualStyleBackColor = true;
+            this.selectNewsButton.Click += new System.EventHandler(this.SelectNewsButtonOnClick);
+            // 
             // NewsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.selectNewsButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.actionComboBox);
             this.Controls.Add(this.editButton);
@@ -161,5 +173,6 @@
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.ComboBox actionComboBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button selectNewsButton;
     }
 }
