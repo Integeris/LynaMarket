@@ -7,11 +7,26 @@ namespace LynaMarketMobile.Classes
 {
     internal static class NavigationManager
     {
+        /// <summary>
+        /// Нивигация.
+        /// </summary>
         public static INavigation Navigation { get; set; }
 
-        public static void PushPage(Page page)
+        /// <summary>
+        /// Открытие страницы.
+        /// </summary>
+        /// <param name="page">Страница.</param>
+        public static async void PushPage(Page page)
         {
+            await Navigation.PushAsync(page);
+        }
 
+        /// <summary>
+        /// Закрытие страницы.
+        /// </summary>
+        public static async void PopPage()
+        {
+            await Navigation.PopAsync();
         }
     }
 }

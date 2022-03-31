@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LynaMarketMobile.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,9 @@ namespace LynaMarketMobile.Pages
             InitializeComponent();
         }
 
-        private async void ProfileButtonOnClicked(object sender, EventArgs e)
+        private void ProfileButtonOnClicked(object sender, EventArgs e)
         {
-            await ((Page)this.Parent.Parent).Navigation.PushAsync(new AuthorizationPage());
-            //Navigation.PushAsync(new AuthorizationPage());
+            NavigationManager.PushPage(new AuthorizationPage());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LynaMarketMobile.Pages;
+﻿using LynaMarketMobile.Classes;
+using LynaMarketMobile.Pages;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +14,8 @@ namespace LynaMarketMobile
 
             InitializeComponent();
 
-            MainPage = new NavigatePage();
+            MainPage = new NavigationPage(new NavigatePage());
+            NavigationManager.Navigation = MainPage.Navigation;
         }
 
         protected override void OnStart()
