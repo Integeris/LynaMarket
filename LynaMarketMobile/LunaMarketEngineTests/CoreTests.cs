@@ -20,7 +20,7 @@ namespace LunaMarketEngine.Tests
         {
             try
             {
-                List<DeliveryType> deliveryTypes = Core.GetDeliveryTypes().Result;
+                List<DeliveryType> deliveryTypes = Core.GetDeliveryTypesAsync().Result;
                 Assert.IsNotNull(deliveryTypes);
             }
             catch (Exception ex)
@@ -41,7 +41,7 @@ namespace LunaMarketEngine.Tests
             };
 
             Core.AddNews(news.Title, news.Date, news.Photo, news.Description);
-            News news2 = Core.GetNews().Result.Last();
+            News news2 = Core.GetNewsAsync().Result.Last();
 
             Assert.AreEqual(news.Date.Minute, news2.Date.Minute);
         }

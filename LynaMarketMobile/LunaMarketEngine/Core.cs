@@ -81,7 +81,7 @@ namespace LunaMarketEngine
         /// Получение списка категорий товаров.
         /// </summary>
         /// <returns>Список категорий товаров.</returns>
-        public static async Task<List<ProductCategory>> GetProductCategories()
+        public static async Task<List<ProductCategory>> GetProductCategoriesAsync()
         {
 
             return await GetObjectsListAsync<ProductCategory>();
@@ -92,7 +92,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
         /// <returns>Категория товаров.</returns>
-        public static async Task<ProductCategory> GetProductCategory(int idProductCategory)
+        public static async Task<ProductCategory> GetProductCategoryAsync(int idProductCategory)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -226,7 +226,7 @@ namespace LunaMarketEngine
         /// Получение списка видов доставки.
         /// </summary>
         /// <returns>Список видов доставки.</returns>
-        public static async Task<List<DeliveryType>> GetDeliveryTypes()
+        public static async Task<List<DeliveryType>> GetDeliveryTypesAsync()
         {
             return await GetObjectsListAsync<DeliveryType>();
         }
@@ -236,7 +236,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idDeliveryType">Идентификатор типа доставки.</param>
         /// <returns>Тип доставки.</returns>
-        public static async Task<DeliveryType> GetDeliveryType(int idDeliveryType)
+        public static async Task<DeliveryType> GetDeliveryTypeAsync(int idDeliveryType)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -298,7 +298,7 @@ namespace LunaMarketEngine
         /// Получение списка материалов.
         /// </summary>
         /// <returns>Список материалов.</returns>
-        public static async Task<List<Material>> GetMaterials()
+        public static async Task<List<Material>> GetMaterialsAsync()
         {
             return await GetObjectsListAsync<Material>();
         }
@@ -308,7 +308,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <returns>Материал.</returns>
-        public static async Task<Material> GetMaterial(int idMaterial)
+        public static async Task<Material> GetMaterialAsync(int idMaterial)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -370,7 +370,7 @@ namespace LunaMarketEngine
         /// Получение списка новостей.
         /// </summary>
         /// <returns>Список новостей.</returns>
-        public static async Task<List<News>> GetNews()
+        public static async Task<List<News>> GetNewsAsync()
         {
             return await GetObjectsListAsync<News>();
         }
@@ -380,7 +380,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idNews">Идентификатор новости.</param>
         /// <returns>Новость.</returns>
-        public static async Task<News> GetNews(int idNews)
+        public static async Task<News> GetNewsAsync(int idNews)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -466,7 +466,7 @@ namespace LunaMarketEngine
         /// <param name="idColor">Идентификатор цвета.</param>
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <returns>Информация о товаре.</returns>
-        public static async Task<ProductInfo> GetProductInfo(int idProduct, int idColor, int idMaterial)
+        public static async Task<ProductInfo> GetProductInfoAsync(int idProduct, int idColor, int idMaterial)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -646,7 +646,7 @@ namespace LunaMarketEngine
         /// Получение списка производителей.
         /// </summary>
         /// <returns>Список производителей.</returns>
-        public static async Task<List<Manufacturer>> GetManufacturers()
+        public static async Task<List<Manufacturer>> GetManufacturersAsync()
         {
             return await GetObjectsListAsync<Manufacturer>();
         }
@@ -656,7 +656,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idManufacturer">Идентификатор материала.</param>
         /// <returns>Производитель.</returns>
-        public static async Task<Manufacturer> GetManufacturer(int idManufacturer)
+        public static async Task<Manufacturer> GetManufacturerAnsyc(int idManufacturer)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -728,7 +728,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idOrderStatus">Идентификатор статуса заказа.</param>
         /// <returns>Статус заказа.</returns>
-        public static async Task<OrderStatus> GetOrderStatus(int idOrderStatus)
+        public static async Task<OrderStatus> GetOrderStatusAsync(int idOrderStatus)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
@@ -800,7 +800,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idOrder">Идентификатор заказа.</param>
         /// <returns>Заказ.</returns>
-        public static async Task<Order> GetOrder(int idOrder)
+        public static async Task<Order> GetOrderAsync(int idOrder)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
