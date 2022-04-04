@@ -39,7 +39,7 @@
             <Color x:Key="CatalogListViewForegroundColorLight">Black</Color>
             <Color x:Key="CatalogListViewForegroundColorNight">White</Color>
             
-            <!-- Стандрат для кнопок -->
+            <!-- Стандрат для Button -->
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="VerticalOptions" Value="FillAndExpand"/>
@@ -49,6 +49,14 @@
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="TextColor" Value="Black"/>
+            </Style>
+
+            <!-- Сдандарт для Entry -->
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SearchBarBackgroundColorLight}, Dark={StaticResource SearchBarBackgroundColorNight}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource SearchBarForegroundColorLight}, Dark={StaticResource SearchBarForegroundColorNight}}"/>
+                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource SearchBarPlaceholderColorColorLight}, Dark={StaticResource SearchBarPlaceholderColorColorNight}}"/>
+                <Setter Property="Margin" Value="0"/>
             </Style>
 
             <!-- StackLayout навигации -->
@@ -129,15 +137,6 @@
                 <Setter Property="RowSpacing" Value="0"/>
                 <Setter Property="Margin" Value="0"/>
             </Style>
-            
-            <!-- Стиль Entry -->
-            <Style TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SearchBarBackgroundColorLight}, Dark={StaticResource SearchBarBackgroundColorNight}}"/>
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource SearchBarForegroundColorLight}, Dark={StaticResource SearchBarForegroundColorNight}}"/>
-                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource SearchBarPlaceholderColorColorLight}, Dark={StaticResource SearchBarPlaceholderColorColorNight}}"/>
-                <Setter Property="Placeholder" Value="dsadsadsadasdsa"/>
-                <Setter Property="Margin" Value="0"/>
-            </Style>
 
             <!-- Стиль SearchBar -->
             <Style TargetType="SearchBar">
@@ -147,18 +146,6 @@
                 <Setter Property="CancelButtonColor" Value="{AppThemeBinding Light={StaticResource SearchBarForegroundColorLight}, Dark={StaticResource ForegroundColorNight}}"/>
                 <Setter Property="Placeholder" Value="Поиск"/>
                 <Setter Property="Margin" Value="10"/>
-            </Style>
-
-            <!-- Стиль CatalogListView -->
-            <Style x:Key="CatalogListView" TargetType="ListView">
-                <Setter Property="ItemTemplate">
-                    <DataTemplate>
-                        <ViewCell>
-                            <Button Text="{Binding Title}" 
-                                    Margin="-6"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </Setter>
             </Style>
 
             <!-- Стиль SettingsListView -->

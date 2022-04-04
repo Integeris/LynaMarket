@@ -4,12 +4,13 @@
              x:Class="LynaMarketMobile.Pages.AuthorizationPage"
              Title="Авторизация">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="10">
             <Label Text="Логин:"/>
             <Entry x:Name="LoginEntry"/>
             <Label Text="Пароль:"/>
             <Entry x:Name="PasswordEntry"/>
-            <Button Text="Войти"/>
+            <Button Text="Войти"
+                    VerticalOptions="Start"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

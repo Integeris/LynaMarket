@@ -18,7 +18,7 @@ namespace LynaMarketMobile.Classes
         /// <param name="page">Страница.</param>
         public static async void PushPage(Page page)
         {
-            await Navigation.PushAsync(page);
+            await Navigation.PushAsync(page, false);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace LynaMarketMobile.Classes
         /// </summary>
         public static async void PopPage()
         {
-            await Navigation.PopAsync();
+            await Navigation.PopAsync(false);
         }
     }
 }

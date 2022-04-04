@@ -20,5 +20,10 @@ namespace LynaMarketMobile.Pages
             Category[] categories = new string[] { "dasgfds", "dasgfds" }.Select(c => new Category() { Title = c }).ToArray();
             CatalogListView.ItemsSource = categories;
         }
+
+        private void ListViewButtonOnClicked(object sender, EventArgs e)
+        {
+            NavigationManager.PushPage(new ProductsPage());
+        }
     }
 }

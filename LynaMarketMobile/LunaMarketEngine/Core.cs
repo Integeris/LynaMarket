@@ -1186,6 +1186,7 @@ namespace LunaMarketEngine
         /// <returns>Список объектов типа.</returns>
         internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> filteringProperties = default)
         {
+            // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
             {
@@ -1195,6 +1196,7 @@ namespace LunaMarketEngine
             Type type = typeof(T);
             List<T> objectList = new List<T>();
 
+            // Формирование запроса.
             {
                 List<string> properties = new List<string>();
 
@@ -1228,6 +1230,7 @@ namespace LunaMarketEngine
 
             while (reader.Read())
             {
+                // Создание объекта нужного типа.
                 T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
 
                 for (int i = 0; i < reader.FieldCount; i++)
@@ -1253,17 +1256,20 @@ namespace LunaMarketEngine
         /// <returns>Полученный объект.</returns>
         internal static async Task<T> GetObjectAsync<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
         {
+            // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
             {
                 Connection = mySqlConnection
             };
 
+            // Создание объекта нужного типа.
             Type type = typeof(T);
             T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
 
             List<string> parameters = new List<string>();
 
+            // Формирование запроса.
             foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
                 string name = $"{item.Key} = @{item.Key}";
@@ -1308,6 +1314,7 @@ namespace LunaMarketEngine
         /// <param name="properties">Значения свойств.</param>
         internal static void AddObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties)
         {
+            // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
             {
@@ -1316,6 +1323,7 @@ namespace LunaMarketEngine
 
             List<string> parametersNames = new List<string>();
 
+            // Добавление параметров.
             foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
                 string name = $"@{item.Key}";
@@ -1341,6 +1349,7 @@ namespace LunaMarketEngine
         /// <param name="newProperties">Новые значения свойств.</param>
         internal static void UpdateObject(string table, Dictionary<string, string> properties, Dictionary<string, string> newProperties)
         {
+            // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
             {
@@ -1377,6 +1386,7 @@ namespace LunaMarketEngine
         /// <param name="properties">Свойства для поиска объекта.</param>
         internal static void DeleteObject(string table, Dictionary<string, string> properties)
         {
+            // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
             {

@@ -29,6 +29,9 @@ namespace LunaMarketEngine.Tests
             }
         }
 
+        /// <summary>
+        /// Проверка добавления объекта в базу данных.
+        /// </summary>
         [TestMethod("Добавление объекта.")]
         public void AddNewsTest()
         {

@@ -14,7 +14,12 @@ namespace LynaMarketMobile
 
             InitializeComponent();
 
-            MainPage = new NavigationPage(new NavigatePage());
+            NavigationPage navigatePage = new NavigationPage(new NavigatePage())
+            {
+                BarBackgroundColor = Color.FromHex("#8C8C8C")
+            };
+
+            MainPage = navigatePage;
             NavigationManager.Navigation = MainPage.Navigation;
         }
 
