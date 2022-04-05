@@ -33,5 +33,20 @@ namespace LunaMarketAdministration.Forms
                     break;
             }
         }
+
+        private void SelectButtonOnClick(object sender, EventArgs e)
+        {
+            switch (Database.Type)
+            {
+                case "News":
+                    Database.IdNews = (int)dataGridView.CurrentRow.Cells[0].Value;
+                    //MessageBox.Show(Database.IdNews.ToString());
+                    selectButton.DialogResult = DialogResult.OK;
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

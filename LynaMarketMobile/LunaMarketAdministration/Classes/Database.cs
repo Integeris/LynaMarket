@@ -9,5 +9,6 @@ namespace LunaMarketAdministration.Classes
     internal class Database
     {
         public static string Type = "";
+        public static int IdNews = 0;
     }
 }

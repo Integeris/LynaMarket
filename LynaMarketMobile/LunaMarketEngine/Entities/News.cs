@@ -35,5 +35,10 @@ namespace LunaMarketEngine.Entities
         /// Описание.
         /// </summary>
         public string Description { get; set; }
+
+        public static implicit operator List<object>(News v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

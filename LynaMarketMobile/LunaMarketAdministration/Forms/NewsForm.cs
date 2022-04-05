@@ -1,5 +1,6 @@
 ﻿using LunaMarketAdministration.Classes;
 using LunaMarketEngine;
+using LunaMarketEngine.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,12 +49,15 @@ namespace LunaMarketAdministration.Forms
             {
                 case 1:
                     editButton.Text = "Изменить";
+                    selectNewsButton.Visible = true;
                     break;
                 case 2:
                     editButton.Text = "Удалить";
+                    selectNewsButton.Visible = true;
                     break;
                 default:
                     editButton.Text = "Добавить";
+                    selectNewsButton.Visible = false;
                     break;
             }
         }
@@ -82,16 +86,18 @@ namespace LunaMarketAdministration.Forms
 
             if (actionComboBox.SelectedIndex == 0)
             {
-                //byte[] image = File.ReadAllBytes(imagePath);
                 Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
             }
         }
 
-        private void SelectNewsButtonOnClick(object sender, EventArgs e)
+        private async void SelectNewsButtonOnClick(object sender, EventArgs e)
         {
             Database.Type = "News";
             SelectForm selectForm = new SelectForm();
             selectForm.ShowDialog();
+            News news = await Core.GetNewsAsync(Database.IdNews);
+            MessageBox.Show(news.Title);
+
         }
     }
 }
