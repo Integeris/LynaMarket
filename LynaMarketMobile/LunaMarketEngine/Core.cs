@@ -1207,8 +1207,8 @@ namespace LunaMarketEngine
                 {
                     foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in filteringProperties)
                     {
-                        string name = $"{item.Key} = @{item.Key}";
-                        properties.Add(name);
+                        string name = $"@{item.Key}";
+                        properties.Add($"{item.Key} = {name}");
 
                         MySqlParameter parameter = new MySqlParameter(name, item.Value.type)
                         {
@@ -1272,8 +1272,8 @@ namespace LunaMarketEngine
             // Формирование запроса.
             foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
-                string name = $"{item.Key} = @{item.Key}";
-                parameters.Add(name);
+                string name = $"@{item.Key}";
+                parameters.Add($"{item.Key} = {name}");
 
                 MySqlParameter parameter = new MySqlParameter(name, item.Value.type)
                 {
@@ -1370,7 +1370,7 @@ namespace LunaMarketEngine
 
             foreach (KeyValuePair<string, string> item in newProperties)
             {
-                parameters.Add($"{item.Key} = '{item.Value}'");
+                parameters.Add($"{item.Key} = {item.Value}");
             }
 
             stringBuilder.AppendLine($"WHERE ({String.Join(" AND ", parameters)});");
@@ -1397,7 +1397,7 @@ namespace LunaMarketEngine
 
             foreach(KeyValuePair<string, string> item in properties)
             {
-                parameters.Add($"{item.Key} = '{item.Value}'");
+                parameters.Add($"{item.Key} = {item.Value}");
             }
 
             command.CommandText = $"DELETE FROM {table} WHERE({String.Join(" AND ", parameters)});";
