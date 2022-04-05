@@ -1283,7 +1283,7 @@ namespace LunaMarketEngine
                 command.Parameters.Add(parameter);
             }
 
-            command.CommandText = $"SELECT * FROM {type.Name} WHERE {String.Join(" AND ", parameters)}';";
+            command.CommandText = $"SELECT * FROM {type.Name} WHERE {String.Join(" AND ", parameters)};";
 
             OpenConnection(command.Connection);
             MySqlDataReader reader = await command.ExecuteReaderAsync();
