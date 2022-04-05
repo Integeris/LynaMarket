@@ -42,7 +42,8 @@ namespace LunaMarketEngine
             Server = server,
             Database = database,
             UserID = user,
-            Password = password
+            Password = password,
+            AllowUserVariables = true
         }.ConnectionString;
 
         /// <summary>
@@ -83,7 +84,6 @@ namespace LunaMarketEngine
         /// <returns>Список категорий товаров.</returns>
         public static async Task<List<ProductCategory>> GetProductCategoriesAsync()
         {
-
             return await GetObjectsListAsync<ProductCategory>();
         }
 
