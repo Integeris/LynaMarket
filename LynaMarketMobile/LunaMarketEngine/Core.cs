@@ -123,14 +123,14 @@ namespace LunaMarketEngine
         /// <param name="title">Новое название категории товара.</param>
         public static void UpdateProductCategory(int idProductCategory, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProductCategory"] = idProductCategory.ToString()
+                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("CategoryProduct", properties, newProperties);
@@ -142,9 +142,9 @@ namespace LunaMarketEngine
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
         public static void DeleteProductCategory(int idProductCategory)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProductCategory"] = idProductCategory.ToString()
+                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
             };
 
             DeleteObject("ProductCategory", properties);
@@ -195,14 +195,14 @@ namespace LunaMarketEngine
         /// <param name="title">Новое название цвета.</param>
         public static void UpdateColor(int idColor, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdColor"] = idColor.ToString()
+                ["IdColor"] = (MySqlDbType.Int32, idColor)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("Color", properties, newProperties);
@@ -214,9 +214,9 @@ namespace LunaMarketEngine
         /// <param name="idColor">Идентификатор цвета.</param>
         public static void DeleteColor(int idColor)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdColor"] = idColor.ToString()
+                ["IdColor"] = (MySqlDbType.Int32, idColor)
             };
 
             DeleteObject("Color", properties);
@@ -267,14 +267,14 @@ namespace LunaMarketEngine
         /// <param name="title">Название типа доставки.</param>
         public static void UpdateDeliveryType(int idDeliveryType, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdDeliveryType"] = idDeliveryType.ToString()
+                ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("DeliveryType", properties, newProperties);
@@ -286,9 +286,9 @@ namespace LunaMarketEngine
         /// <param name="idDeliveryType">Идентификатор типа доставки.</param>
         public static void DeleteDeliveryType(int idDeliveryType)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdDeliveryType"] = idDeliveryType.ToString()
+                ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
             };
 
             DeleteObject("DeliveryType", properties);
@@ -339,14 +339,14 @@ namespace LunaMarketEngine
         /// <param name="title">Название материала.</param>
         public static void UpdateMaterial(int idMaterial, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdMaterial"] = idMaterial.ToString()
+                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("Material", properties, newProperties);
@@ -358,9 +358,9 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         public static void DeleteMaterial(int idMaterial)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdMaterial"] = idMaterial.ToString()
+                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
             DeleteObject("Material", properties);
@@ -420,17 +420,17 @@ namespace LunaMarketEngine
         /// <param name="description">Описание новости.</param>
         public static void UpdateNews(int idNews, string title, DateTime date, byte[] photo, string description)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdNews"] = idNews.ToString()
+                ["IdNews"] = (MySqlDbType.Int32, idNews)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title,
-                ["Date"] = date.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["Photo"] = String.Concat(photo.Select(data => data.ToString())),
-                ["Description"] = description
+                ["Title"] = (MySqlDbType.String, title),
+                ["Date"] = (MySqlDbType.DateTime, date.ToString("yyyy-MM-dd HH:mm:ss")),
+                ["Photo"] = (MySqlDbType.LongBlob, photo),
+                ["Description"] = (MySqlDbType.String, description),
             };
 
             UpdateObject("News", properties, newProperties);
@@ -442,9 +442,9 @@ namespace LunaMarketEngine
         /// <param name="idNews">Идентификатор новости.</param>
         public static void DeleteNews(int idNews)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdNews"] = idNews.ToString()
+                ["IdNews"] = (MySqlDbType.Int32, idNews)
             };
 
             DeleteObject("News", properties);
@@ -513,20 +513,20 @@ namespace LunaMarketEngine
         /// <param name="amount">Количество.</param>
         public static void UpdateProductInfo(int idProduct, int idColor, int idMaterial, int newIdProduct, int newIdColor, int newIdMaterial, decimal price, int amount)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = idProduct.ToString(),
-                ["IdColor"] = idColor.ToString(),
-                ["IdMaterial"] = idMaterial.ToString(),
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
+                ["IdColor"] = (MySqlDbType.Int32, idColor),
+                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = newIdProduct.ToString(),
-                ["IdColor"] = newIdColor.ToString(),
-                ["IdMaterial"] = newIdMaterial.ToString(),
-                ["Price"] = price.ToString(),
-                ["Amount"] = amount.ToString()
+                ["IdProduct"] = (MySqlDbType.Int32, newIdProduct),
+                ["IdColor"] = (MySqlDbType.Int32, newIdColor),
+                ["IdMaterial"] = (MySqlDbType.Int32, newIdMaterial),
+                ["Price"] = (MySqlDbType.Decimal, price),
+                ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
             UpdateObject("ProductInfo", properties, newProperties);
@@ -540,11 +540,11 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         public static void DeleteProductInfo(int idProduct, int idColor, int idMaterial)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = idProduct.ToString(),
-                ["IdColor"] = idColor.ToString(),
-                ["IdMaterial"] = idMaterial.ToString(),
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
+                ["IdColor"] = (MySqlDbType.Int32, idColor),
+                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
             DeleteObject("ProductInfo", properties);
@@ -610,19 +610,19 @@ namespace LunaMarketEngine
         /// <param name="phone">Номер телефона.</param>
         public static void UpdateCustomer(int idCustomer, string login, string password, string firstName, string secondName, string email, string phone)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdCustomer"] = idCustomer.ToString()
+                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Login"] = login,
-                ["Password"] = password,
-                ["FirstName"] = firstName,
-                ["SecondName"] = secondName,
-                ["Email"] = email,
-                ["Phone"] = phone
+                ["Login"] = (MySqlDbType.String, login),
+                ["Password"] = (MySqlDbType.String, password),
+                ["FirstName"] = (MySqlDbType.String, firstName),
+                ["SecondName"] = (MySqlDbType.String, secondName),
+                ["Email"] = (MySqlDbType.String, email),
+                ["Phone"] = (MySqlDbType.String, phone)
             };
 
             UpdateObject("Customer", properties, newProperties);
@@ -634,9 +634,9 @@ namespace LunaMarketEngine
         /// <param name="idCustomer">Идентификатор заказчика.</param>
         public static void DeleteCustomer(int idCustomer)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdCustomer"] = idCustomer.ToString()
+                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
             };
 
             DeleteObject("Customer", properties);
@@ -687,14 +687,14 @@ namespace LunaMarketEngine
         /// <param name="title">Название материала.</param>
         public static void UpdateManufacturer(int idManufacturer, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdManufacturer"] = idManufacturer.ToString()
+                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("Manufacturer", properties, newProperties);
@@ -706,9 +706,9 @@ namespace LunaMarketEngine
         /// <param name="idManufacturer">Идентификатор материала.</param>
         public static void DeleteManufacturer(int idManufacturer)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdManufacturer"] = idManufacturer.ToString()
+                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
             };
 
             DeleteObject("Manufacturer", properties);
@@ -759,14 +759,14 @@ namespace LunaMarketEngine
         /// <param name="title">Название статуса заказа.</param>
         public static void UpdateOrderStatus(int idOrderStatus, string title)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrderStatus"] = idOrderStatus.ToString()
+                ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["Title"] = title
+                ["Title"] = (MySqlDbType.String, title)
             };
 
             UpdateObject("OrderStatus", properties, newProperties);
@@ -778,9 +778,9 @@ namespace LunaMarketEngine
         /// <param name="idOrderStatus">Идентификатор статуса заказа.</param>
         public static void DeleteOrderStatus(int idOrderStatus)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrderStatus"] = idOrderStatus.ToString()
+                ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
             };
 
             DeleteObject("OrderStatus", properties);
@@ -843,18 +843,18 @@ namespace LunaMarketEngine
         /// <param name="adress">Адрес доставки.</param>
         public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrder"] = idOrder.ToString()
+                ["IdOrder"] = (MySqlDbType.Int32, idOrder)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdCustomer"] = idCustomer.ToString(),
-                ["IdOrderStatus"] = idOrderStatus.ToString(),
-                ["IdDeliveryType"] = idDeliveryType.ToString(),
-                ["Date"] = date.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["Adress"] = adress.ToString(),
+                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer),
+                ["idOrderStatus"] = (MySqlDbType.Int32, idOrderStatus),
+                ["idDeliveryType"] = (MySqlDbType.Int32, idDeliveryType),
+                ["Date"] = (MySqlDbType.DateTime, date),
+                ["Adress"] = (MySqlDbType.String, adress)
             };
 
             UpdateObject("Order", properties, newProperties);
@@ -866,9 +866,9 @@ namespace LunaMarketEngine
         /// <param name="idOrder">Идентификатор заказа.</param>
         public static void DeleteOrder(int idOrder)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrder"] = idOrder.ToString()
+                ["IdOrder"] = (MySqlDbType.Int32, idOrder)
             };
 
             DeleteObject("Order", properties);
@@ -929,20 +929,20 @@ namespace LunaMarketEngine
         /// <param name="newIdProduct">Новый идентификатор товара.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static void UpdateOrder(int idOrder, int idProduct, int newIdOrder, int newIdProduct, decimal price, int amount)
+        public static void UpdateOrderProduct(int idOrder, int idProduct, int newIdOrder, int newIdProduct, decimal price, int amount)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrder"] = idOrder.ToString(),
-                ["IdProduct"] = idProduct.ToString()
+                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrder"] = newIdOrder.ToString(),
-                ["IdProduct"] = newIdProduct.ToString(),
-                ["Price"] = price.ToString(),
-                ["Amount"] = amount.ToString()
+                ["IdOrder"] = (MySqlDbType.Int32, newIdOrder),
+                ["IdProduct"] = (MySqlDbType.Int32, newIdProduct),
+                ["Price"] = (MySqlDbType.Decimal, price),
+                ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
             UpdateObject("OrderProduct", properties, newProperties);
@@ -953,12 +953,12 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idOrder">Идентификатор заказа.</param>
         /// <param name="idProduct">Идентификатор товара.</param>
-        public static void DeleteOrder(int idOrder, int idProduct)
+        public static void DeleteOrderProduct(int idOrder, int idProduct)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdOrder"] = idOrder.ToString(),
-                ["IdProduct"] = idProduct.ToString()
+                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
             DeleteObject("OrderProduct", properties);
@@ -1012,15 +1012,15 @@ namespace LunaMarketEngine
         /// <param name="image">Изображение.</param>
         public static void UpdateProductPhoto(int idProductPhoto, int idProduct, byte[] image)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProductPhoto"] = idProductPhoto.ToString()
+                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = idProduct.ToString(),
-                ["Image"] = String.Concat(image.Select(data => data.ToString()))
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
+                ["Image"] = (MySqlDbType.LongBlob, image)
             };
 
             UpdateObject("ProductPhoto", properties, newProperties);
@@ -1032,9 +1032,9 @@ namespace LunaMarketEngine
         /// <param name="idProductPhoto">Идентификатор фотографии продукта.</param>
         public static void DeleteProductPhoto(int idProductPhoto)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProductPhoto"] = idProductPhoto.ToString()
+                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
             };
 
             DeleteObject("ProductPhoto", properties);
@@ -1109,22 +1109,22 @@ namespace LunaMarketEngine
         /// <param name="deleted">Удалён ли товар.</param>
         public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idProductPhoto, string title, int height, int width, int depth, string description, bool deleted = false)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = idProduct.ToString()
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
-            Dictionary<string, string> newProperties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdManufacturer"] = idManufacturer.ToString(),
-                ["IdProductCategory"] = idProductCategory.ToString(),
-                ["IdProductPhoto"] = idProductPhoto.ToString(),
-                ["Title"] = title,
-                ["Height"] = height.ToString(),
-                ["Width"] = width.ToString(),
-                ["Depth"] = depth.ToString(),
-                ["Description"] = description,
-                ["Deleted"] = deleted.ToString()
+                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer),
+                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory),
+                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto),
+                ["Title"] = (MySqlDbType.String, title),
+                ["Height"] = (MySqlDbType.Int32, height),
+                ["Width"] = (MySqlDbType.Int32, width),
+                ["Depth"] = (MySqlDbType.Int32, depth),
+                ["Description"] = (MySqlDbType.String, description),
+                ["Deleted"] = (MySqlDbType.Bit, deleted)
             };
 
             UpdateObject("Product", properties, newProperties);
@@ -1136,9 +1136,9 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         public static void DeleteProduct(int idProduct)
         {
-            Dictionary<string, string> properties = new Dictionary<string, string>
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {
-                ["IdProduct"] = idProduct.ToString()
+                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
             DeleteObject("Product", properties);
@@ -1201,7 +1201,7 @@ namespace LunaMarketEngine
                 List<string> properties = new List<string>();
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append($"SELECT * FROM {type.Name}");
+                stringBuilder.Append($"SELECT * FROM `{type.Name}`");
 
                 if (filteringProperties != default)
                 {
@@ -1283,7 +1283,7 @@ namespace LunaMarketEngine
                 command.Parameters.Add(parameter);
             }
 
-            command.CommandText = $"SELECT * FROM {type.Name} WHERE {String.Join(" AND ", parameters)};";
+            command.CommandText = $"SELECT * FROM `{type.Name}` WHERE {String.Join(" AND ", parameters)};";
 
             OpenConnection(command.Connection);
             MySqlDataReader reader = await command.ExecuteReaderAsync();
@@ -1337,7 +1337,7 @@ namespace LunaMarketEngine
                 command.Parameters.Add(parameter);
             }
 
-            command.CommandText = $"INSERT INTO {table} ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", parametersNames)});";
+            command.CommandText = $"INSERT INTO `{table}` ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", parametersNames)});";
             SendDataAsync(command);
         }
 
@@ -1347,7 +1347,7 @@ namespace LunaMarketEngine
         /// <param name="table">Название для поиска.</param>
         /// <param name="properties">Свойства для поиска.</param>
         /// <param name="newProperties">Новые значения свойств.</param>
-        internal static void UpdateObject(string table, Dictionary<string, string> properties, Dictionary<string, string> newProperties)
+        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1358,19 +1358,35 @@ namespace LunaMarketEngine
 
             List<string> parameters = new List<string>();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"UPDATE {table} SET");
+            stringBuilder.AppendLine($"UPDATE `{table}` SET");
 
-            foreach (KeyValuePair<string, string> item in properties)
+            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
-                parameters.Add($"{item.Key} = {item.Value}");
+                string name = $"@search{item.Key}";
+                parameters.Add($"{item.Key} = {name}");
+
+                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
+                {
+                    Value = item.Value.value
+                };
+
+                command.Parameters.Add(mySqlParameter);
             }
 
-            stringBuilder.AppendLine(String.Join(", ", parameters));
+            stringBuilder.Append(String.Join(", ", parameters));
             parameters.Clear();
 
-            foreach (KeyValuePair<string, string> item in newProperties)
+            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in newProperties)
             {
-                parameters.Add($"{item.Key} = {item.Value}");
+                string name = $"@new{item.Key}";
+                parameters.Add($"{item.Key} = {name}");
+
+                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
+                {
+                    Value = item.Value.value
+                };
+
+                command.Parameters.Add(mySqlParameter);
             }
 
             stringBuilder.AppendLine($"WHERE ({String.Join(" AND ", parameters)});");
@@ -1384,7 +1400,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="table">Название таблицы.</param>
         /// <param name="properties">Свойства для поиска объекта.</param>
-        internal static void DeleteObject(string table, Dictionary<string, string> properties)
+        internal static void DeleteObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1395,12 +1411,22 @@ namespace LunaMarketEngine
 
             List<string> parameters = new List<string>();
 
-            foreach(KeyValuePair<string, string> item in properties)
+            foreach(KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
                 parameters.Add($"{item.Key} = {item.Value}");
+
+                string name = $"@{item.Key}";
+                parameters.Add($"{item.Key} = {name}");
+
+                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
+                {
+                    Value = item.Value.value
+                };
+
+                command.Parameters.Add(mySqlParameter);
             }
 
-            command.CommandText = $"DELETE FROM {table} WHERE({String.Join(" AND ", parameters)});";
+            command.CommandText = $"DELETE FROM `{table}` WHERE({String.Join(" AND ", parameters)});";
             SendDataAsync(command);
         }
 
