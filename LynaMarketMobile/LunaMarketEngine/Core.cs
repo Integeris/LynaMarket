@@ -428,7 +428,7 @@ namespace LunaMarketEngine
             Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
             {
                 ["Title"] = (MySqlDbType.String, title),
-                ["Date"] = (MySqlDbType.DateTime, date.ToString("yyyy-MM-dd HH:mm:ss")),
+                ["Date"] = (MySqlDbType.DateTime, date),
                 ["Photo"] = (MySqlDbType.LongBlob, photo),
                 ["Description"] = (MySqlDbType.String, description),
             };
@@ -1345,9 +1345,9 @@ namespace LunaMarketEngine
         /// Изменение объекта.
         /// </summary>
         /// <param name="table">Название для поиска.</param>
-        /// <param name="properties">Свойства для поиска.</param>
-        /// <param name="searchProperties">Новые значения свойств.</param>
-        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties, Dictionary<string, (MySqlDbType type, object value)> searchProperties)
+        /// <param name="searchProperties">Свойства для поиска.</param>
+        /// <param name="newProperties">Новые значения свойств.</param>
+        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> searchProperties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1360,7 +1360,7 @@ namespace LunaMarketEngine
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine($"UPDATE `{table}` SET");
 
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
+            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in newProperties)
             {
                 string name = $"@new{item.Key}";
                 parameters.Add($"{item.Key} = {name}");
