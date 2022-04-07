@@ -1346,8 +1346,8 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="table">Название для поиска.</param>
         /// <param name="properties">Свойства для поиска.</param>
-        /// <param name="newProperties">Новые значения свойств.</param>
-        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
+        /// <param name="searchProperties">Новые значения свойств.</param>
+        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties, Dictionary<string, (MySqlDbType type, object value)> searchProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1362,7 +1362,7 @@ namespace LunaMarketEngine
 
             foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
-                string name = $"@search{item.Key}";
+                string name = $"@new{item.Key}";
                 parameters.Add($"{item.Key} = {name}");
 
                 MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
@@ -1373,12 +1373,12 @@ namespace LunaMarketEngine
                 command.Parameters.Add(mySqlParameter);
             }
 
-            stringBuilder.Append(String.Join(", ", parameters));
+            stringBuilder.AppendLine(String.Join(", ", parameters));
             parameters.Clear();
 
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in newProperties)
+            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in searchProperties)
             {
-                string name = $"@new{item.Key}";
+                string name = $"@search{item.Key}";
                 parameters.Add($"{item.Key} = {name}");
 
                 MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
