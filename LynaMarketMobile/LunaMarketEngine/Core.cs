@@ -1413,8 +1413,6 @@ namespace LunaMarketEngine
 
             foreach(KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
             {
-                parameters.Add($"{item.Key} = {item.Value}");
-
                 string name = $"@{item.Key}";
                 parameters.Add($"{item.Key} = {name}");
 
