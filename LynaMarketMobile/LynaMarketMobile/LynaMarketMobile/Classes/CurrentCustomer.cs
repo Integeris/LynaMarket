@@ -48,6 +48,11 @@ namespace LynaMarketMobile.Classes
         public static string Phone { get; set; }
 
         /// <summary>
+        /// Авторизован ли.
+        /// </summary>
+        public static bool Authorizated { get; set; }
+
+        /// <summary>
         /// Заказы.
         /// </summary>
         public static List<Order> Orders

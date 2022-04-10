@@ -16,11 +16,20 @@ namespace LynaMarketMobile.Pages
         public ProfilePage()
         {
             InitializeComponent();
+
+            LoadContent();
         }
 
-        private void ProfileButtonOnClicked(object sender, EventArgs e)
+        private void LoadContent()
         {
-            NavigationManager.PushPage(new AuthorizationPage());
+            if (CurrentCustomer.Authorizated)
+            {
+                MainContentView.Content = new AuthorizationProfilePage().Content;
+            }
+            else
+            {
+                MainContentView.Content = new NotAuthorizationProfilePage().Content;
+            }
         }
     }
 }
