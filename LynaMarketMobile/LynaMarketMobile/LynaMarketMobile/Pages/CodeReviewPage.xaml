@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.CodeReviewPage">
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Margin="0, 10, 0, 20">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="Large"/>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <Label Text="Осталось времени: "/>
+                <Label x:Name="TimeLeftLabel" Text="02:00"/>
+            </StackLayout>
+            
+            <Label Text="Код, присланный на почту:"/>
+            <Entry x:Name="CodeEntry"/>
+            <Button x:Name="ConfirmButton"
+                    Text="Подтвердить"
+                    Clicked="ConfirmButtonOnClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

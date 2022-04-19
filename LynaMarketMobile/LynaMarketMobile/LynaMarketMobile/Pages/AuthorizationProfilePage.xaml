@@ -3,10 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.AuthorizationProfilePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="10">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Entry">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+            <Label Text="Логин:"/>
+            <Entry x:Name="LoginEntry"/>
+
+            <Label Text="Пароль:"/>
+            <Entry x:Name="PasswordEntry"/>
+
+            <Label Text="Почта:"/>
+            <Entry x:Name="EmailEntry"/>
+
+            <Label Text="Имя:"/>
+            <Entry x:Name="FirstNameEntry"/>
+
+            <Label Text="Фамилия:"/>
+            <Entry x:Name="SecondNameEntry"/>
+
+            <Label Text="Телефон:"/>
+            <Entry x:Name="PhoneEntry"/>
+
+            <Button x:Name="EditButton"
+                    Text="Изменить данные"
+                    Clicked="EditButtonOnClicked"/>
+
+            <Button x:Name="ExitButton" 
+                    Text="Выйти из аккаунта"
+                    Clicked="ExitButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

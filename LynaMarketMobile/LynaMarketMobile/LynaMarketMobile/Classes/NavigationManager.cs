@@ -5,6 +5,9 @@ using Xamarin.Forms;
 
 namespace LynaMarketMobile.Classes
 {
+    /// <summary>
+    /// Менеджер навигации.
+    /// </summary>
     internal static class NavigationManager
     {
         /// <summary>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.AboutPage"
+             Title="О программе">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeaderLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Margin" Value="0, 0, 0, 15"/>
+            </Style>
+            <Style TargetType="Frame" BasedOn="{StaticResource NavigationFrame}">
+                <Setter Property="Margin" Value="0, 0, 0, 8"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label Style="{StaticResource HeaderLabel}"
+                   Text="Назначение"/>
+            <Frame/>
+            <Label Text="Программа предназначена для покупок товаров мебельного магазина ООО &quot;Луна&quot;."/>
+
+            <Label Style="{StaticResource HeaderLabel}"
+                   Text="Версия программы"/>
+            <Frame/>
+            <Label Text="1.0."/>
+            
+            <Label Style="{StaticResource HeaderLabel}"
+                   Text="Разработчик"/>
+            <Frame/>
+            <Label Text="Черняков Антон."/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

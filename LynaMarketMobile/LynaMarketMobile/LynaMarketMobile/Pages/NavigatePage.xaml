@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.NavigatePage"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorNight}}">
+             BackgroundColor="{DynamicResource BackgroundColorLight}">
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGrid}">
             <Grid.RowDefinitions>
@@ -17,7 +17,8 @@
                           PositionChanged="MainCaruselViewOnPositionChanged">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView Content="{Binding Content}"/>
+                        <ContentView Content="{Binding Content}"
+                                     HeightRequest="{Binding Source={x:Reference MainCaruselView}, Path=Height}"/>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
                 <CarouselView.ItemsSource>

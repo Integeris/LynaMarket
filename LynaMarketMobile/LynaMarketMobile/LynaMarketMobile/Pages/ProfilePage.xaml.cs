@@ -1,4 +1,5 @@
-﻿using LynaMarketMobile.Classes;
+﻿using LunaMarketEngine;
+using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +17,18 @@ namespace LynaMarketMobile.Pages
         public ProfilePage()
         {
             InitializeComponent();
-
             LoadContent();
         }
 
-        private void LoadContent()
+        public void LoadContent()
         {
             if (CurrentCustomer.Authorizated)
             {
-                MainContentView.Content = new AuthorizationProfilePage().Content;
+                MainContentView.Content = new AuthorizationProfilePage(this).Content;
             }
             else
             {
-                MainContentView.Content = new NotAuthorizationProfilePage().Content;
+                MainContentView.Content = new NotAuthorizationProfilePage(this).Content;
             }
         }
     }

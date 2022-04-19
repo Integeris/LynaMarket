@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.NotAuthorizationProfilePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"/>
+        <StackLayout VerticalOptions="End">
+            <Button x:Name="AuthorizationButton" 
+                    Text="Авторизация"
+                    Clicked="AuthorizationButtonOnClicked"/>
+            <Button x:Name="RegistrationButton" 
+                    Text="Регистрация"
+                    Clicked="RegistrationButtonOnClicked"/>
+            <Button x:Name="AboutButton" 
+                    Text="О программе"
+                    Clicked="AboutButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

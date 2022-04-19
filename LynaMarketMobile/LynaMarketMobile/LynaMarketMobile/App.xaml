@@ -42,7 +42,7 @@
             <!-- Стандрат для Button -->
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="0"/>
-                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HeightRequest" Value="55"/>
             </Style>
             
             <!-- Стандарт для Label -->
@@ -57,9 +57,16 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource SearchBarForegroundColorLight}, Dark={StaticResource SearchBarForegroundColorNight}}"/>
                 <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource SearchBarPlaceholderColorColorLight}, Dark={StaticResource SearchBarPlaceholderColorColorNight}}"/>
                 <Setter Property="Margin" Value="0"/>
+                <Setter Property="Text" Value=""/>
+                <Setter Property="MaxLength" Value="50"/>
             </Style>
 
-            <!-- StackLayout навигации -->
+            <!-- Стандарт для StackLayout -->
+            <Style TargetType="StackLayout">
+                <Setter Property="Spacing" Value="1"/>
+            </Style>
+
+                <!-- StackLayout навигации -->
             <Style x:Key="NavigationStackLayout" TargetType="StackLayout">
                 <Setter Property="Spacing" Value="0"/>
                 <Setter Property="Margin" Value="0"/>

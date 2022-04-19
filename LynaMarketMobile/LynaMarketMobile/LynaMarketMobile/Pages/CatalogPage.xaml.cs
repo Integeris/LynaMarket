@@ -1,4 +1,6 @@
-﻿using LynaMarketMobile.Classes;
+﻿using LunaMarketEngine;
+using LunaMarketEngine.Entities;
+using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,13 @@ namespace LynaMarketMobile.Pages
         public CatalogPage()
         {
             InitializeComponent();
+            LoadCategeries();
+        }
 
-            Category[] categories = new string[] { "dasgfds", "dasgfds" }.Select(c => new Category() { Title = c }).ToArray();
-            CatalogListView.ItemsSource = categories;
+        public async void LoadCategeries()
+        {
+            List<ProductCategory> productCategories = await Core.GetProductCategoriesAsync();
+            CatalogListView.ItemsSource = productCategories;
         }
 
         private void ListViewButtonOnClicked(object sender, EventArgs e)

@@ -575,6 +575,21 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Получение заказчика.
+        /// </summary>
+        /// <param name="login">Логин.</param>
+        /// <returns>Заказчик.</returns>
+        public static async Task<Customer> GetCustomerAsync(string login)
+        {
+            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            {
+                ["Login"] = (MySqlDbType.String, login)
+            };
+
+            return await GetObjectAsync<Customer>(properties);
+        }
+
+        /// <summary>
         /// Добавление заказчика.
         /// </summary>
         /// <param name="login">Логин.</param>
@@ -1043,10 +1058,13 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение списка товаров.
         /// </summary>
+        /// <param name="filterProperties">Свойства фильтрации</param>
+        /// <param name="skip">Пропустить.</param>
+        /// <param name="take">Взять.</param>
         /// <returns>Список товаров.</returns>
-        public static async Task<List<Product>> GetProductsAsync()
+        public static async Task<List<Product>> GetProductsAsync(Dictionary<string, (MySqlDbType, object)> filterProperties = default, int skip = 0, int take = 20)
         {
-            return await GetObjectsListAsync<Product>();
+            return await GetObjectsListAsync<Product>(filterProperties, skip, take);
         }
 
         /// <summary>
@@ -1062,6 +1080,15 @@ namespace LunaMarketEngine
             };
 
             return await GetObjectAsync<Product>(properties);
+        }
+
+        /// <summary>
+        /// Получение количесва товара.
+        /// </summary>
+        /// <returns>Количество товара.</returns>
+        public static async Task<long> GetProductCountAsync()
+        {
+            return await GetObjectsCount<Product>();
         }
 
         /// <summary>
@@ -1183,8 +1210,10 @@ namespace LunaMarketEngine
         /// </summary>
         /// <typeparam name="T">Тип элемента получаемых данных.</typeparam>
         /// <param name="filteringProperties">Свойства фильтрации.</param>
+        /// <param name="skip">Пропустить.</param>
+        /// <param name="take">Взять</param>
         /// <returns>Список объектов типа.</returns>
-        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> filteringProperties = default)
+        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> filteringProperties = default, int skip = 0, int take = 0)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1221,7 +1250,19 @@ namespace LunaMarketEngine
                     stringBuilder.Append($" WHERE({String.Join(" AND ", properties)})");
                 }
 
-                stringBuilder.Append(";");
+                stringBuilder.Append($" LIMIT ");
+
+                if (take > 0)
+                {
+                    stringBuilder.Append(take);
+                }
+                else
+                {
+                    long count = await GetObjectsCount<T>();
+                    stringBuilder.Append(count);
+                }
+
+                stringBuilder.Append($" OFFSET {skip};");
                 command.CommandText = stringBuilder.ToString();
             }
 
@@ -1265,7 +1306,7 @@ namespace LunaMarketEngine
 
             // Создание объекта нужного типа.
             Type type = typeof(T);
-            T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+            T obj = default;
 
             List<string> parameters = new List<string>();
 
@@ -1292,6 +1333,13 @@ namespace LunaMarketEngine
             {
                 reader.Read();
 
+                if (!reader.HasRows)
+                {
+                    throw new Exception();
+                }
+
+                obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
                     PropertyInfo property = type.GetProperty(reader.GetName(i));
@@ -1305,6 +1353,29 @@ namespace LunaMarketEngine
             CloseConnection(command.Connection);
 
             return obj;
+        }
+
+        /// <summary>
+        /// Получение количества записей.
+        /// </summary>
+        /// <typeparam name="T">Тип сущности для расчёта.</typeparam>
+        /// <returns>Количесво записей.</returns>
+        internal static async Task<long> GetObjectsCount<T>()
+        {
+            // Создание команды и подключения.
+            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+            MySqlCommand command = new MySqlCommand()
+            {
+                Connection = mySqlConnection
+            };
+
+            command.CommandText = $"SELECT COUNT(*) FROM `{typeof(T).Name}`;";
+
+            OpenConnection(mySqlConnection);
+            long count = (long)await command.ExecuteScalarAsync();
+            CloseConnection(mySqlConnection);
+
+            return count;
         }
 
         /// <summary>

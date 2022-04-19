@@ -48,5 +48,13 @@ namespace LunaMarketEngine.Tests
 
             Assert.AreEqual(news.Date.Minute, news2.Date.Minute);
         }
+
+        [TestMethod("Получение количества записей.")]
+        public void GetProductCountTest()
+        {
+            long count = Core.GetProductCountAsync().Result;
+
+            Assert.AreEqual(0, count);
+        }
     }
 }

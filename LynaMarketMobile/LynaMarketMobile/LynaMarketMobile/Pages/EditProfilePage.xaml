@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.EditProfilePage"
+             Title="Данные профиля">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0, 0, 0, 5"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value="0, 0, 0, 10"/>
+            </Style>
+            <Style x:Key="RedStarLabel" TargetType="Label">
+                <Setter Property="Text" Value="*"/>
+                <Setter Property="TextColor" Value="Red"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" 
+                     Margin="10">
+            <StackLayout Margin="0, 0, 0, 10">
+                <Label Style="{StaticResource RedStarLabel}"/>
+                <Label Text=" – обязательное заполнение."/>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Логин"/>
+                <Label Style="{StaticResource RedStarLabel}"/>
+                <Label Text=":"/>
+            </StackLayout>
+            <Entry x:Name="LoginEntry"/>
+
+            <StackLayout>
+                <Label Text="Пароль"/>
+                <Label Style="{StaticResource RedStarLabel}"/>
+                <Label Text=":"/>
+            </StackLayout>
+            <Entry x:Name="PasswordEntry"/>
+
+            <StackLayout>
+                <Label Text="Почта"/>
+                <Label Style="{StaticResource RedStarLabel}"/>
+                <Label Text=":"/>
+            </StackLayout>
+            <Entry x:Name="EmailEntry"/>
+
+            <Label Text="Имя:"/>
+            <Entry x:Name="FirstNameEntry"/>
+
+            <Label Text="Фамилия:"/>
+            <Entry x:Name="SecondNameEntry"/>
+
+            <Label Text="Телефон:"/>
+            <Entry x:Name="PhoneEntry"/>
+
+            <Button x:Name="ApplyButton"
+                    Text="Принять"
+                    Clicked="ApplyButtonOnClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

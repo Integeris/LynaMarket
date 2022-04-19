@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace LynaMarketMobile.Classes
 {
@@ -18,50 +19,32 @@ namespace LynaMarketMobile.Classes
         public static int IdCustomer { get; set; }
 
         /// <summary>
-        /// Логин.
-        /// </summary>
-        public static string Login { get; set; }
-
-        /// <summary>
-        /// Пароль.
-        /// </summary>
-        public static string Password { get; set; }
-
-        /// <summary>
-        /// Имя.
-        /// </summary>
-        public static string FirstName { get; set; }
-
-        /// <summary>
-        /// Фамилия.
-        /// </summary>
-        public static string SecondName { get; set; }
-
-        /// <summary>
-        /// Электронная почта.
-        /// </summary>
-        public static string Email { get; set; }
-
-        /// <summary>
-        /// Телефон.
-        /// </summary>
-        public static string Phone { get; set; }
-
-        /// <summary>
-        /// Авторизован ли.
+        /// Авторизован.
         /// </summary>
         public static bool Authorizated { get; set; }
 
         /// <summary>
-        /// Заказы.
+        /// Авторизироваться.
         /// </summary>
-        public static List<Order> Orders
+        /// <param name="customer">Заказчик.</param>
+        public static void Authorizate(int idCustomer)
         {
-            get
-            {
-                Customer customer = Core.GetCustomerAsync(IdCustomer).Result;
-                return customer.Orders;
-            }
+            IdCustomer = idCustomer;
+            Authorizated = true;
+
+            Application.Current.Properties["IdCustomer"] = IdCustomer;
+            Application.Current.Properties["Authorizated"] = Authorizated;
+            Application.Current.SavePropertiesAsync();
+        }
+
+        /// <summary>
+        /// Выйти из учётной записи.
+        /// </summary>
+        public static void Exit()
+        {
+            Authorizated = false;
+            Application.Current.Properties["Authorizated"] = Authorizated;
+            Application.Current.SavePropertiesAsync();
         }
     }
 }

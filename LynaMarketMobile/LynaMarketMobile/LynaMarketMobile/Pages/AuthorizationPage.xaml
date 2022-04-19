@@ -8,9 +8,11 @@
             <Label Text="Логин:"/>
             <Entry x:Name="LoginEntry"/>
             <Label Text="Пароль:"/>
-            <Entry x:Name="PasswordEntry"/>
-            <Button Text="Войти"
-                    VerticalOptions="Start"/>
+            <Entry x:Name="PasswordEntry"
+                   IsPassword="True"/>
+            <Button x:Name="EntryButton" 
+                    Text="Войти"
+                    Clicked="EntryButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
