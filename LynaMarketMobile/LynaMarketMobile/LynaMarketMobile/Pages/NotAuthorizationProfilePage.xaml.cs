@@ -12,7 +12,7 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NotAuthorizationProfilePage : ContentPage
     {
-        private ProfilePage profilePage;
+        private readonly ProfilePage profilePage;
 
         public NotAuthorizationProfilePage(ProfilePage profilePage)
         {

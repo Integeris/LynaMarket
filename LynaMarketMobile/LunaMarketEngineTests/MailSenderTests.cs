@@ -14,11 +14,11 @@ namespace LunaMarketEngine.Tests
         [TestMethod("Отпрака сообщения.")]
         public void SendTest()
         {
-            MailSender sender = new MailSender("xefefal863@leafzie.com")
+            MailSender sender = new MailSender("toxaserega14@gmail.com")
             {
-                FromAddress = "toxaserega14@gmail.com",
-                Password = "12345678+",
-                Subject = "Привтет, черт.",
+                FromAddress = "noreply@unverified.beget.ru",
+                Password = "B5dlwdFX",
+                Subject = "Привет, черт.",
                 Body = "Не ожидал? <b>Да?</b>"
             };
 

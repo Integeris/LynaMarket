@@ -66,7 +66,13 @@
                 <Setter Property="Spacing" Value="1"/>
             </Style>
 
-                <!-- StackLayout навигации -->
+            <!-- Надпись заголовка -->
+            <Style x:Key="HeaderLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+            </Style>
+
+            <!-- StackLayout навигации -->
             <Style x:Key="NavigationStackLayout" TargetType="StackLayout">
                 <Setter Property="Spacing" Value="0"/>
                 <Setter Property="Margin" Value="0"/>

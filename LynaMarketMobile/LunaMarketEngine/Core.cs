@@ -59,7 +59,7 @@ namespace LunaMarketEngine
         /// </summary>
         public static string Database
         {
-            get => server;
+            get => database;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace LunaMarketEngine
         /// </summary>
         public static string User
         {
-            get => server;
+            get => user;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace LunaMarketEngine
         /// </summary>
         public static string Password
         {
-            get => server;
+            get => password;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("CategoryProduct", properties);
+            AddObject<ProductCategory>(properties);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("Color", properties);
+            AddObject<Color>(properties);
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("DeliveryType", properties);
+            AddObject<DeliveryType>(properties);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("Material", properties);
+            AddObject<Material>(properties);
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace LunaMarketEngine
                 ["Description"] = (MySqlDbType.String, description)
             };
 
-            AddObject("News", properties);
+            AddObject<News>(properties);
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace LunaMarketEngine
                 ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
-            AddObject("ProductInfo", properties);
+            AddObject<ProductInfo>(properties);
         }
 
         /// <summary>
@@ -610,7 +610,7 @@ namespace LunaMarketEngine
                 ["Phone"] = (MySqlDbType.String, phone)
             };
 
-            AddObject("Customer", properties);
+            AddObject<Customer>(properties);
         }
 
         /// <summary>
@@ -692,7 +692,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("Manufacturer", properties);
+            AddObject<Manufacturer>(properties);
         }
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            AddObject("OrderStatus", properties);
+            AddObject<OrderProduct>(properties);
         }
 
         /// <summary>
@@ -844,7 +844,7 @@ namespace LunaMarketEngine
                 ["Adress"] = (MySqlDbType.String, adress)
             };
 
-            AddObject("Order", properties);
+            AddObject<Order>(properties);
         }
 
         /// <summary>
@@ -932,7 +932,7 @@ namespace LunaMarketEngine
                 ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
-            AddObject("OrderProduct", properties);
+            AddObject<OrderProduct>(properties);
         }
 
         /// <summary>
@@ -1016,7 +1016,7 @@ namespace LunaMarketEngine
                 ["Image"] = (MySqlDbType.LongBlob, image)
             };
 
-            AddObject("ProductPhoto", properties);
+            AddObject<ProductPhoto>(properties);
         }
 
         /// <summary>
@@ -1118,7 +1118,7 @@ namespace LunaMarketEngine
                 ["Deleted"] = (MySqlDbType.Bit, deleted)
             };
 
-            AddObject("Product", properties);
+            AddObject<Product>(properties);
         }
 
         /// <summary>
@@ -1381,9 +1381,9 @@ namespace LunaMarketEngine
         /// <summary>
         /// Добавление объекта.
         /// </summary>
-        /// <param name="table">Название таблицы.</param>
+        /// <typeparam name="T">Тип объекта.</typeparam>
         /// <param name="properties">Значения свойств.</param>
-        internal static void AddObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties)
+        internal static void AddObject<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1408,7 +1408,7 @@ namespace LunaMarketEngine
                 command.Parameters.Add(parameter);
             }
 
-            command.CommandText = $"INSERT INTO `{table}` ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", parametersNames)});";
+            command.CommandText = $"INSERT INTO `{typeof(T).Name}` ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", parametersNames)});";
             SendDataAsync(command);
         }
 
