@@ -19,8 +19,15 @@ namespace LunaMarketAdministration.Forms
 
         private void EditNewsButtonOnClick(object sender, EventArgs e)
         {
-            NewsForm newsForm = new NewsForm();
-            newsForm.ShowDialog();
+            try
+            {
+                NewsForm newsForm = new NewsForm();
+                newsForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void EditLookButtonOnClick(object sender, EventArgs e)
@@ -33,6 +40,12 @@ namespace LunaMarketAdministration.Forms
         {
             ManufacturerForm manufacturerForm = new ManufacturerForm();
             manufacturerForm.ShowDialog();
+        }
+
+        private void EditCategoriesButtonOnClick(object sender, EventArgs e)
+        {
+            ProductCategoryForm productCategoryForm = new ProductCategoryForm();
+            productCategoryForm.ShowDialog();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace LunaMarketAdministration.Forms
         }
 
         private string imagePath = "";
+        private int code = 0;
 
         private void NewsFormOnLoad(object sender, EventArgs e)
         {
@@ -32,15 +33,20 @@ namespace LunaMarketAdministration.Forms
 
         private void SelectImageButtonOnClick(object sender, EventArgs e)
         {
+            code = 1;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Выберите изображение";
             ofd.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.gif; *.tif; ...";
 
             if (ofd.ShowDialog() == DialogResult.Cancel)
+            {
                 return;
-
-            imagePath = ofd.FileName;
-            imagePictureBox.Image = Image.FromFile(imagePath);
+            }
+            else
+            {
+                imagePath = ofd.FileName;
+                imagePictureBox.Image = Image.FromFile(imagePath);
+            }
         }
 
         private void ActionComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
@@ -48,21 +54,24 @@ namespace LunaMarketAdministration.Forms
             switch (actionComboBox.SelectedIndex)
             {
                 case 1:
+                    imagePath = "";
                     editButton.Text = "Изменить";
                     selectNewsButton.Visible = true;
                     break;
                 case 2:
+                    imagePath = "";
                     editButton.Text = "Удалить";
                     selectNewsButton.Visible = true;
                     break;
                 default:
+                    imagePath = "";
                     editButton.Text = "Добавить";
                     selectNewsButton.Visible = false;
                     break;
             }
         }
 
-        private void EditButtonOnClick(object sender, EventArgs e)
+        private async void EditButtonOnClick(object sender, EventArgs e)
         {
             //string patternTitle = @"^[А-ЯЁ][а-яё]+$";
             //if (Regex.IsMatch(titleTextBox.Text, patternTitle) && (titleTextBox.TextLength < 50))
@@ -84,20 +93,61 @@ namespace LunaMarketAdministration.Forms
             //    MessageBox.Show("Бан!");
             //}
 
-            if (actionComboBox.SelectedIndex == 0)
+            News news = await Core.GetNewsAsync(Database.IdNews);
+            switch (actionComboBox.SelectedIndex)
             {
-                Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                case 0:
+                    if (imagePath != "")
+                    {
+                        Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                        code = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы не выбрали картинку!","Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    
+                    break;
+                case 1:
+                    if ((imagePath == "") && (code == 0))
+                    {
+                            Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, news.Photo, descriptionTextBox.Text);
+                    }
+                    else if ((imagePath == "") && (code == 1))
+                    {
+                        MessageBox.Show("Вы не выбрали картинку!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                    }
+                    break;
+                case 2:
+                    Core.DeleteNews(Database.IdNews);
+                    break;
             }
         }
 
         private async void SelectNewsButtonOnClick(object sender, EventArgs e)
         {
-            Database.Type = "News";
-            SelectForm selectForm = new SelectForm();
-            selectForm.ShowDialog();
-            News news = await Core.GetNewsAsync(Database.IdNews);
-            MessageBox.Show(news.Title);
+            try
+            {
+                Database.Type = "News";
+                SelectForm selectForm = new SelectForm();
+                selectForm.ShowDialog();
+                News news = await Core.GetNewsAsync(Database.IdNews);
+                titleTextBox.Text = news.Title;
+                descriptionTextBox.Text = news.Description;
 
+                using (MemoryStream memoryStream = new MemoryStream(news.Photo))
+                {
+                    imagePictureBox.Image = Bitmap.FromStream(memoryStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
