@@ -10,5 +10,6 @@ namespace LunaMarketAdministration.Classes
     {
         public static string Type = "";
         public static int IdNews = 0;
+        public static int IdCategory = 0;
     }
 }
