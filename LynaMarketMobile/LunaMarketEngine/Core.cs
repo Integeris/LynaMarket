@@ -1058,13 +1058,18 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение списка товаров.
         /// </summary>
-        /// <param name="filterProperties">Свойства фильтрации</param>
+        /// <param name="staticProperties">Свойства фильтрации со статическим значением.</param>
+        /// <param name="betweenProperties">Свойства с диапозоном.</param>
+        /// <param name="orProperties">Свойства с логическим оператором ИЛИ.</param>
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
         /// <returns>Список товаров.</returns>
-        public static async Task<List<Product>> GetProductsAsync(Dictionary<string, (MySqlDbType, object)> filterProperties = default, int skip = 0, int take = 20)
+        public static async Task<List<Product>> GetProductsAsync(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default,
+            Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
+            Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
+            int skip = 0, int take = 0)
         {
-            return await GetObjectsListAsync<Product>(filterProperties, skip, take);
+            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, orProperties, skip, take);
         }
 
         /// <summary>
@@ -1209,11 +1214,16 @@ namespace LunaMarketEngine
         /// Получение списка объектов типа.
         /// </summary>
         /// <typeparam name="T">Тип элемента получаемых данных.</typeparam>
-        /// <param name="filteringProperties">Свойства фильтрации.</param>
+        /// <param name="staticProperties">Свойства фильтрации со статическим значением.</param>
+        /// <param name="betweenProperties">Свойства с диапозоном.</param>
+        /// <param name="orProperties">Свойства с логическим оператором ИЛИ.</param>
         /// <param name="skip">Пропустить.</param>
-        /// <param name="take">Взять</param>
+        /// <param name="take">Взять.</param>
         /// <returns>Список объектов типа.</returns>
-        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> filteringProperties = default, int skip = 0, int take = 0)
+        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default, 
+            Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
+            Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
+            int skip = 0, int take = 0)
         {
             //
             // Создать расширинный запрос на получение диапозонов, конкретных свойств (уже есть),
@@ -1231,28 +1241,86 @@ namespace LunaMarketEngine
             List<T> objectList = new List<T>();
 
             // Формирование запроса.
+
             {
-                List<string> properties = new List<string>();
-
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.Append($"SELECT * FROM `{type.Name}`");
+                stringBuilder.AppendLine($"SELECT * FROM `{type.Name}`");
 
-                if (filteringProperties != default)
+                List<List<string>> parametersSqlStrings = new List<List<string>>();
+
+                if (staticProperties != null && staticProperties.Count > 0)
                 {
-                    foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in filteringProperties)
+                    if (staticProperties.Count > 0)
                     {
-                        string name = $"@{item.Key}";
-                        properties.Add($"{item.Key} = {name}");
-
-                        MySqlParameter parameter = new MySqlParameter(name, item.Value.type)
-                        {
-                            Value = item.Value.value
-                        };
-
-                        command.Parameters.Add(parameter);
+                        parametersSqlStrings.Add(new List<string>());
                     }
 
-                    stringBuilder.Append($" WHERE({String.Join(" AND ", properties)})");
+                    foreach (var property in staticProperties)
+                    {
+                        string name = $"@{property.Key}";
+
+                        MySqlParameter mySqlParameter = new MySqlParameter(name, property.Value.type)
+                        {
+                            Value = property.Value.value
+                        };
+
+                        parametersSqlStrings[0].Add($"{property.Key} = {name}");
+                        command.Parameters.Add(mySqlParameter);
+                    }
+                }
+
+                if (betweenProperties != null && betweenProperties.Count > 0)
+                {
+                    parametersSqlStrings.Add(new List<string>());
+
+                    foreach (var property in betweenProperties)
+                    {
+                        string namefirstValue = $"${property.Key}";
+
+                        MySqlParameter mySqlParameter = new MySqlParameter(namefirstValue, property.Value.type)
+                        {
+                            Value = property.Value.fromValue
+                        };
+
+                        command.Parameters.Add(mySqlParameter);
+
+                        string nameSecondValue = $"$${property.Key}";
+
+                        mySqlParameter = new MySqlParameter(nameSecondValue, property.Value.type)
+                        {
+                            Value = property.Value.toValue
+                        };
+
+                        command.Parameters.Add(mySqlParameter);
+                        parametersSqlStrings[1].Add($"{property.Key} BETWEEN {namefirstValue} AND {nameSecondValue}");
+                    }
+                }
+
+                if (orProperties != null && orProperties.Count > 0)
+                {
+                    List<string> innerProperties = new List<string>();
+
+                    foreach (var property in orProperties)
+                    {
+                        string name = $"{new String('!', innerProperties.Count(i => i.Replace("!", "") == property.Key))}{property.Key}";
+
+                        MySqlParameter mySqlParameter = new MySqlParameter(name, property.Value.type)
+                        {
+                            Value = property.Value.value
+                        };
+
+                        command.Parameters.Add(mySqlParameter);
+                        innerProperties.Add($"{property.Key} = {name}");
+                    }
+
+                    parametersSqlStrings.Add(innerProperties);
+                }
+
+                string[] parametersBloks = new string[parametersSqlStrings.Count];
+
+                for (int i = 0; i < parametersSqlStrings.Count; i++)
+                {
+                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings[i])}";
                 }
 
                 stringBuilder.Append($" LIMIT ");
