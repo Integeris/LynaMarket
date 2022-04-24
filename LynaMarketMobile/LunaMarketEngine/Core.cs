@@ -1247,6 +1247,11 @@ namespace LunaMarketEngine
                 stringBuilder.AppendLine($"SELECT * FROM `{type.Name}`");
 
                 List<List<string>> parametersSqlStrings = new List<List<string>>();
+                string[] parametersBloks = new string[parametersSqlStrings.Count];
+
+                //bool staticExist = staticProperties != null && staticProperties.Count > 0;
+                //bool betweenExist = betweenProperties != null && betweenProperties.Count > 0;
+                //bool orExist = staticProperties != null && staticProperties.Count > 0;
 
                 if (staticProperties != null && staticProperties.Count > 0)
                 {
@@ -1267,6 +1272,9 @@ namespace LunaMarketEngine
                         parametersSqlStrings[0].Add($"{property.Key} = {name}");
                         command.Parameters.Add(mySqlParameter);
                     }
+
+                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings[0])})";
+                    parametersBloks[0] = sqlText;
                 }
 
                 if (betweenProperties != null && betweenProperties.Count > 0)
@@ -1294,6 +1302,9 @@ namespace LunaMarketEngine
                         command.Parameters.Add(mySqlParameter);
                         parametersSqlStrings[1].Add($"{property.Key} BETWEEN {namefirstValue} AND {nameSecondValue}");
                     }
+
+                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings.Last())})";
+                    parametersBloks[parametersSqlStrings.Count - 1] = sqlText;
                 }
 
                 if (orProperties != null && orProperties.Count > 0)
@@ -1302,7 +1313,7 @@ namespace LunaMarketEngine
 
                     foreach (var property in orProperties)
                     {
-                        string name = $"{new String('!', innerProperties.Count(i => i.Replace("!", "") == property.Key))}{property.Key}";
+                        string name = $"{new String('!', innerProperties.Count(i => i.Replace("!", "") == property.Key) + 1)}{property.Key}";
 
                         MySqlParameter mySqlParameter = new MySqlParameter(name, property.Value.type)
                         {
@@ -1314,14 +1325,12 @@ namespace LunaMarketEngine
                     }
 
                     parametersSqlStrings.Add(innerProperties);
+
+                    string sqlText = $"({String.Join(" OR ", parametersSqlStrings.Last())})";
+                    parametersBloks[parametersSqlStrings.Count - 1] = sqlText;
                 }
 
-                string[] parametersBloks = new string[parametersSqlStrings.Count];
-
-                for (int i = 0; i < parametersSqlStrings.Count; i++)
-                {
-                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings[i])}";
-                }
+                stringBuilder.Append(String.Join(" AND ", parametersBloks));
 
                 stringBuilder.Append($" LIMIT ");
 
