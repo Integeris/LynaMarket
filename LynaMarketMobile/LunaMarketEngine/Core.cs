@@ -154,7 +154,7 @@ namespace LunaMarketEngine
         /// Получение списка цветов.
         /// </summary>
         /// <returns>Список цветов.</returns>
-        public static async Task<List<Color>> GetColors()
+        public static async Task<List<Color>> GetColorsAsync()
         {
             return await GetObjectsListAsync<Color>();
         }
@@ -164,7 +164,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idColor">Идентификатор цвета.</param>
         /// <returns>Цвет.</returns>
-        public static async Task<Color> GetColor(int idColor)
+        public static async Task<Color> GetColorAsync(int idColor)
         {
             Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
             {

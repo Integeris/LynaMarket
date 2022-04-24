@@ -188,7 +188,7 @@ namespace LunaMarketAdministration.Forms
                 selectForm.ShowDialog();
                 if (Database.IdColor != 0)
                 {
-                    Color color = await Core.GetColor(Database.IdColor);
+                    Color color = await Core.GetColorAsync(Database.IdColor);
                     colorTextBox.Text = color.Title;
                 }
             }

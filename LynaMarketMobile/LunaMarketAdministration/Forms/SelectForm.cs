@@ -110,7 +110,7 @@ namespace LunaMarketAdministration.Forms
                     dataGridView.Columns[1].DataPropertyName = "Title";
                     dataGridView.Columns[1].Name = "TitleColumn";
 
-                    List<Color> colors = await Core.GetColors();
+                    List<Color> colors = await Core.GetColorsAsync();
                     dataGridView.DataSource = colors;
                     break;
                 case "Manufacturer":
