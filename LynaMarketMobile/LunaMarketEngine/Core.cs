@@ -133,7 +133,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("CategoryProduct", properties, newProperties);
+            UpdateObject<ProductCategory>(properties, newProperties);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace LunaMarketEngine
                 ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
             };
 
-            DeleteObject("ProductCategory", properties);
+            DeleteObject<ProductCategory>(properties);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("Color", properties, newProperties);
+            UpdateObject<Color>(properties, newProperties);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace LunaMarketEngine
                 ["IdColor"] = (MySqlDbType.Int32, idColor)
             };
 
-            DeleteObject("Color", properties);
+            DeleteObject<Color>(properties);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("DeliveryType", properties, newProperties);
+            UpdateObject<DeliveryType>(properties, newProperties);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace LunaMarketEngine
                 ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
             };
 
-            DeleteObject("DeliveryType", properties);
+            DeleteObject<DeliveryType>(properties);
         }
 
         /// <summary>
@@ -349,7 +349,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("Material", properties, newProperties);
+            UpdateObject<Material>(properties, newProperties);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace LunaMarketEngine
                 ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
-            DeleteObject("Material", properties);
+            DeleteObject<Material>(properties);
         }
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace LunaMarketEngine
                 ["Description"] = (MySqlDbType.String, description),
             };
 
-            UpdateObject("News", properties, newProperties);
+            UpdateObject<News>(properties, newProperties);
         }
 
         /// <summary>
@@ -447,7 +447,7 @@ namespace LunaMarketEngine
                 ["IdNews"] = (MySqlDbType.Int32, idNews)
             };
 
-            DeleteObject("News", properties);
+            DeleteObject<News>(properties);
         }
 
         /// <summary>
@@ -529,7 +529,7 @@ namespace LunaMarketEngine
                 ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
-            UpdateObject("ProductInfo", properties, newProperties);
+            UpdateObject<ProductInfo>(properties, newProperties);
         }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace LunaMarketEngine
                 ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
             };
 
-            DeleteObject("ProductInfo", properties);
+            DeleteObject<ProductInfo>(properties);
         }
 
         /// <summary>
@@ -640,7 +640,7 @@ namespace LunaMarketEngine
                 ["Phone"] = (MySqlDbType.String, phone)
             };
 
-            UpdateObject("Customer", properties, newProperties);
+            UpdateObject<Customer>(properties, newProperties);
         }
 
         /// <summary>
@@ -654,7 +654,7 @@ namespace LunaMarketEngine
                 ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
             };
 
-            DeleteObject("Customer", properties);
+            DeleteObject<Customer>(properties);
         }
 
         /// <summary>
@@ -712,7 +712,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("Manufacturer", properties, newProperties);
+            UpdateObject<Manufacturer>(properties, newProperties);
         }
 
         /// <summary>
@@ -726,7 +726,7 @@ namespace LunaMarketEngine
                 ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
             };
 
-            DeleteObject("Manufacturer", properties);
+            DeleteObject<Manufacturer>(properties);
         }
 
         /// <summary>
@@ -784,7 +784,7 @@ namespace LunaMarketEngine
                 ["Title"] = (MySqlDbType.String, title)
             };
 
-            UpdateObject("OrderStatus", properties, newProperties);
+            UpdateObject<OrderStatus>(properties, newProperties);
         }
 
         /// <summary>
@@ -798,7 +798,7 @@ namespace LunaMarketEngine
                 ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
             };
 
-            DeleteObject("OrderStatus", properties);
+            DeleteObject<OrderStatus>(properties);
         }
 
         /// <summary>
@@ -872,7 +872,7 @@ namespace LunaMarketEngine
                 ["Adress"] = (MySqlDbType.String, adress)
             };
 
-            UpdateObject("Order", properties, newProperties);
+            UpdateObject<Order>(properties, newProperties);
         }
 
         /// <summary>
@@ -886,7 +886,7 @@ namespace LunaMarketEngine
                 ["IdOrder"] = (MySqlDbType.Int32, idOrder)
             };
 
-            DeleteObject("Order", properties);
+            DeleteObject<Order>(properties);
         }
 
         /// <summary>
@@ -960,7 +960,7 @@ namespace LunaMarketEngine
                 ["Amount"] = (MySqlDbType.Int32, amount)
             };
 
-            UpdateObject("OrderProduct", properties, newProperties);
+            UpdateObject<OrderProduct>(properties, newProperties);
         }
 
         /// <summary>
@@ -976,7 +976,7 @@ namespace LunaMarketEngine
                 ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
-            DeleteObject("OrderProduct", properties);
+            DeleteObject<OrderProduct>(properties);
         }
 
         /// <summary>
@@ -1038,7 +1038,7 @@ namespace LunaMarketEngine
                 ["Image"] = (MySqlDbType.LongBlob, image)
             };
 
-            UpdateObject("ProductPhoto", properties, newProperties);
+            UpdateObject<ProductPhoto>(properties, newProperties);
         }
 
         /// <summary>
@@ -1052,7 +1052,7 @@ namespace LunaMarketEngine
                 ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
             };
 
-            DeleteObject("ProductPhoto", properties);
+            DeleteObject<ProductPhoto>(properties);
         }
 
         /// <summary>
@@ -1154,7 +1154,7 @@ namespace LunaMarketEngine
                 ["Deleted"] = (MySqlDbType.Bit, deleted)
             };
 
-            UpdateObject("Product", properties, newProperties);
+            UpdateObject<Product>(properties, newProperties);
         }
 
         /// <summary>
@@ -1168,7 +1168,7 @@ namespace LunaMarketEngine
                 ["IdProduct"] = (MySqlDbType.Int32, idProduct)
             };
 
-            DeleteObject("Product", properties);
+            DeleteObject<Product>(properties);
         }
 
         /// <summary>
@@ -1215,6 +1215,11 @@ namespace LunaMarketEngine
         /// <returns>Список объектов типа.</returns>
         internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> filteringProperties = default, int skip = 0, int take = 0)
         {
+            //
+            // Создать расширинный запрос на получение диапозонов, конкретных свойств (уже есть),
+            // а также множество ИЛИ.
+            //
+
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
@@ -1415,10 +1420,10 @@ namespace LunaMarketEngine
         /// <summary>
         /// Изменение объекта.
         /// </summary>
-        /// <param name="table">Название для поиска.</param>
+        /// <typeparam name="T">Тип обновляемого объекта.</typeparam>
         /// <param name="searchProperties">Свойства для поиска.</param>
         /// <param name="newProperties">Новые значения свойств.</param>
-        internal static void UpdateObject(string table, Dictionary<string, (MySqlDbType type, object value)> searchProperties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
+        internal static void UpdateObject<T>(Dictionary<string, (MySqlDbType type, object value)> searchProperties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1429,7 +1434,7 @@ namespace LunaMarketEngine
 
             List<string> parameters = new List<string>();
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"UPDATE `{table}` SET");
+            stringBuilder.AppendLine($"UPDATE `{typeof(T).Name}` SET");
 
             foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in newProperties)
             {
@@ -1469,9 +1474,9 @@ namespace LunaMarketEngine
         /// <summary>
         /// Удаление объекта.
         /// </summary>
-        /// <param name="table">Название таблицы.</param>
+        /// <typeparam name="T">Тип удаляемого объекта.</typeparam>
         /// <param name="properties">Свойства для поиска объекта.</param>
-        internal static void DeleteObject(string table, Dictionary<string, (MySqlDbType type, object value)> properties)
+        internal static void DeleteObject<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1495,7 +1500,7 @@ namespace LunaMarketEngine
                 command.Parameters.Add(mySqlParameter);
             }
 
-            command.CommandText = $"DELETE FROM `{table}` WHERE({String.Join(" AND ", parameters)});";
+            command.CommandText = $"DELETE FROM `{typeof(T).Name}` WHERE({String.Join(" AND ", parameters)});";
             SendDataAsync(command);
         }
 

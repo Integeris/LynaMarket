@@ -79,6 +79,7 @@
     <Compile Include="Entities\ProductCategory.cs" />
     <Compile Include="Entities\ProductInfo.cs" />
     <Compile Include="Entities\ProductPhoto.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

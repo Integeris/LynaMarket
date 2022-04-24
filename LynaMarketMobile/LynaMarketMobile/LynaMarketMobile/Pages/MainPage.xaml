@@ -22,7 +22,7 @@
                          Style="{DynamicResource HeaderStackLayout}">
                 <Label Text="Луна"
                        Style="{DynamicResource LogoLabel}"/>
-                <SearchBar/>
+                <SearchBar Margin="10, 0, 10, 10"/>
                 <Frame Style="{StaticResource NavigationFrame}"/>
             </StackLayout>
 
