@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Color = LunaMarketEngine.Entities.Color;
 
 namespace LunaMarketAdministration.Forms
 {
@@ -41,10 +42,6 @@ namespace LunaMarketAdministration.Forms
                     dataGridView.Columns[2].DataPropertyName = "Date";
                     dataGridView.Columns[2].Name = "DateColumn";
 
-                    //dataGridView.Columns.Add(new DataGridViewImageColumn());
-                    //dataGridView.Columns[3].HeaderText = "Изображение";
-                    //dataGridView.Columns[3].DataPropertyName = "Photo";
-                    //dataGridView.Columns[3].Name = "PhotoColumn";
                     DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
                     imageColumn.HeaderText = "Изображение";
                     imageColumn.DataPropertyName = "Photo";
@@ -74,6 +71,62 @@ namespace LunaMarketAdministration.Forms
                     List<ProductCategory> categories = await Core.GetProductCategoriesAsync();
                     dataGridView.DataSource = categories;
                     break;
+                case "Delivery":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdDeliveryType";
+                    dataGridView.Columns[0].Name = "IdDeliveryTypeColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<DeliveryType> delivery = await Core.GetDeliveryTypesAsync();
+                    dataGridView.DataSource = delivery;
+                    break;
+                case "Material":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdMaterial";
+                    dataGridView.Columns[0].Name = "IdMaterialColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<Material> materials = await Core.GetMaterialsAsync();
+                    dataGridView.DataSource = materials;
+                    break;
+                case "Color":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdColor";
+                    dataGridView.Columns[0].Name = "IdColorColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<Color> colors = await Core.GetColors();
+                    dataGridView.DataSource = colors;
+                    break;
+                case "Manufacturer":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdManufacturer";
+                    dataGridView.Columns[0].Name = "IdManufacturerColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<Manufacturer> manufacturers = await Core.GetManufacturersAsync();
+                    dataGridView.DataSource = manufacturers;
+                    break;
                 default:
                     break;
             }
@@ -90,6 +143,26 @@ namespace LunaMarketAdministration.Forms
                     break;
                 case "Category":
                     Database.IdCategory = (int)dataGridView.CurrentRow.Cells[0].Value;
+                    selectButton.DialogResult = DialogResult.OK;
+                    this.Close();
+                    break;
+                case "Delivery":
+                    Database.IdDelivery = (int)dataGridView.CurrentRow.Cells[0].Value;
+                    selectButton.DialogResult = DialogResult.OK;
+                    this.Close();
+                    break;
+                case "Material":
+                    Database.IdMaterial = (int)dataGridView.CurrentRow.Cells[0].Value;
+                    selectButton.DialogResult = DialogResult.OK;
+                    this.Close();
+                    break;
+                case "Color":
+                    Database.IdColor = (int)dataGridView.CurrentRow.Cells[0].Value;
+                    selectButton.DialogResult = DialogResult.OK;
+                    this.Close();
+                    break;
+                case "Manufacturer":
+                    Database.IdManufacturer = (int)dataGridView.CurrentRow.Cells[0].Value;
                     selectButton.DialogResult = DialogResult.OK;
                     this.Close();
                     break;

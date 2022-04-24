@@ -50,12 +50,32 @@ namespace LunaMarketAdministration.Forms
             {
                 case 0:
                     Core.AddProductCategory(categoryTextBox.Text);
+                    categoryTextBox.Text = null;
+                    Database.IdCategory = 0;
                     break;
                 case 1:
-                    Core.UpdateProductCategory(Database.IdCategory, categoryTextBox.Text);
+                    if (Database.IdCategory != 0)
+                    {
+                        Core.UpdateProductCategory(Database.IdCategory, categoryTextBox.Text);
+                        categoryTextBox = null;
+                        Database.IdCategory = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы сударь мудак?");
+                    }
                     break;
                 case 2:
-                    Core.DeleteProductCategory(Database.IdCategory);
+                    if (Database.IdCategory != 0)
+                    {
+                        Core.DeleteProductCategory(Database.IdCategory);
+                        categoryTextBox = null;
+                        Database.IdCategory = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы сударь мудак?");
+                    }
                     break;
             }
         }
@@ -65,8 +85,11 @@ namespace LunaMarketAdministration.Forms
             Database.Type = "Category";
             SelectForm selectForm = new SelectForm();
             selectForm.ShowDialog();
-            ProductCategory category = await Core.GetProductCategoryAsync(Database.IdCategory);
-            categoryTextBox.Text = category.Title;
+            if (Database.IdCategory != 0)
+            {
+                ProductCategory category = await Core.GetProductCategoryAsync(Database.IdCategory);
+                categoryTextBox.Text = category.Title;
+            }
         }
     }
 }

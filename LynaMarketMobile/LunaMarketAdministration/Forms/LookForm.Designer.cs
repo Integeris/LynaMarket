@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.selectMaterialButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.materialTextBox = new System.Windows.Forms.TextBox();
@@ -41,6 +42,7 @@
             this.actionColorButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.actionColorComboBox = new System.Windows.Forms.ComboBox();
+            this.selectColorButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -54,11 +56,12 @@
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(203, 250);
+            this.tabControl.Size = new System.Drawing.Size(203, 299);
             this.tabControl.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.selectMaterialButton);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.materialTextBox);
@@ -67,15 +70,25 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 30);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(195, 216);
+            this.tabPage1.Size = new System.Drawing.Size(195, 265);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Материал";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // selectMaterialButton
+            // 
+            this.selectMaterialButton.Location = new System.Drawing.Point(28, 90);
+            this.selectMaterialButton.Name = "selectMaterialButton";
+            this.selectMaterialButton.Size = new System.Drawing.Size(130, 30);
+            this.selectMaterialButton.TabIndex = 5;
+            this.selectMaterialButton.Text = "Выбрать";
+            this.selectMaterialButton.UseVisualStyleBackColor = true;
+            this.selectMaterialButton.Click += new System.EventHandler(this.SelectMaterialButtonOnClick);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 82);
+            this.label3.Location = new System.Drawing.Point(53, 135);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 21);
             this.label3.TabIndex = 4;
@@ -92,14 +105,14 @@
             // 
             // materialTextBox
             // 
-            this.materialTextBox.Location = new System.Drawing.Point(9, 106);
+            this.materialTextBox.Location = new System.Drawing.Point(13, 159);
             this.materialTextBox.Name = "materialTextBox";
             this.materialTextBox.Size = new System.Drawing.Size(166, 29);
             this.materialTextBox.TabIndex = 2;
             // 
             // actionMaterialButton
             // 
-            this.actionMaterialButton.Location = new System.Drawing.Point(24, 154);
+            this.actionMaterialButton.Location = new System.Drawing.Point(28, 207);
             this.actionMaterialButton.Name = "actionMaterialButton";
             this.actionMaterialButton.Size = new System.Drawing.Size(130, 30);
             this.actionMaterialButton.TabIndex = 1;
@@ -122,6 +135,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.selectColorButton);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.colorTextBox);
             this.tabPage2.Controls.Add(this.actionColorButton);
@@ -130,7 +144,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(195, 216);
+            this.tabPage2.Size = new System.Drawing.Size(195, 265);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Цвет";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -138,7 +152,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 81);
+            this.label4.Location = new System.Drawing.Point(56, 156);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 21);
             this.label4.TabIndex = 7;
@@ -146,18 +160,17 @@
             // 
             // colorTextBox
             // 
-            this.colorTextBox.Location = new System.Drawing.Point(9, 105);
+            this.colorTextBox.Location = new System.Drawing.Point(9, 180);
             this.colorTextBox.Name = "colorTextBox";
             this.colorTextBox.Size = new System.Drawing.Size(166, 29);
             this.colorTextBox.TabIndex = 6;
             // 
             // actionColorButton
             // 
-            this.actionColorButton.Location = new System.Drawing.Point(31, 140);
+            this.actionColorButton.Location = new System.Drawing.Point(31, 215);
             this.actionColorButton.Name = "actionColorButton";
             this.actionColorButton.Size = new System.Drawing.Size(130, 30);
             this.actionColorButton.TabIndex = 5;
-            this.actionColorButton.Text = "button1";
             this.actionColorButton.UseVisualStyleBackColor = true;
             this.actionColorButton.Click += new System.EventHandler(this.ActionColorButtonOnClick);
             // 
@@ -184,11 +197,21 @@
             this.actionColorComboBox.TabIndex = 1;
             this.actionColorComboBox.SelectedIndexChanged += new System.EventHandler(this.ActionColorComboBoxOnSelectedIndexChanged);
             // 
+            // selectColorButton
+            // 
+            this.selectColorButton.Location = new System.Drawing.Point(31, 97);
+            this.selectColorButton.Name = "selectColorButton";
+            this.selectColorButton.Size = new System.Drawing.Size(130, 30);
+            this.selectColorButton.TabIndex = 8;
+            this.selectColorButton.Text = "Выбрать";
+            this.selectColorButton.UseVisualStyleBackColor = true;
+            this.selectColorButton.Click += new System.EventHandler(this.SelectColorButtonOnClick);
+            // 
             // LookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(203, 250);
+            this.ClientSize = new System.Drawing.Size(203, 299);
             this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -220,5 +243,7 @@
         private System.Windows.Forms.Button actionColorButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button selectMaterialButton;
+        private System.Windows.Forms.Button selectColorButton;
     }
 }

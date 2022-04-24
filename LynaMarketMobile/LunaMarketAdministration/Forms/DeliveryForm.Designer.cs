@@ -33,12 +33,13 @@
             this.deliveryTextBox = new System.Windows.Forms.TextBox();
             this.actionDeliveryButton = new System.Windows.Forms.Button();
             this.actionDeliveryComboBox = new System.Windows.Forms.ComboBox();
+            this.selectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(52, 70);
+            this.label3.Location = new System.Drawing.Point(57, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 21);
             this.label3.TabIndex = 9;
@@ -55,18 +56,19 @@
             // 
             // deliveryTextBox
             // 
-            this.deliveryTextBox.Location = new System.Drawing.Point(12, 94);
+            this.deliveryTextBox.Location = new System.Drawing.Point(12, 136);
             this.deliveryTextBox.Name = "deliveryTextBox";
             this.deliveryTextBox.Size = new System.Drawing.Size(166, 29);
             this.deliveryTextBox.TabIndex = 7;
             // 
             // actionDeliveryButton
             // 
-            this.actionDeliveryButton.Location = new System.Drawing.Point(27, 142);
+            this.actionDeliveryButton.Location = new System.Drawing.Point(28, 181);
             this.actionDeliveryButton.Name = "actionDeliveryButton";
             this.actionDeliveryButton.Size = new System.Drawing.Size(130, 30);
             this.actionDeliveryButton.TabIndex = 6;
             this.actionDeliveryButton.UseVisualStyleBackColor = true;
+            this.actionDeliveryButton.Click += new System.EventHandler(this.ActionDeliveryButtonOnClick);
             // 
             // actionDeliveryComboBox
             // 
@@ -82,11 +84,22 @@
             this.actionDeliveryComboBox.TabIndex = 5;
             this.actionDeliveryComboBox.SelectedIndexChanged += new System.EventHandler(this.ActionDeliveryComboBoxOnSelectedIndexChanged);
             // 
+            // selectButton
+            // 
+            this.selectButton.Location = new System.Drawing.Point(28, 79);
+            this.selectButton.Name = "selectButton";
+            this.selectButton.Size = new System.Drawing.Size(130, 30);
+            this.selectButton.TabIndex = 10;
+            this.selectButton.Text = "Выбрать";
+            this.selectButton.UseVisualStyleBackColor = true;
+            this.selectButton.Click += new System.EventHandler(this.SelectButtonOnClick);
+            // 
             // DeliveryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(201, 183);
+            this.ClientSize = new System.Drawing.Size(196, 222);
+            this.Controls.Add(this.selectButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deliveryTextBox);
@@ -109,5 +122,6 @@
         private System.Windows.Forms.TextBox deliveryTextBox;
         private System.Windows.Forms.Button actionDeliveryButton;
         private System.Windows.Forms.ComboBox actionDeliveryComboBox;
+        private System.Windows.Forms.Button selectButton;
     }
 }

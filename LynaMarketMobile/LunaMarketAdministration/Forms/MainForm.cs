@@ -47,5 +47,11 @@ namespace LunaMarketAdministration.Forms
             ProductCategoryForm productCategoryForm = new ProductCategoryForm();
             productCategoryForm.ShowDialog();
         }
+
+        private void EditDeliveryButtonOnClick(object sender, EventArgs e)
+        {
+            DeliveryForm deliveryForm = new DeliveryForm();
+            deliveryForm.ShowDialog();
+        }
     }
 }

@@ -101,17 +101,28 @@ namespace LunaMarketAdministration.Forms
                     {
                         Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
                         code = 0;
+                        titleTextBox.Text = null;
+                        descriptionTextBox.Text = null;
+                        imagePath = null;
+                        imagePictureBox.Image = Properties.Resources.no;
+                        Database.IdNews = 0;
                     }
                     else
                     {
-                        MessageBox.Show("Вы не выбрали картинку!","Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Вы не выбрали картинку!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    
+
                     break;
                 case 1:
-                    if ((imagePath == "") && (code == 0))
+                    if ((imagePath == "") && (code == 0) && (Database.IdNews != 0))
                     {
-                            Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, news.Photo, descriptionTextBox.Text);
+                        Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, news.Photo, descriptionTextBox.Text);
+                        code = 0;
+                        titleTextBox.Text = null;
+                        descriptionTextBox.Text = null;
+                        imagePath = null;
+                        imagePictureBox.Image = Properties.Resources.no;
+                        Database.IdNews = 0;
                     }
                     else if ((imagePath == "") && (code == 1))
                     {
@@ -119,11 +130,37 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                        if (Database.IdNews != 0)
+                        {
+                            Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                            code = 0;
+                            titleTextBox.Text = null;
+                            descriptionTextBox.Text = null;
+                            imagePath = null;
+                            imagePictureBox.Image = Properties.Resources.no;
+                            Database.IdNews = 0;
+                        }
+                        else
+                        {
+                            MessageBox.Show("вы ничего не выбрали");
+                        }
                     }
                     break;
                 case 2:
-                    Core.DeleteNews(Database.IdNews);
+                    if (Database.IdNews != 0)
+                    {
+                        Core.DeleteNews(Database.IdNews);
+                        code = 0;
+                        titleTextBox.Text = null;
+                        descriptionTextBox.Text = null;
+                        imagePath = null;
+                        imagePictureBox.Image = Properties.Resources.no;
+                        Database.IdNews = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("вы ничего не выбрали");
+                    }
                     break;
             }
         }
@@ -132,16 +169,20 @@ namespace LunaMarketAdministration.Forms
         {
             try
             {
+                Database.IdNews = 0;
                 Database.Type = "News";
                 SelectForm selectForm = new SelectForm();
                 selectForm.ShowDialog();
-                News news = await Core.GetNewsAsync(Database.IdNews);
-                titleTextBox.Text = news.Title;
-                descriptionTextBox.Text = news.Description;
-
-                using (MemoryStream memoryStream = new MemoryStream(news.Photo))
+                if (Database.IdNews != 0)
                 {
-                    imagePictureBox.Image = Bitmap.FromStream(memoryStream);
+                    News news = await Core.GetNewsAsync(Database.IdNews);
+                    titleTextBox.Text = news.Title;
+                    descriptionTextBox.Text = news.Description;
+
+                    using (MemoryStream memoryStream = new MemoryStream(news.Photo))
+                    {
+                        imagePictureBox.Image = Bitmap.FromStream(memoryStream);
+                    }
                 }
             }
             catch (Exception ex)

@@ -32,6 +32,7 @@
             this.editLookButton = new System.Windows.Forms.Button();
             this.editManufacturerButton = new System.Windows.Forms.Button();
             this.editCategoriesButton = new System.Windows.Forms.Button();
+            this.editDeliveryButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EditNewsButton
@@ -74,11 +75,22 @@
             this.editCategoriesButton.UseVisualStyleBackColor = true;
             this.editCategoriesButton.Click += new System.EventHandler(this.EditCategoriesButtonOnClick);
             // 
+            // editDeliveryButton
+            // 
+            this.editDeliveryButton.Location = new System.Drawing.Point(30, 166);
+            this.editDeliveryButton.Name = "editDeliveryButton";
+            this.editDeliveryButton.Size = new System.Drawing.Size(115, 51);
+            this.editDeliveryButton.TabIndex = 4;
+            this.editDeliveryButton.Text = "Доставка";
+            this.editDeliveryButton.UseVisualStyleBackColor = true;
+            this.editDeliveryButton.Click += new System.EventHandler(this.EditDeliveryButtonOnClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.editDeliveryButton);
             this.Controls.Add(this.editCategoriesButton);
             this.Controls.Add(this.editManufacturerButton);
             this.Controls.Add(this.editLookButton);
@@ -97,5 +109,6 @@
         private System.Windows.Forms.Button editLookButton;
         private System.Windows.Forms.Button editManufacturerButton;
         private System.Windows.Forms.Button editCategoriesButton;
+        private System.Windows.Forms.Button editDeliveryButton;
     }
 }

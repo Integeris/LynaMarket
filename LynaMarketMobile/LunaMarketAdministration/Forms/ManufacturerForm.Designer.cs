@@ -33,12 +33,13 @@
             this.actionManufacturerButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.actionManufacturerComboBox = new System.Windows.Forms.ComboBox();
+            this.selectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 76);
+            this.label4.Location = new System.Drawing.Point(55, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 21);
             this.label4.TabIndex = 12;
@@ -46,18 +47,19 @@
             // 
             // manufacturerTextBox
             // 
-            this.manufacturerTextBox.Location = new System.Drawing.Point(12, 100);
+            this.manufacturerTextBox.Location = new System.Drawing.Point(12, 147);
             this.manufacturerTextBox.Name = "manufacturerTextBox";
             this.manufacturerTextBox.Size = new System.Drawing.Size(166, 29);
             this.manufacturerTextBox.TabIndex = 11;
             // 
             // actionManufacturerButton
             // 
-            this.actionManufacturerButton.Location = new System.Drawing.Point(34, 139);
+            this.actionManufacturerButton.Location = new System.Drawing.Point(34, 186);
             this.actionManufacturerButton.Name = "actionManufacturerButton";
             this.actionManufacturerButton.Size = new System.Drawing.Size(130, 30);
             this.actionManufacturerButton.TabIndex = 10;
             this.actionManufacturerButton.UseVisualStyleBackColor = true;
+            this.actionManufacturerButton.Click += new System.EventHandler(this.ActionManufacturerButtonOnClick);
             // 
             // label2
             // 
@@ -82,11 +84,22 @@
             this.actionManufacturerComboBox.TabIndex = 8;
             this.actionManufacturerComboBox.SelectedIndexChanged += new System.EventHandler(this.ActionManufacturerComboBoxOnSelectedIndexChanged);
             // 
+            // selectButton
+            // 
+            this.selectButton.Location = new System.Drawing.Point(34, 80);
+            this.selectButton.Name = "selectButton";
+            this.selectButton.Size = new System.Drawing.Size(130, 30);
+            this.selectButton.TabIndex = 13;
+            this.selectButton.Text = "Выбрать";
+            this.selectButton.UseVisualStyleBackColor = true;
+            this.selectButton.Click += new System.EventHandler(this.SelectButtonOnClick);
+            // 
             // ManufacturerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(209, 190);
+            this.ClientSize = new System.Drawing.Size(209, 229);
+            this.Controls.Add(this.selectButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.manufacturerTextBox);
             this.Controls.Add(this.actionManufacturerButton);
@@ -109,5 +122,6 @@
         private System.Windows.Forms.Button actionManufacturerButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox actionManufacturerComboBox;
+        private System.Windows.Forms.Button selectButton;
     }
 }
