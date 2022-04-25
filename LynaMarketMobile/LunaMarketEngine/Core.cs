@@ -1067,9 +1067,9 @@ namespace LunaMarketEngine
         public static async Task<List<Product>> GetProductsAsync(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default,
             Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
             Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
-            int skip = 0, int take = 0)
+            int skip = 0, int take = 0, (List<string> orderByColums, bool isASC) orderByColums = default)
         {
-            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, orProperties, skip, take);
+            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, orProperties, skip, take, orderByColums);
         }
 
         /// <summary>
@@ -1219,17 +1219,13 @@ namespace LunaMarketEngine
         /// <param name="orProperties">Свойства с логическим оператором ИЛИ.</param>
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
+        /// <param name="orderByColums">Колонки сортировки.</param>
         /// <returns>Список объектов типа.</returns>
         internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default, 
             Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
             Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
-            int skip = 0, int take = 0)
+            int skip = 0, int take = 0, (List<string> orderByColums, bool isASC) orderByColums = default)
         {
-            //
-            // Создать расширинный запрос на получение диапозонов, конкретных свойств (уже есть),
-            // а также множество ИЛИ.
-            //
-
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
             MySqlCommand command = new MySqlCommand()
@@ -1248,10 +1244,6 @@ namespace LunaMarketEngine
 
                 List<List<string>> parametersSqlStrings = new List<List<string>>();
                 string[] parametersBloks = new string[parametersSqlStrings.Count];
-
-                //bool staticExist = staticProperties != null && staticProperties.Count > 0;
-                //bool betweenExist = betweenProperties != null && betweenProperties.Count > 0;
-                //bool orExist = staticProperties != null && staticProperties.Count > 0;
 
                 if (staticProperties != null && staticProperties.Count > 0)
                 {
@@ -1344,7 +1336,15 @@ namespace LunaMarketEngine
                     stringBuilder.Append(count);
                 }
 
-                stringBuilder.Append($" OFFSET {skip};");
+                stringBuilder.Append($" OFFSET {skip} ");
+
+                if (orderByColums.orderByColums != null && orderByColums.orderByColums.Count > 0)
+                {
+                    stringBuilder.Append(String.Join(", ", orderByColums));
+                    stringBuilder.Append($" {(orderByColums.isASC ? "ASC" : "DESC")}");
+                }
+
+                stringBuilder.Append(";");
                 command.CommandText = stringBuilder.ToString();
             }
 

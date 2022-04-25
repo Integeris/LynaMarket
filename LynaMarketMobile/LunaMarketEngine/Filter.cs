@@ -114,7 +114,6 @@ namespace LunaMarketEngine
             Dictionary<string, (MySqlConnector.MySqlDbType, object)> properties = new Dictionary<string, (MySqlConnector.MySqlDbType, object)>();
 
 
-            // Смотреть список необходимого в GetObjectsListAsync!!!!
 
             return await Core.GetProductsAsync(properties);
         }
