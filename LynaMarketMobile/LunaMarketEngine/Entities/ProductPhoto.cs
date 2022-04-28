@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using LunaMarketEngine.QueryConstructors.PropertiesTypes;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdProduct"] = (MySqlDbType.Int32, IdProduct)
+                    new StaticProperty("IdProduct", IdProduct)
                 };
 
-                return Core.GetObjectAsync<Product>(properties).Result;
+                return Core.GetObjectAsync<Product>(staticProperties).Result;
             }
         }
     }

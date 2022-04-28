@@ -82,10 +82,21 @@
     <Compile Include="Filter.cs" />
     <Compile Include="MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryConstructors\AddQuery.cs" />
+    <Compile Include="QueryConstructors\BaseQuery.cs" />
+    <Compile Include="QueryConstructors\DeleteQuery.cs" />
+    <Compile Include="QueryConstructors\PropertiesTypes\BaseProperty.cs" />
+    <Compile Include="QueryConstructors\PropertiesTypes\BetweenProperty.cs" />
+    <Compile Include="QueryConstructors\PropertiesTypes\MultiProperty.cs" />
+    <Compile Include="QueryConstructors\PropertiesTypes\StaticProperty.cs" />
+    <Compile Include="QueryConstructors\SelectQuery.cs" />
+    <Compile Include="QueryConstructors\TypeSpecifier.cs" />
+    <Compile Include="QueryConstructors\UpdateQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

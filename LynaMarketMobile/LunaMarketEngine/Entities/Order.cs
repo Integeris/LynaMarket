@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using LunaMarketEngine.QueryConstructors.PropertiesTypes;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,12 +50,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdOrderStatus"] = (MySqlDbType.Int32, IdOrderStatus)
+                    new StaticProperty("IdOrderStatus", IdOrderStatus)
                 };
 
-                return Core.GetObjectAsync<OrderStatus>(properties).Result;
+                return Core.GetObjectAsync<OrderStatus>(staticProperties).Result;
             }
         }
 
@@ -65,12 +66,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdCustomer"] = (MySqlDbType.Int32, IdCustomer)
+                    new StaticProperty("IdCustomer", IdCustomer)
                 };
 
-                return Core.GetObjectAsync<Customer>(properties).Result;
+                return Core.GetObjectAsync<Customer>(staticProperties).Result;
             }
         }
 
@@ -81,12 +82,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdDeliveryType"] = (MySqlDbType.Int32, IdDeliveryType)
+                    new StaticProperty("IdDeliveryType", IdDeliveryType)
                 };
 
-                return Core.GetObjectAsync<DeliveryType>(properties).Result;
+                return Core.GetObjectAsync<DeliveryType>(staticProperties).Result;
             }
         }
 
@@ -97,12 +98,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdOrder"] = (MySqlDbType.Int32, IdOrder)
+                    new StaticProperty("IdOrder", IdOrder)
                 };
 
-                return Core.GetObjectsListAsync<OrderProduct>(properties).Result;
+                return Core.GetObjectsListAsync<OrderProduct>(staticProperties).Result;
             }
         }
     }

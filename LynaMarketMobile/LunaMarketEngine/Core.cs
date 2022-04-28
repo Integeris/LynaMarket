@@ -1,4 +1,6 @@
 ﻿using LunaMarketEngine.Entities;
+using LunaMarketEngine.QueryConstructors;
+using LunaMarketEngine.QueryConstructors.PropertiesTypes;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -94,26 +96,26 @@ namespace LunaMarketEngine
         /// <returns>Категория товаров.</returns>
         public static async Task<ProductCategory> GetProductCategoryAsync(int idProductCategory)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
+                new StaticProperty("IdProductCategory", idProductCategory)
             };
 
-            return await GetObjectAsync<ProductCategory>(properties);
+            return await GetObjectAsync<ProductCategory>(staticProperties);
         }
 
         /// <summary>
         /// Добавление категории товара.
         /// </summary>
         /// <param name="title">Наименование категории товара.</param>
-        public static void AddProductCategory(string title)
+        public static async Task<int> AddProductCategory(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<ProductCategory>(properties);
+            return await AddObjectAsync<ProductCategory>(staticProperties);
         }
 
         /// <summary>
@@ -123,17 +125,17 @@ namespace LunaMarketEngine
         /// <param name="title">Новое название категории товара.</param>
         public static void UpdateProductCategory(int idProductCategory, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
+                new StaticProperty("IdProductCategory", idProductCategory)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<ProductCategory>(properties, newProperties);
+            UpdateObject<ProductCategory>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -142,12 +144,12 @@ namespace LunaMarketEngine
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
         public static void DeleteProductCategory(int idProductCategory)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory)
+                new StaticProperty("IdProductCategory", idProductCategory)
             };
 
-            DeleteObject<ProductCategory>(properties);
+            DeleteObject<ProductCategory>(staticProperties);
         }
 
         /// <summary>
@@ -166,26 +168,26 @@ namespace LunaMarketEngine
         /// <returns>Цвет.</returns>
         public static async Task<Color> GetColorAsync(int idColor)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdColor"] = (MySqlDbType.Int32, idColor)
+                new StaticProperty("IdColor", idColor)
             };
 
-            return await GetObjectAsync<Color>(properties);
+            return await GetObjectAsync<Color>(staticProperties);
         }
 
         /// <summary>
         /// Добавление цвета.
         /// </summary>
         /// <param name="title">Название цвета.</param>
-        public static void AddColor(string title)
+        public static async Task<int> AddColor(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<Color>(properties);
+            return await AddObjectAsync<Color>(staticProperties);
         }
 
         /// <summary>
@@ -195,17 +197,17 @@ namespace LunaMarketEngine
         /// <param name="title">Новое название цвета.</param>
         public static void UpdateColor(int idColor, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdColor"] = (MySqlDbType.Int32, idColor)
+                new StaticProperty("IdColor", idColor)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<Color>(properties, newProperties);
+            UpdateObject<Color>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -214,12 +216,12 @@ namespace LunaMarketEngine
         /// <param name="idColor">Идентификатор цвета.</param>
         public static void DeleteColor(int idColor)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdColor"] = (MySqlDbType.Int32, idColor)
+                new StaticProperty("IdColor", idColor)
             };
 
-            DeleteObject<Color>(properties);
+            DeleteObject<Color>(staticProperties);
         }
 
         /// <summary>
@@ -238,26 +240,26 @@ namespace LunaMarketEngine
         /// <returns>Тип доставки.</returns>
         public static async Task<DeliveryType> GetDeliveryTypeAsync(int idDeliveryType)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
+                new StaticProperty("IdDeliveryType", idDeliveryType)
             };
 
-            return await GetObjectAsync<DeliveryType>(properties);
+            return await GetObjectAsync<DeliveryType>(staticProperties);
         }
 
         /// <summary>
         /// Добавление типа доставки.
         /// </summary>
         /// <param name="title">Название типа доставки.</param>
-        public static void AddDeliveryType(string title)
+        public static Task<int> AddDeliveryType(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<DeliveryType>(properties);
+            return AddObjectAsync<DeliveryType>(staticProperties);
         }
 
         /// <summary>
@@ -267,17 +269,17 @@ namespace LunaMarketEngine
         /// <param name="title">Название типа доставки.</param>
         public static void UpdateDeliveryType(int idDeliveryType, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
+                new StaticProperty("IdDeliveryType", idDeliveryType)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<DeliveryType>(properties, newProperties);
+            UpdateObject<DeliveryType>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -286,12 +288,12 @@ namespace LunaMarketEngine
         /// <param name="idDeliveryType">Идентификатор типа доставки.</param>
         public static void DeleteDeliveryType(int idDeliveryType)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdDeliveryType"] = (MySqlDbType.Int32, idDeliveryType)
+                new StaticProperty("IdDeliveryType", idDeliveryType)
             };
 
-            DeleteObject<DeliveryType>(properties);
+            DeleteObject<DeliveryType>(staticProperties);
         }
 
         /// <summary>
@@ -310,26 +312,26 @@ namespace LunaMarketEngine
         /// <returns>Материал.</returns>
         public static async Task<Material> GetMaterialAsync(int idMaterial)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            return await GetObjectAsync<Material>(properties);
+            return await GetObjectAsync<Material>(staticProperties);
         }
 
         /// <summary>
         /// Добавление материала.
         /// </summary>
         /// <param name="title">Название материала.</param>
-        public static void AddMaterial(string title)
+        public static async Task<int> AddMaterial(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<Material>(properties);
+            return await AddObjectAsync<Material>(staticProperties);
         }
 
         /// <summary>
@@ -339,17 +341,17 @@ namespace LunaMarketEngine
         /// <param name="title">Название материала.</param>
         public static void UpdateMaterial(int idMaterial, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<Material>(properties, newProperties);
+            UpdateObject<Material>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -358,12 +360,12 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         public static void DeleteMaterial(int idMaterial)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            DeleteObject<Material>(properties);
+            DeleteObject<Material>(staticProperties);
         }
 
         /// <summary>
@@ -382,12 +384,12 @@ namespace LunaMarketEngine
         /// <returns>Новость.</returns>
         public static async Task<News> GetNewsAsync(int idNews)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdNews"] = (MySqlDbType.Int32, idNews)
+                new StaticProperty("IdNews", idNews)
             };
 
-            return await GetObjectAsync<News>(properties);
+            return await GetObjectAsync<News>(staticProperties);
         }
 
         /// <summary>
@@ -397,17 +399,17 @@ namespace LunaMarketEngine
         /// <param name="date">Дата публикации новости.</param>
         /// <param name="photo">Изображение новости.</param>
         /// <param name="description">Описание новости.</param>
-        public static void AddNews(string title, DateTime date, byte[] photo, string description)
+        public static async Task<int> AddNews(string title, DateTime date, byte[] photo, string description)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title),
-                ["Date"] = (MySqlDbType.DateTime, date),
-                ["Photo"] = (MySqlDbType.LongBlob, photo),
-                ["Description"] = (MySqlDbType.String, description)
+                new StaticProperty("Title", title),
+                new StaticProperty("Date", date),
+                new StaticProperty("Photo", photo),
+                new StaticProperty("Description", description)
             };
 
-            AddObject<News>(properties);
+            return await AddObjectAsync<News>(staticProperties);
         }
 
         /// <summary>
@@ -420,20 +422,20 @@ namespace LunaMarketEngine
         /// <param name="description">Описание новости.</param>
         public static void UpdateNews(int idNews, string title, DateTime date, byte[] photo, string description)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdNews"] = (MySqlDbType.Int32, idNews)
+                new StaticProperty("IdNews", idNews)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title),
-                ["Date"] = (MySqlDbType.DateTime, date),
-                ["Photo"] = (MySqlDbType.LongBlob, photo),
-                ["Description"] = (MySqlDbType.String, description),
+                new StaticProperty("Title", title),
+                new StaticProperty("Date", date),
+                new StaticProperty("Photo", photo),
+                new StaticProperty("Description", description)
             };
 
-            UpdateObject<News>(properties, newProperties);
+            UpdateObject<News>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -442,21 +444,30 @@ namespace LunaMarketEngine
         /// <param name="idNews">Идентификатор новости.</param>
         public static void DeleteNews(int idNews)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdNews"] = (MySqlDbType.Int32, idNews)
+                new StaticProperty("IdNews", idNews)
             };
 
-            DeleteObject<News>(properties);
+            DeleteObject<News>(staticProperties);
         }
 
         /// <summary>
         /// Получение информации о продуктах.
         /// </summary>
+        /// <param name="staticProperties">Свойства с постоянным значением.</param>
+        /// <param name="betweenProperties">Свойста с диапазоном.</param>
+        /// <param name="multiProperties">Свойста с множеством значений.</param>
+        /// <param name="skip">Пропустить.</param>
+        /// <param name="take">Взять.</param>
+        /// <param name="orderByColums">Колонки для сортировки.</param>
+        /// <param name="isASC">По возрастанию.</param>
         /// <returns>Список информации о продуктах.</returns>
-        public static async Task<List<ProductInfo>> GetProductInfosAsync()
+        public static async Task<List<ProductInfo>> GetProductInfosAsync(List<StaticProperty> staticProperties = default,
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
+            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
         {
-            return await GetObjectsListAsync<ProductInfo>();
+            return await GetObjectsListAsync<ProductInfo>(staticProperties, betweenProperties, multiProperties, skip, take, orderByColums, isASC);
         }
 
         /// <summary>
@@ -468,14 +479,14 @@ namespace LunaMarketEngine
         /// <returns>Информация о товаре.</returns>
         public static async Task<ProductInfo> GetProductInfoAsync(int idProduct, int idColor, int idMaterial)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["IdColor"] = (MySqlDbType.Int32, idColor),
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            return await GetObjectAsync<ProductInfo>(properties);
+            return await GetObjectAsync<ProductInfo>(staticProperties);
         }
 
         /// <summary>
@@ -486,18 +497,18 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static void AddProductInfo(int idProduct, int idColor, int idMaterial, decimal price, int amount)
+        public static Task<int> AddProductInfo(int idProduct, int idColor, int idMaterial, decimal price, int amount)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["IdColor"] = (MySqlDbType.Int32, idColor),
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial),
-                ["Price"] = (MySqlDbType.Decimal, price),
-                ["Amount"] = (MySqlDbType.Int32, amount)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount)
             };
 
-            AddObject<ProductInfo>(properties);
+            return AddObjectAsync<ProductInfo>(staticProperties);
         }
 
         /// <summary>
@@ -513,23 +524,23 @@ namespace LunaMarketEngine
         /// <param name="amount">Количество.</param>
         public static void UpdateProductInfo(int idProduct, int idColor, int idMaterial, int newIdProduct, int newIdColor, int newIdMaterial, decimal price, int amount)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["IdColor"] = (MySqlDbType.Int32, idColor),
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, newIdProduct),
-                ["IdColor"] = (MySqlDbType.Int32, newIdColor),
-                ["IdMaterial"] = (MySqlDbType.Int32, newIdMaterial),
-                ["Price"] = (MySqlDbType.Decimal, price),
-                ["Amount"] = (MySqlDbType.Int32, amount)
+                new StaticProperty("IdProduct", newIdProduct),
+                new StaticProperty("IdColor", newIdColor),
+                new StaticProperty("IdMaterial", newIdMaterial),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount)
             };
 
-            UpdateObject<ProductInfo>(properties, newProperties);
+            UpdateObject<ProductInfo>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -540,14 +551,14 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         public static void DeleteProductInfo(int idProduct, int idColor, int idMaterial)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["IdColor"] = (MySqlDbType.Int32, idColor),
-                ["IdMaterial"] = (MySqlDbType.Int32, idMaterial)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial)
             };
 
-            DeleteObject<ProductInfo>(properties);
+            DeleteObject<ProductInfo>(staticProperties);
         }
 
         /// <summary>
@@ -566,12 +577,12 @@ namespace LunaMarketEngine
         /// <returns>Заказчик.</returns>
         public static async Task<Customer> GetCustomerAsync(int idCustomer)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
+                new StaticProperty("IdCustomer", idCustomer)
             };
 
-            return await GetObjectAsync<Customer>(properties);
+            return await GetObjectAsync<Customer>(staticProperties);
         }
 
         /// <summary>
@@ -581,12 +592,12 @@ namespace LunaMarketEngine
         /// <returns>Заказчик.</returns>
         public static async Task<Customer> GetCustomerAsync(string login)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Login"] = (MySqlDbType.String, login)
+                new StaticProperty("Login", login)
             };
 
-            return await GetObjectAsync<Customer>(properties);
+            return await GetObjectAsync<Customer>(staticProperties);
         }
 
         /// <summary>
@@ -598,19 +609,19 @@ namespace LunaMarketEngine
         /// <param name="secondName">Фамилия.</param>
         /// <param name="email">Электронна почта.</param>
         /// <param name="phone">Номер телефона.</param>
-        public static void AddCustomer(string login, string password, string firstName, string secondName, string email, string phone)
+        public static async Task<int> AddCustomer(string login, string password, string firstName, string secondName, string email, string phone)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Login"] = (MySqlDbType.String, login),
-                ["Password"] = (MySqlDbType.String, password),
-                ["FirstName"] = (MySqlDbType.String, firstName),
-                ["SecondName"] = (MySqlDbType.String, secondName),
-                ["Email"] = (MySqlDbType.String, email),
-                ["Phone"] = (MySqlDbType.String, phone)
+                new StaticProperty("Login", login),
+                new StaticProperty("Password", password),
+                new StaticProperty("FirstName", firstName),
+                new StaticProperty("SecondName", secondName),
+                new StaticProperty("Email", email),
+                new StaticProperty("Phone", phone)
             };
 
-            AddObject<Customer>(properties);
+            return await AddObjectAsync<Customer>(staticProperties);
         }
 
         /// <summary>
@@ -625,22 +636,22 @@ namespace LunaMarketEngine
         /// <param name="phone">Номер телефона.</param>
         public static void UpdateCustomer(int idCustomer, string login, string password, string firstName, string secondName, string email, string phone)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
+                new StaticProperty("IdCustomer", idCustomer)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Login"] = (MySqlDbType.String, login),
-                ["Password"] = (MySqlDbType.String, password),
-                ["FirstName"] = (MySqlDbType.String, firstName),
-                ["SecondName"] = (MySqlDbType.String, secondName),
-                ["Email"] = (MySqlDbType.String, email),
-                ["Phone"] = (MySqlDbType.String, phone)
+                new StaticProperty("Login", login),
+                new StaticProperty("Password", password),
+                new StaticProperty("FirstName", firstName),
+                new StaticProperty("SecondName", secondName),
+                new StaticProperty("Email", email),
+                new StaticProperty("Phone", phone)
             };
 
-            UpdateObject<Customer>(properties, newProperties);
+            UpdateObject<Customer>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -649,12 +660,12 @@ namespace LunaMarketEngine
         /// <param name="idCustomer">Идентификатор заказчика.</param>
         public static void DeleteCustomer(int idCustomer)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer)
+                new StaticProperty("IdCustomer", idCustomer)
             };
 
-            DeleteObject<Customer>(properties);
+            DeleteObject<Customer>(staticProperties);
         }
 
         /// <summary>
@@ -673,26 +684,26 @@ namespace LunaMarketEngine
         /// <returns>Производитель.</returns>
         public static async Task<Manufacturer> GetManufacturerAnsyc(int idManufacturer)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
+                new StaticProperty("IdManufacturer", idManufacturer)
             };
 
-            return await GetObjectAsync<Manufacturer>(properties);
+            return await GetObjectAsync<Manufacturer>(staticProperties);
         }
 
         /// <summary>
         /// Добавление производителя.
         /// </summary>
         /// <param name="title">Название производителя.</param>
-        public static void AddManufacturer(string title)
+        public static async Task<int> AddManufacturer(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<Manufacturer>(properties);
+            return await AddObjectAsync<Manufacturer>(staticProperties);
         }
 
         /// <summary>
@@ -702,17 +713,17 @@ namespace LunaMarketEngine
         /// <param name="title">Название материала.</param>
         public static void UpdateManufacturer(int idManufacturer, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
+                new StaticProperty("IdManufacturer", idManufacturer)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<Manufacturer>(properties, newProperties);
+            UpdateObject<Manufacturer>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -721,12 +732,12 @@ namespace LunaMarketEngine
         /// <param name="idManufacturer">Идентификатор материала.</param>
         public static void DeleteManufacturer(int idManufacturer)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer)
+                new StaticProperty("IdManufacturer", idManufacturer)
             };
 
-            DeleteObject<Manufacturer>(properties);
+            DeleteObject<Manufacturer>(staticProperties);
         }
 
         /// <summary>
@@ -745,26 +756,26 @@ namespace LunaMarketEngine
         /// <returns>Статус заказа.</returns>
         public static async Task<OrderStatus> GetOrderStatusAsync(int idOrderStatus)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
+                new StaticProperty("IdOrderStatus", idOrderStatus)
             };
 
-            return await GetObjectAsync<OrderStatus>(properties);
+            return await GetObjectAsync<OrderStatus>(staticProperties);
         }
 
         /// <summary>
         /// Добавление статуса заказа.
         /// </summary>
         /// <param name="title">Название ствтуса заказа.</param>
-        public static void AddOrderStatus(string title)
+        public static async Task<int> AddOrderStatus(string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            AddObject<OrderProduct>(properties);
+            return await AddObjectAsync<OrderProduct>(staticProperties);
         }
 
         /// <summary>
@@ -774,17 +785,17 @@ namespace LunaMarketEngine
         /// <param name="title">Название статуса заказа.</param>
         public static void UpdateOrderStatus(int idOrderStatus, string title)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
+                new StaticProperty("IdOrderStatus", idOrderStatus)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["Title"] = (MySqlDbType.String, title)
+                new StaticProperty("Title", title)
             };
 
-            UpdateObject<OrderStatus>(properties, newProperties);
+            UpdateObject<OrderStatus>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -793,12 +804,12 @@ namespace LunaMarketEngine
         /// <param name="idOrderStatus">Идентификатор статуса заказа.</param>
         public static void DeleteOrderStatus(int idOrderStatus)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrderStatus"] = (MySqlDbType.Int32, idOrderStatus)
+                new StaticProperty("IdOrderStatus", idOrderStatus)
             };
 
-            DeleteObject<OrderStatus>(properties);
+            DeleteObject<OrderStatus>(staticProperties);
         }
 
         /// <summary>
@@ -817,12 +828,12 @@ namespace LunaMarketEngine
         /// <returns>Заказ.</returns>
         public static async Task<Order> GetOrderAsync(int idOrder)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder)
+                new StaticProperty("IdOrder", idOrder)
             };
 
-            return await GetObjectAsync<Order>(properties);
+            return await GetObjectAsync<Order>(staticProperties);
         }
 
         /// <summary>
@@ -833,18 +844,18 @@ namespace LunaMarketEngine
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
         /// <param name="adress">Адрес доставки.</param>
-        public static void AddOrder(int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
+        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer),
-                ["idOrderStatus"] = (MySqlDbType.Int32, idOrderStatus),
-                ["idDeliveryType"] = (MySqlDbType.Int32, idDeliveryType),
-                ["Date"] = (MySqlDbType.DateTime, date),
-                ["Adress"] = (MySqlDbType.String, adress)
+                new StaticProperty("IdCustomer", idCustomer),
+                new StaticProperty("idOrderStatus", idOrderStatus),
+                new StaticProperty("idDeliveryType", idDeliveryType),
+                new StaticProperty("Date", date),
+                new StaticProperty("Adress", adress)
             };
 
-            AddObject<Order>(properties);
+            return await AddObjectAsync<Order>(staticProperties);
         }
 
         /// <summary>
@@ -858,21 +869,21 @@ namespace LunaMarketEngine
         /// <param name="adress">Адрес доставки.</param>
         public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder)
+                new StaticProperty("IdOrder", idOrder)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["IdCustomer"] = (MySqlDbType.Int32, idCustomer),
-                ["idOrderStatus"] = (MySqlDbType.Int32, idOrderStatus),
-                ["idDeliveryType"] = (MySqlDbType.Int32, idDeliveryType),
-                ["Date"] = (MySqlDbType.DateTime, date),
-                ["Adress"] = (MySqlDbType.String, adress)
+                new StaticProperty("IdCustomer", idCustomer),
+                new StaticProperty("idOrderStatus", idOrderStatus),
+                new StaticProperty("idDeliveryType", idDeliveryType),
+                new StaticProperty("Date", date),
+                new StaticProperty("Adress", adress)
             };
 
-            UpdateObject<Order>(properties, newProperties);
+            UpdateObject<Order>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -881,12 +892,12 @@ namespace LunaMarketEngine
         /// <param name="idOrder">Идентификатор заказа.</param>
         public static void DeleteOrder(int idOrder)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder)
+                new StaticProperty("IdOrder", idOrder)
             };
 
-            DeleteObject<Order>(properties);
+            DeleteObject<Order>(staticProperties);
         }
 
         /// <summary>
@@ -906,13 +917,13 @@ namespace LunaMarketEngine
         /// <returns>Состав заказа.</returns>
         public static async Task<OrderProduct> GetOrderProductAsync(int idOrder, int idProduct)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdOrder", idOrder),
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            return await GetObjectAsync<OrderProduct>(properties);
+            return await GetObjectAsync<OrderProduct>(staticProperties);
         }
 
         /// <summary>
@@ -922,17 +933,17 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static void AddOrderProduct(int idOrder, int idProduct, decimal price, int amount)
+        public static async Task<int> AddOrderProduct(int idOrder, int idProduct, decimal price, int amount)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["Price"] = (MySqlDbType.Decimal, price),
-                ["Amount"] = (MySqlDbType.Int32, amount)
+                new StaticProperty("IdOrder", idOrder),
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount)
             };
 
-            AddObject<OrderProduct>(properties);
+            return await AddObjectAsync<OrderProduct>(staticProperties);
         }
 
         /// <summary>
@@ -946,21 +957,21 @@ namespace LunaMarketEngine
         /// <param name="amount">Количество.</param>
         public static void UpdateOrderProduct(int idOrder, int idProduct, int newIdOrder, int newIdProduct, decimal price, int amount)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdOrder", idOrder),
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, newIdOrder),
-                ["IdProduct"] = (MySqlDbType.Int32, newIdProduct),
-                ["Price"] = (MySqlDbType.Decimal, price),
-                ["Amount"] = (MySqlDbType.Int32, amount)
+                new StaticProperty("IdOrder", newIdOrder),
+                new StaticProperty("IdProduct", newIdProduct),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount)
             };
 
-            UpdateObject<OrderProduct>(properties, newProperties);
+            UpdateObject<OrderProduct>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -970,13 +981,13 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         public static void DeleteOrderProduct(int idOrder, int idProduct)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdOrder"] = (MySqlDbType.Int32, idOrder),
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdOrder", idOrder),
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            DeleteObject<OrderProduct>(properties);
+            DeleteObject<OrderProduct>(staticProperties);
         }
 
         /// <summary>
@@ -993,14 +1004,14 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idProductPhoto">Идентификатор фотографии товара.</param>
         /// <returns>Фотография товара.</returns>
-        public static async Task<ProductPhoto> GetProductPhototAsync(int idProductPhoto)
+        public static async Task<ProductPhoto> GetProductPhotoAsync(int idProductPhoto)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
+                new StaticProperty("IdProductPhoto", idProductPhoto)
             };
 
-            return await GetObjectAsync<ProductPhoto>(properties);
+            return await GetObjectAsync<ProductPhoto>(staticProperties);
         }
 
         /// <summary>
@@ -1008,15 +1019,15 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="image">Изображение.</param>
-        public static void AddProductPhoto(int idProduct, byte[] image)
+        public static async Task<int> AddProductPhoto(int idProduct, byte[] image)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["Image"] = (MySqlDbType.LongBlob, image)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("Image", image)
             };
 
-            AddObject<ProductPhoto>(properties);
+            return await AddObjectAsync<ProductPhoto>(staticProperties);
         }
 
         /// <summary>
@@ -1027,18 +1038,18 @@ namespace LunaMarketEngine
         /// <param name="image">Изображение.</param>
         public static void UpdateProductPhoto(int idProductPhoto, int idProduct, byte[] image)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
+                new StaticProperty("IdProductPhoto", idProductPhoto)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct),
-                ["Image"] = (MySqlDbType.LongBlob, image)
+                new StaticProperty("IdProduct", idProduct),
+                new StaticProperty("Image", image)
             };
 
-            UpdateObject<ProductPhoto>(properties, newProperties);
+            UpdateObject<ProductPhoto>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -1047,12 +1058,12 @@ namespace LunaMarketEngine
         /// <param name="idProductPhoto">Идентификатор фотографии продукта.</param>
         public static void DeleteProductPhoto(int idProductPhoto)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto)
+                new StaticProperty("IdProductPhoto", idProductPhoto)
             };
 
-            DeleteObject<ProductPhoto>(properties);
+            DeleteObject<ProductPhoto>(staticProperties);
         }
 
         /// <summary>
@@ -1064,12 +1075,11 @@ namespace LunaMarketEngine
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
         /// <returns>Список товаров.</returns>
-        public static async Task<List<Product>> GetProductsAsync(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default,
-            Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
-            Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
-            int skip = 0, int take = 0, (List<string> orderByColums, bool isASC) orderByColums = default)
+        public static async Task<List<Product>> GetProductsAsync(List<StaticProperty> staticProperties = default,
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
+            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
         {
-            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, orProperties, skip, take, orderByColums);
+            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, multiProperties, skip, take, orderByColums, isASC);
         }
 
         /// <summary>
@@ -1079,12 +1089,12 @@ namespace LunaMarketEngine
         /// <returns>Товар.</returns>
         public static async Task<Product> GetProductAsync(int idProduct)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            return await GetObjectAsync<Product>(properties);
+            return await GetObjectAsync<Product>(staticProperties);
         }
 
         /// <summary>
@@ -1108,22 +1118,23 @@ namespace LunaMarketEngine
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, int height, int width, int depth, string description, bool deleted = false)
+        public static async Task<int> AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
+            int height, int width, int depth, string description, bool deleted = false)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer),
-                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory),
-                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto),
-                ["Title"] = (MySqlDbType.String, title),
-                ["Height"] = (MySqlDbType.Int32, height),
-                ["Width"] = (MySqlDbType.Int32, width),
-                ["Depth"] = (MySqlDbType.Int32, depth),
-                ["Description"] = (MySqlDbType.String, description),
-                ["Deleted"] = (MySqlDbType.Bit, deleted)
+                new StaticProperty("IdManufacturer", idManufacturer),
+                new StaticProperty("IdProductCategory", idProductCategory),
+                new StaticProperty("IdProductPhoto", idProductPhoto),
+                new StaticProperty("Title", title),
+                new StaticProperty("Height", height),
+                new StaticProperty("Width", width),
+                new StaticProperty("Depth", depth),
+                new StaticProperty("Description", description),
+                new StaticProperty("Deleted", deleted)
             };
 
-            AddObject<Product>(properties);
+            return await AddObjectAsync<Product>(staticProperties);
         }
 
         /// <summary>
@@ -1139,27 +1150,28 @@ namespace LunaMarketEngine
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idProductPhoto, string title, int height, int width, int depth, string description, bool deleted = false)
+        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
+            int height, int width, int depth, string description, bool deleted = false)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            Dictionary<string, (MySqlDbType type, object value)> newProperties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
-                ["IdManufacturer"] = (MySqlDbType.Int32, idManufacturer),
-                ["IdProductCategory"] = (MySqlDbType.Int32, idProductCategory),
-                ["IdProductPhoto"] = (MySqlDbType.Int32, idProductPhoto),
-                ["Title"] = (MySqlDbType.String, title),
-                ["Height"] = (MySqlDbType.Int32, height),
-                ["Width"] = (MySqlDbType.Int32, width),
-                ["Depth"] = (MySqlDbType.Int32, depth),
-                ["Description"] = (MySqlDbType.String, description),
-                ["Deleted"] = (MySqlDbType.Bit, deleted)
+                new StaticProperty("IdManufacturer", idManufacturer),
+                new StaticProperty("IdProductCategory", idProductCategory),
+                new StaticProperty("IdProductPhoto", idProductPhoto),
+                new StaticProperty("Title", title),
+                new StaticProperty("Height", height),
+                new StaticProperty("Width", width),
+                new StaticProperty("Depth", depth),
+                new StaticProperty("Description", description),
+                new StaticProperty("Deleted", deleted)
             };
 
-            UpdateObject<Product>(properties, newProperties);
+            UpdateObject<Product>(setStaticProperties, staticProperties);
         }
 
         /// <summary>
@@ -1168,12 +1180,12 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         public static void DeleteProduct(int idProduct)
         {
-            Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                ["IdProduct"] = (MySqlDbType.Int32, idProduct)
+                new StaticProperty("IdProduct", idProduct)
             };
 
-            DeleteObject<Product>(properties);
+            DeleteObject<Product>(staticProperties);
         }
 
         /// <summary>
@@ -1214,17 +1226,17 @@ namespace LunaMarketEngine
         /// Получение списка объектов типа.
         /// </summary>
         /// <typeparam name="T">Тип элемента получаемых данных.</typeparam>
-        /// <param name="staticProperties">Свойства фильтрации со статическим значением.</param>
-        /// <param name="betweenProperties">Свойства с диапозоном.</param>
-        /// <param name="orProperties">Свойства с логическим оператором ИЛИ.</param>
-        /// <param name="skip">Пропустить.</param>
+        /// <param name="staticProperties">Постоянные свойства объекта.</param>
+        /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
+        /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        /// <param name="skip">Пропутить.</param>
         /// <param name="take">Взять.</param>
-        /// <param name="orderByColums">Колонки сортировки.</param>
-        /// <returns>Список объектов типа.</returns>
-        internal static async Task<List<T>> GetObjectsListAsync<T>(Dictionary<string, (MySqlDbType type, object value)> staticProperties = default, 
-            Dictionary<string, (MySqlDbType type, object fromValue, object toValue)> betweenProperties = default,
-            Dictionary<string, (MySqlDbType type, object value)> orProperties = default,
-            int skip = 0, int take = 0, (List<string> orderByColums, bool isASC) orderByColums = default)
+        /// <param name="orderByColums">Колонки для сортировки.</param>
+        /// <param name="isASC">Сортировка по возрастанию?</param>
+        /// <returns>Список объектов указанного типа.</returns>
+        internal static async Task<List<T>> GetObjectsListAsync<T>(List<StaticProperty> staticProperties = default, 
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
+            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1233,120 +1245,18 @@ namespace LunaMarketEngine
                 Connection = mySqlConnection
             };
 
-            Type type = typeof(T);
             List<T> objectList = new List<T>();
+            Type type = typeof(T);
 
-            // Формирование запроса.
+            SelectQuery selectQuery = new SelectQuery(type.Name, staticProperties, betweenProperties, multiProperties, orderByColums,
+                take, skip, isASC);
 
+            foreach (var item in selectQuery.Parameters)
             {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine($"SELECT * FROM `{type.Name}`");
-
-                List<List<string>> parametersSqlStrings = new List<List<string>>();
-                string[] parametersBloks = new string[parametersSqlStrings.Count];
-
-                if (staticProperties != null && staticProperties.Count > 0)
-                {
-                    if (staticProperties.Count > 0)
-                    {
-                        parametersSqlStrings.Add(new List<string>());
-                    }
-
-                    foreach (var property in staticProperties)
-                    {
-                        string name = $"@{property.Key}";
-
-                        MySqlParameter mySqlParameter = new MySqlParameter(name, property.Value.type)
-                        {
-                            Value = property.Value.value
-                        };
-
-                        parametersSqlStrings[0].Add($"{property.Key} = {name}");
-                        command.Parameters.Add(mySqlParameter);
-                    }
-
-                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings[0])})";
-                    parametersBloks[0] = sqlText;
-                }
-
-                if (betweenProperties != null && betweenProperties.Count > 0)
-                {
-                    parametersSqlStrings.Add(new List<string>());
-
-                    foreach (var property in betweenProperties)
-                    {
-                        string namefirstValue = $"${property.Key}";
-
-                        MySqlParameter mySqlParameter = new MySqlParameter(namefirstValue, property.Value.type)
-                        {
-                            Value = property.Value.fromValue
-                        };
-
-                        command.Parameters.Add(mySqlParameter);
-
-                        string nameSecondValue = $"$${property.Key}";
-
-                        mySqlParameter = new MySqlParameter(nameSecondValue, property.Value.type)
-                        {
-                            Value = property.Value.toValue
-                        };
-
-                        command.Parameters.Add(mySqlParameter);
-                        parametersSqlStrings[1].Add($"{property.Key} BETWEEN {namefirstValue} AND {nameSecondValue}");
-                    }
-
-                    string sqlText = $"({String.Join(" AND ", parametersSqlStrings.Last())})";
-                    parametersBloks[parametersSqlStrings.Count - 1] = sqlText;
-                }
-
-                if (orProperties != null && orProperties.Count > 0)
-                {
-                    List<string> innerProperties = new List<string>();
-
-                    foreach (var property in orProperties)
-                    {
-                        string name = $"{new String('!', innerProperties.Count(i => i.Replace("!", "") == property.Key) + 1)}{property.Key}";
-
-                        MySqlParameter mySqlParameter = new MySqlParameter(name, property.Value.type)
-                        {
-                            Value = property.Value.value
-                        };
-
-                        command.Parameters.Add(mySqlParameter);
-                        innerProperties.Add($"{property.Key} = {name}");
-                    }
-
-                    parametersSqlStrings.Add(innerProperties);
-
-                    string sqlText = $"({String.Join(" OR ", parametersSqlStrings.Last())})";
-                    parametersBloks[parametersSqlStrings.Count - 1] = sqlText;
-                }
-
-                stringBuilder.Append(String.Join(" AND ", parametersBloks));
-
-                stringBuilder.Append($" LIMIT ");
-
-                if (take > 0)
-                {
-                    stringBuilder.Append(take);
-                }
-                else
-                {
-                    long count = await GetObjectsCount<T>();
-                    stringBuilder.Append(count);
-                }
-
-                stringBuilder.Append($" OFFSET {skip} ");
-
-                if (orderByColums.orderByColums != null && orderByColums.orderByColums.Count > 0)
-                {
-                    stringBuilder.Append(String.Join(", ", orderByColums));
-                    stringBuilder.Append($" {(orderByColums.isASC ? "ASC" : "DESC")}");
-                }
-
-                stringBuilder.Append(";");
-                command.CommandText = stringBuilder.ToString();
+                command.Parameters.Add(item);
             }
+
+            command.CommandText = selectQuery.ToString();
 
             OpenConnection(command.Connection);
             MySqlDataReader reader = await command.ExecuteReaderAsync();
@@ -1354,7 +1264,7 @@ namespace LunaMarketEngine
             while (reader.Read())
             {
                 // Создание объекта нужного типа.
-                T obj = (T)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+                T obj = (T)typeof(T).GetConstructor(new Type[] { }).Invoke(new object[] { });
 
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
@@ -1372,12 +1282,13 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// <summary>
         /// Получение объекта по идентификатору.
         /// </summary>
         /// <typeparam name="T">Тип получаемого объекта.</typeparam>
-        /// <param name="properties">Свойства для поиска объекта.</param>
+        /// <param name="staticProperties"></param>
         /// <returns>Полученный объект.</returns>
-        internal static async Task<T> GetObjectAsync<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
+        internal static async Task<T> GetObjectAsync<T>(List<StaticProperty> staticProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1390,23 +1301,14 @@ namespace LunaMarketEngine
             Type type = typeof(T);
             T obj = default;
 
-            List<string> parameters = new List<string>();
+            SelectQuery selectQuery = new SelectQuery(type.Name, staticProperties);
 
-            // Формирование запроса.
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
+            foreach (var item in selectQuery.Parameters)
             {
-                string name = $"@{item.Key}";
-                parameters.Add($"{item.Key} = {name}");
-
-                MySqlParameter parameter = new MySqlParameter(name, item.Value.type)
-                {
-                    Value = item.Value.value
-                };
-
-                command.Parameters.Add(parameter);
+                command.Parameters.Add(item);
             }
 
-            command.CommandText = $"SELECT * FROM `{type.Name}` WHERE {String.Join(" AND ", parameters)};";
+            command.CommandText = selectQuery.ToString();
 
             OpenConnection(command.Connection);
             MySqlDataReader reader = await command.ExecuteReaderAsync();
@@ -1433,7 +1335,6 @@ namespace LunaMarketEngine
             catch (Exception) { }
 
             CloseConnection(command.Connection);
-
             return obj;
         }
 
@@ -1464,8 +1365,8 @@ namespace LunaMarketEngine
         /// Добавление объекта.
         /// </summary>
         /// <typeparam name="T">Тип объекта.</typeparam>
-        /// <param name="properties">Значения свойств.</param>
-        internal static void AddObject<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
+        /// <param name="staticProperties">Свойства объекта.</param>
+        internal static async Task<int> AddObjectAsync<T>(List<StaticProperty> staticProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1474,33 +1375,32 @@ namespace LunaMarketEngine
                 Connection = mySqlConnection
             };
 
-            List<string> parametersNames = new List<string>();
+            AddQuery addQuery = new AddQuery(typeof(T).Name, staticProperties);
 
-            // Добавление параметров.
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
+            foreach (var item in addQuery.Parameters)
             {
-                string name = $"@{item.Key}";
-                parametersNames.Add(name);
-
-                MySqlParameter parameter = new MySqlParameter(name, item.Value.type)
-                {
-                    Value = item.Value.value
-                };
-
-                command.Parameters.Add(parameter);
+                command.Parameters.Add(item);
             }
 
-            command.CommandText = $"INSERT INTO `{typeof(T).Name}` ({String.Join(", ", properties.Keys)}) VALUES ({String.Join(", ", parametersNames)});";
-            SendDataAsync(command);
+            command.CommandText = addQuery.ToString();
+
+            OpenConnection(mySqlConnection);
+            int id = (int)await command.ExecuteScalarAsync();
+            CloseConnection(mySqlConnection);
+
+            return id;
         }
 
         /// <summary>
         /// Изменение объекта.
         /// </summary>
-        /// <typeparam name="T">Тип обновляемого объекта.</typeparam>
-        /// <param name="searchProperties">Свойства для поиска.</param>
-        /// <param name="newProperties">Новые значения свойств.</param>
-        internal static void UpdateObject<T>(Dictionary<string, (MySqlDbType type, object value)> searchProperties, Dictionary<string, (MySqlDbType type, object value)> newProperties)
+        /// <typeparam name="T">тип объекта.</typeparam>
+        /// <param name="setStaticProperties">Новые свойства объекта.</param>
+        /// <param name="staticProperties">Постоянные свойства объекта.</param>
+        /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
+        /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        internal static void UpdateObject<T>(List<StaticProperty> setStaticProperties, List<StaticProperty> staticProperties = default, 
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1509,42 +1409,14 @@ namespace LunaMarketEngine
                 Connection = mySqlConnection
             };
 
-            List<string> parameters = new List<string>();
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"UPDATE `{typeof(T).Name}` SET");
+            UpdateQuery updateQuery = new UpdateQuery(typeof(T).Name, setStaticProperties, staticProperties, betweenProperties, multiProperties);
 
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in newProperties)
+            foreach (var item in updateQuery.Parameters)
             {
-                string name = $"@new{item.Key}";
-                parameters.Add($"{item.Key} = {name}");
-
-                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
-                {
-                    Value = item.Value.value
-                };
-
-                command.Parameters.Add(mySqlParameter);
+                command.Parameters.Add(item);
             }
 
-            stringBuilder.AppendLine(String.Join(", ", parameters));
-            parameters.Clear();
-
-            foreach (KeyValuePair<string, (MySqlDbType type, object value)> item in searchProperties)
-            {
-                string name = $"@search{item.Key}";
-                parameters.Add($"{item.Key} = {name}");
-
-                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
-                {
-                    Value = item.Value.value
-                };
-
-                command.Parameters.Add(mySqlParameter);
-            }
-
-            stringBuilder.AppendLine($"WHERE ({String.Join(" AND ", parameters)});");
-
-            command.CommandText = stringBuilder.ToString();
+            command.CommandText = updateQuery.ToString();
             SendDataAsync(command);
         }
 
@@ -1552,8 +1424,11 @@ namespace LunaMarketEngine
         /// Удаление объекта.
         /// </summary>
         /// <typeparam name="T">Тип удаляемого объекта.</typeparam>
-        /// <param name="properties">Свойства для поиска объекта.</param>
-        internal static void DeleteObject<T>(Dictionary<string, (MySqlDbType type, object value)> properties)
+        /// <param name="staticProperties">Постоянные свойства объекта.</param>
+        /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
+        /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        internal static void DeleteObject<T>(List<StaticProperty> staticProperties = default,
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1562,22 +1437,14 @@ namespace LunaMarketEngine
                 Connection = mySqlConnection
             };
 
-            List<string> parameters = new List<string>();
+            DeleteQuery deleteQuery = new DeleteQuery(typeof(T).Name, staticProperties, betweenProperties, multiProperties);
 
-            foreach(KeyValuePair<string, (MySqlDbType type, object value)> item in properties)
+            foreach (var item in deleteQuery.Parameters)
             {
-                string name = $"@{item.Key}";
-                parameters.Add($"{item.Key} = {name}");
-
-                MySqlParameter mySqlParameter = new MySqlParameter(name, item.Value.type)
-                {
-                    Value = item.Value.value
-                };
-
-                command.Parameters.Add(mySqlParameter);
+                command.Parameters.Add(item);
             }
 
-            command.CommandText = $"DELETE FROM `{typeof(T).Name}` WHERE({String.Join(" AND ", parameters)});";
+            command.CommandText= deleteQuery.ToString();
             SendDataAsync(command);
         }
 

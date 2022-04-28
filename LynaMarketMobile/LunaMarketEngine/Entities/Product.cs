@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using LunaMarketEngine.QueryConstructors.PropertiesTypes;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,12 +70,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdProductCategory"] = (MySqlDbType.Int32, IdProductCategory)
+                    new StaticProperty("IdProductCategory", IdProductCategory)
                 };
 
-                return Core.GetObjectAsync<ProductCategory>(properties).Result;
+                return Core.GetObjectAsync<ProductCategory>(staticProperties).Result;
             }
         }
 
@@ -85,12 +86,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdProductPhoto"] = (MySqlDbType.Int32, IdProductPhoto)
+                    new StaticProperty("IdProductPhoto", IdProductPhoto)
                 };
 
-                return Core.GetObjectsListAsync<ProductPhoto>(properties).Result;
+                return Core.GetObjectsListAsync<ProductPhoto>(staticProperties).Result;
             }
         }
 
@@ -101,12 +102,12 @@ namespace LunaMarketEngine.Entities
         {
             get
             {
-                Dictionary<string, (MySqlDbType type, object value)> properties = new Dictionary<string, (MySqlDbType type, object value)>()
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    ["IdManufacturer"] = (MySqlDbType.Int32, IdManufacturer)
+                    new StaticProperty("IdManufacturer", IdManufacturer)
                 };
 
-                return Core.GetObjectAsync<Manufacturer>(properties).Result;
+                return Core.GetObjectAsync<Manufacturer>(staticProperties).Result;
             }
         }
     }
