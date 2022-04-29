@@ -36,7 +36,7 @@ namespace LunaMarketAdministration.Forms
             code = 1;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Выберите изображение";
-            ofd.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.gif; *.tif; ...";
+            ofd.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.tif; ...";
 
             if (ofd.ShowDialog() == DialogResult.Cancel)
             {
@@ -99,7 +99,7 @@ namespace LunaMarketAdministration.Forms
                 case 0:
                     if (imagePath != "")
                     {
-                        Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
+                        await Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
                         code = 0;
                         titleTextBox.Text = null;
                         descriptionTextBox.Text = null;

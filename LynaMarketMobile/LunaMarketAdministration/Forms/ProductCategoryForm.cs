@@ -44,12 +44,12 @@ namespace LunaMarketAdministration.Forms
             actionCategoryComboBox.SelectedIndex = 0;
         }
 
-        private void ActionCategoryButtonOnClick(object sender, EventArgs e)
+        private async void ActionCategoryButtonOnClick(object sender, EventArgs e)
         {
             switch (actionCategoryComboBox.SelectedIndex)
             {
                 case 0:
-                    Core.AddProductCategory(categoryTextBox.Text);
+                    await Core.AddProductCategory(categoryTextBox.Text);
                     categoryTextBox.Text = null;
                     Database.IdCategory = 0;
                     break;

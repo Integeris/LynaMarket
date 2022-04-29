@@ -64,12 +64,12 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private void ActionManufacturerButtonOnClick(object sender, EventArgs e)
+        private async void ActionManufacturerButtonOnClick(object sender, EventArgs e)
         {
             switch (actionManufacturerComboBox.SelectedIndex)
             {
                 case 0:
-                    Core.AddManufacturer(manufacturerTextBox.Text);
+                    await Core.AddManufacturer(manufacturerTextBox.Text);
                     manufacturerTextBox = null;
                     Database.IdManufacturer = 0;
                     break;

@@ -64,21 +64,15 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private void ActionDeliveryButtonOnClick(object sender, EventArgs e)
+        private async void ActionDeliveryButtonOnClick(object sender, EventArgs e)
         {
             switch (actionDeliveryComboBox.SelectedIndex)
             {
                 case 0:
-                    if (Database.IdDelivery != 0)
-                    {
-                        Core.AddProductCategory(deliveryTextBox.Text);
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Вы ничего не выбрали");
-                    }
+                    await Core.AddProductCategory(deliveryTextBox.Text);
+                    deliveryTextBox.Text = null;
+                    Database.IdDelivery = 0;
+                    MessageBox.Show("Вы ничего не выбрали");
                     break;
                 case 1:
                     if (Database.IdDelivery != 0)

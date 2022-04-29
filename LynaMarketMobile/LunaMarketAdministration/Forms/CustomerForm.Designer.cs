@@ -74,11 +74,12 @@
             // 
             // actionCustomerButton
             // 
-            this.actionCustomerButton.Location = new System.Drawing.Point(69, 492);
+            this.actionCustomerButton.Location = new System.Drawing.Point(69, 485);
             this.actionCustomerButton.Name = "actionCustomerButton";
-            this.actionCustomerButton.Size = new System.Drawing.Size(130, 30);
+            this.actionCustomerButton.Size = new System.Drawing.Size(162, 30);
             this.actionCustomerButton.TabIndex = 11;
             this.actionCustomerButton.UseVisualStyleBackColor = true;
+            this.actionCustomerButton.Click += new System.EventHandler(this.ActionCustomerButtonOnClick);
             // 
             // actionDeliveryComboBox
             // 
@@ -182,6 +183,7 @@
             this.selectCustomerButton.TabIndex = 25;
             this.selectCustomerButton.Text = "Выберите заказчика ";
             this.selectCustomerButton.UseVisualStyleBackColor = true;
+            this.selectCustomerButton.Click += new System.EventHandler(this.SelectCustomerButtonOnClick);
             // 
             // CustomerForm
             // 

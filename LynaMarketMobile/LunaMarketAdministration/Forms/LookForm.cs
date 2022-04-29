@@ -66,7 +66,7 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private void ActionMaterialButtonOnClick(object sender, EventArgs e)
+        private async void ActionMaterialButtonOnClick(object sender, EventArgs e)
         {
             //string pattern = @"^[А-ЯЁ][а-яё(?:\.| )]+[а-яё(?:\.|)]+$";
 
@@ -82,7 +82,7 @@ namespace LunaMarketAdministration.Forms
             switch (actionMaterialComboBox.SelectedIndex)
             {
                 case 0:
-                    Core.AddMaterial(materialTextBox.Text);
+                    await Core.AddMaterial(materialTextBox.Text);
                     materialTextBox.Text = "";
                     Database.IdMaterial = 0;
                     break;
@@ -113,7 +113,7 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private void ActionColorButtonOnClick(object sender, EventArgs e)
+        private async void ActionColorButtonOnClick(object sender, EventArgs e)
         {
             //string pattern = @"^[А-ЯЁ][а-яё (?:\-|)]+$";
             //if (Regex.IsMatch(colorTextBox.Text, pattern) && (colorTextBox.TextLength < 50))
@@ -128,7 +128,7 @@ namespace LunaMarketAdministration.Forms
             switch (actionColorComboBox.SelectedIndex)
             {
                 case 0:
-                    Core.AddColor(colorTextBox.Text);
+                    await Core.AddColor(colorTextBox.Text);
                     colorTextBox.Text = "";
                     Database.IdMaterial = 0;
                     break;
