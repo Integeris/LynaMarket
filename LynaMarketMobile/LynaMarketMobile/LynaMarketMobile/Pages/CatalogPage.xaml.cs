@@ -29,7 +29,8 @@ namespace LynaMarketMobile.Pages
 
         private void ListViewButtonOnClicked(object sender, EventArgs e)
         {
-            NavigationManager.PushPage(new ProductsPage());
+            ProductCategory productCategory = (ProductCategory)((Button)sender).Parent.BindingContext;
+            NavigationManager.PushPage(new ProductsPage(productCategory));
         }
     }
 }

@@ -1385,10 +1385,10 @@ namespace LunaMarketEngine
             command.CommandText = addQuery.ToString();
 
             OpenConnection(mySqlConnection);
-            int id = (int)await command.ExecuteScalarAsync();
+            object id = await command.ExecuteScalarAsync();
             CloseConnection(mySqlConnection);
 
-            return id;
+            return (int)id;
         }
 
         /// <summary>

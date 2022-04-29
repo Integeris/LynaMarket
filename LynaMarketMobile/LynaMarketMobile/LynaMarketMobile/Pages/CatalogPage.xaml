@@ -8,7 +8,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Button Text="{Binding Title}"
-                                    Margin="-6"
+                                Margin="-6"
                                 Clicked="ListViewButtonOnClicked"/>
                     </ViewCell>
                 </DataTemplate>

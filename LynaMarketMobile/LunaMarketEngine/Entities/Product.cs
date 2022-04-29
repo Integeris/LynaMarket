@@ -82,7 +82,7 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Фотографии продукта.
         /// </summary>
-        public List<ProductPhoto> OrderProducts
+        public List<ProductPhoto> ProductPhotos
         {
             get
             {
@@ -92,6 +92,22 @@ namespace LunaMarketEngine.Entities
                 };
 
                 return Core.GetObjectsListAsync<ProductPhoto>(staticProperties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Получение заказов с товаром.
+        /// </summary>
+        public List<OrderProduct> OrdersProduct
+        {
+            get
+            {
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
+                {
+                    new StaticProperty("IdProduct", IdProduct)
+                };
+
+                return Core.GetObjectsListAsync<OrderProduct>(staticProperties).Result;
             }
         }
 

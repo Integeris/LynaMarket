@@ -35,7 +35,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
 
                 for (int i = 0; i < values.Count; i++)
                 {
-                    valuesNames.Add($"${i}{columnName}");
+                    valuesNames.Add($"@{i}{columnName}");
                 }
             }
         }
