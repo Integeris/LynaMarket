@@ -83,15 +83,7 @@ namespace LunaMarketEngine.QueryConstructors
         public bool IsASC
         {
             get => isASC;
-            set
-            {
-                if (sortColumns == null)
-                {
-                    throw new Exception("Отсутсвуют столбцы для сортировки.");
-                }
-
-                isASC = value;
-            }
+            set => isASC = value;
         }
 
         /// <summary>
@@ -222,7 +214,7 @@ namespace LunaMarketEngine.QueryConstructors
 
             if (staticProperties != null || betweenProperties != null || multiProperties != null)
             {
-                stringBuilder.AppendLine($"WHERE ");
+                stringBuilder.AppendLine($" WHERE ");
                 List<String> stringBlocks = new List<string>();
 
                 if (staticProperties != null)
@@ -254,14 +246,12 @@ namespace LunaMarketEngine.QueryConstructors
 
             if (sortColumns != null)
             {
-                stringBuilder.AppendLine("ORDER BY ");
+                stringBuilder.AppendLine(" ORDER BY ");
                 stringBuilder.Append(String.Join(", ", sortColumns));
-                stringBuilder.Append($" {(isASC ? "ASC" : "DESC")}");
+                stringBuilder.Append($"{(isASC ? "ASC" : "DESC")}");
             }
 
-            stringBuilder.AppendLine($"LIMIT {take} OFFSET {skip}");
-
-            stringBuilder.Append(";");
+            stringBuilder.AppendLine($" LIMIT {take} OFFSET {skip};");
             return stringBuilder.ToString();
         }
     }

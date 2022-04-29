@@ -24,9 +24,18 @@
                         </Style>
                     </ResourceDictionary>
                 </StackLayout.Resources>
-                <Button Text="Сортировка"/>
-                <Button Text="Фильтр"/>
+                
+                <Button x:Name="SortButton" 
+                        Text="Сортировка"
+                        Clicked="SortButtonOnClicked"/>
+                <Button x:Name="FilterButton" 
+                        Text="Фильтр"
+                        Clicked="FilterButtonOnClicked"/>
             </StackLayout>
+
+            <ListView x:Name="ProductsListView">
+                
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

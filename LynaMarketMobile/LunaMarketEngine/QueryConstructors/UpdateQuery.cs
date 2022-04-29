@@ -151,8 +151,8 @@ namespace LunaMarketEngine.QueryConstructors
             StringBuilder stringBuilder = new StringBuilder();
             List<string> setProperties = setStaticProperties.Select(property => property.ToString()).ToList();
 
-            stringBuilder.AppendLine($"UPTATE `{tableName}`");
-            stringBuilder.AppendLine($"SET = {String.Join(", ", setProperties)}");
+            stringBuilder.AppendLine($"UPDATE `{tableName}`");
+            stringBuilder.AppendLine($"SET {String.Join(", ", setProperties)}");
 
             if (staticProperties != null || betweenProperties != null || multiProperties != null)
             {
