@@ -41,16 +41,22 @@ namespace LunaMarketEngine.QueryConstructors
             List<string> valuesNames = staticProperties.Select(property => property.ValueName).ToList();
 
             stringBuilder.AppendLine($"INSERT INTO `{tableName}` (");
+
+            if (columnsNames.Count > 0)
+            {
+                stringBuilder.Append(String.Join(", ", columnsNames));
+            }
+
             stringBuilder.Append(")");
             stringBuilder.AppendLine($"VALUES(");
+
+            if (valuesNames.Count > 0)
+            {
+                stringBuilder.Append(String.Join(", ", valuesNames));
+            }
+
             stringBuilder.Append(");");
             stringBuilder.AppendLine("SELECT @@IDENTITY;");
-
-            if (staticProperties != null)
-            {
-                stringBuilder.Insert(1, String.Join(", ", columnsNames));
-                stringBuilder.Insert(4, String.Join(", ", valuesNames));
-            }
 
             return stringBuilder.ToString();
         }

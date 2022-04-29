@@ -14,6 +14,7 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductsPage : ContentPage
     {
+        //private List<Prod>
         private Filter filter = new Filter()
         {
             Skip = 0,

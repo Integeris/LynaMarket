@@ -69,10 +69,16 @@ namespace LunaMarketAdministration.Forms
             switch (actionDeliveryComboBox.SelectedIndex)
             {
                 case 0:
-                    Core.AddProductCategory(deliveryTextBox.Text);
-                    deliveryTextBox.Text = null;
-                    Database.IdDelivery = 0;
-                    MessageBox.Show("Вы ничего не выбрали");
+                    if (Database.IdDelivery != 0)
+                    {
+                        Core.AddProductCategory(deliveryTextBox.Text);
+                        deliveryTextBox.Text = null;
+                        Database.IdDelivery = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы ничего не выбрали");
+                    }
                     break;
                 case 1:
                     if (Database.IdDelivery != 0)

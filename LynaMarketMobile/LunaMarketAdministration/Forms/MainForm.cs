@@ -53,17 +53,5 @@ namespace LunaMarketAdministration.Forms
             DeliveryForm deliveryForm = new DeliveryForm();
             deliveryForm.ShowDialog();
         }
-
-        private void EditUsersButtonOnClick(object sender, EventArgs e)
-        {
-            CustomerForm customerForm = new CustomerForm();
-            customerForm.ShowDialog();
-        }
-
-        private void EditProductsButtonOnClick(object sender, EventArgs e)
-        {
-            ProductForm productForm = new ProductForm();
-            productForm.ShowDialog();
-        }
     }
 }
