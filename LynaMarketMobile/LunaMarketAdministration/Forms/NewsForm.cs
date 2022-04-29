@@ -36,7 +36,7 @@ namespace LunaMarketAdministration.Forms
             code = 1;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Выберите изображение";
-            ofd.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.gif; *.tif; ...";
+            ofd.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.tif; ...";
 
             if (ofd.ShowDialog() == DialogResult.Cancel)
             {

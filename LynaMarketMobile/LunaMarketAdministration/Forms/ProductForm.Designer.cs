@@ -30,9 +30,8 @@
         {
             this.actionComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.editManufacturerButton = new System.Windows.Forms.Button();
-            this.editCategoryButton = new System.Windows.Forms.Button();
-            this.editTitleButton = new System.Windows.Forms.Button();
+            this.selectManufacturerButton = new System.Windows.Forms.Button();
+            this.selectCategoryButton = new System.Windows.Forms.Button();
             this.heightNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,9 +52,9 @@
             this.categoryTextBox = new System.Windows.Forms.TextBox();
             this.manufacturerTextBox = new System.Windows.Forms.TextBox();
             this.colorTextBox = new System.Windows.Forms.TextBox();
-            this.editColorButton = new System.Windows.Forms.Button();
+            this.selectColorButton = new System.Windows.Forms.Button();
             this.materialTextBox = new System.Windows.Forms.TextBox();
-            this.editMaterialButton = new System.Windows.Forms.Button();
+            this.selectMaterialButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.productPictureBox = new System.Windows.Forms.PictureBox();
             this.selectImageButton = new System.Windows.Forms.Button();
@@ -96,36 +95,27 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Выберите действие";
             // 
-            // editManufacturerButton
+            // selectManufacturerButton
             // 
-            this.editManufacturerButton.Location = new System.Drawing.Point(195, 74);
-            this.editManufacturerButton.Name = "editManufacturerButton";
-            this.editManufacturerButton.Size = new System.Drawing.Size(152, 55);
-            this.editManufacturerButton.TabIndex = 3;
-            this.editManufacturerButton.Text = "Выберите производителя";
-            this.editManufacturerButton.UseVisualStyleBackColor = true;
+            this.selectManufacturerButton.Location = new System.Drawing.Point(195, 74);
+            this.selectManufacturerButton.Name = "selectManufacturerButton";
+            this.selectManufacturerButton.Size = new System.Drawing.Size(152, 55);
+            this.selectManufacturerButton.TabIndex = 3;
+            this.selectManufacturerButton.Text = "Выберите производителя";
+            this.selectManufacturerButton.UseVisualStyleBackColor = true;
             // 
-            // editCategoryButton
+            // selectCategoryButton
             // 
-            this.editCategoryButton.Location = new System.Drawing.Point(371, 74);
-            this.editCategoryButton.Name = "editCategoryButton";
-            this.editCategoryButton.Size = new System.Drawing.Size(152, 55);
-            this.editCategoryButton.TabIndex = 5;
-            this.editCategoryButton.Text = "Выберите категорию";
-            this.editCategoryButton.UseVisualStyleBackColor = true;
-            // 
-            // editTitleButton
-            // 
-            this.editTitleButton.Location = new System.Drawing.Point(548, 74);
-            this.editTitleButton.Name = "editTitleButton";
-            this.editTitleButton.Size = new System.Drawing.Size(180, 55);
-            this.editTitleButton.TabIndex = 7;
-            this.editTitleButton.Text = "Выберите наименование";
-            this.editTitleButton.UseVisualStyleBackColor = true;
+            this.selectCategoryButton.Location = new System.Drawing.Point(371, 74);
+            this.selectCategoryButton.Name = "selectCategoryButton";
+            this.selectCategoryButton.Size = new System.Drawing.Size(152, 55);
+            this.selectCategoryButton.TabIndex = 5;
+            this.selectCategoryButton.Text = "Выберите категорию";
+            this.selectCategoryButton.UseVisualStyleBackColor = true;
             // 
             // heightNumericUpDown
             // 
-            this.heightNumericUpDown.Location = new System.Drawing.Point(372, 176);
+            this.heightNumericUpDown.Location = new System.Drawing.Point(483, 176);
             this.heightNumericUpDown.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -138,7 +128,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(375, 152);
+            this.label5.Location = new System.Drawing.Point(486, 152);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 21);
             this.label5.TabIndex = 9;
@@ -147,7 +137,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(450, 184);
+            this.label6.Location = new System.Drawing.Point(561, 184);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 21);
             this.label6.TabIndex = 10;
@@ -156,7 +146,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(572, 184);
+            this.label7.Location = new System.Drawing.Point(683, 184);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(34, 21);
             this.label7.TabIndex = 13;
@@ -165,7 +155,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(497, 152);
+            this.label8.Location = new System.Drawing.Point(608, 152);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 21);
             this.label8.TabIndex = 12;
@@ -173,7 +163,7 @@
             // 
             // widthNumericUpDown
             // 
-            this.widthNumericUpDown.Location = new System.Drawing.Point(494, 176);
+            this.widthNumericUpDown.Location = new System.Drawing.Point(605, 176);
             this.widthNumericUpDown.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -186,7 +176,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(696, 184);
+            this.label9.Location = new System.Drawing.Point(685, 106);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(34, 21);
             this.label9.TabIndex = 16;
@@ -195,7 +185,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(621, 152);
+            this.label10.Location = new System.Drawing.Point(610, 74);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(76, 21);
             this.label10.TabIndex = 15;
@@ -203,7 +193,7 @@
             // 
             // depthNumericUpDown
             // 
-            this.depthNumericUpDown.Location = new System.Drawing.Point(618, 176);
+            this.depthNumericUpDown.Location = new System.Drawing.Point(607, 98);
             this.depthNumericUpDown.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -241,7 +231,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(357, 214);
+            this.label12.Location = new System.Drawing.Point(468, 214);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(105, 21);
             this.label12.TabIndex = 21;
@@ -249,7 +239,7 @@
             // 
             // amontNumericUpDown
             // 
-            this.amontNumericUpDown.Location = new System.Drawing.Point(368, 238);
+            this.amontNumericUpDown.Location = new System.Drawing.Point(479, 238);
             this.amontNumericUpDown.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -262,7 +252,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(492, 214);
+            this.label14.Location = new System.Drawing.Point(603, 214);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(99, 21);
             this.label14.TabIndex = 24;
@@ -270,7 +260,7 @@
             // 
             // priceNumericUpDown
             // 
-            this.priceNumericUpDown.Location = new System.Drawing.Point(496, 238);
+            this.priceNumericUpDown.Location = new System.Drawing.Point(607, 238);
             this.priceNumericUpDown.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -283,7 +273,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(574, 246);
+            this.label13.Location = new System.Drawing.Point(685, 246);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(20, 21);
             this.label13.TabIndex = 25;
@@ -313,14 +303,14 @@
             this.colorTextBox.TabIndex = 29;
             this.colorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // editColorButton
+            // selectColorButton
             // 
-            this.editColorButton.Location = new System.Drawing.Point(19, 217);
-            this.editColorButton.Name = "editColorButton";
-            this.editColorButton.Size = new System.Drawing.Size(152, 55);
-            this.editColorButton.TabIndex = 28;
-            this.editColorButton.Text = "Выберите цвет";
-            this.editColorButton.UseVisualStyleBackColor = true;
+            this.selectColorButton.Location = new System.Drawing.Point(19, 217);
+            this.selectColorButton.Name = "selectColorButton";
+            this.selectColorButton.Size = new System.Drawing.Size(152, 55);
+            this.selectColorButton.TabIndex = 28;
+            this.selectColorButton.Text = "Выберите цвет";
+            this.selectColorButton.UseVisualStyleBackColor = true;
             // 
             // materialTextBox
             // 
@@ -330,14 +320,14 @@
             this.materialTextBox.TabIndex = 31;
             this.materialTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // editMaterialButton
+            // selectMaterialButton
             // 
-            this.editMaterialButton.Location = new System.Drawing.Point(195, 217);
-            this.editMaterialButton.Name = "editMaterialButton";
-            this.editMaterialButton.Size = new System.Drawing.Size(152, 55);
-            this.editMaterialButton.TabIndex = 30;
-            this.editMaterialButton.Text = "Выберите материал";
-            this.editMaterialButton.UseVisualStyleBackColor = true;
+            this.selectMaterialButton.Location = new System.Drawing.Point(195, 217);
+            this.selectMaterialButton.Name = "selectMaterialButton";
+            this.selectMaterialButton.Size = new System.Drawing.Size(152, 55);
+            this.selectMaterialButton.TabIndex = 30;
+            this.selectMaterialButton.Text = "Выберите материал";
+            this.selectMaterialButton.UseVisualStyleBackColor = true;
             // 
             // editButton
             // 
@@ -419,6 +409,7 @@
             this.selectProductButton.TabIndex = 40;
             this.selectProductButton.Text = "Выберите товар";
             this.selectProductButton.UseVisualStyleBackColor = true;
+            this.selectProductButton.Click += new System.EventHandler(this.SelectProductButtonOnClick);
             // 
             // ProductForm
             // 
@@ -436,9 +427,9 @@
             this.Controls.Add(this.productPictureBox);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.materialTextBox);
-            this.Controls.Add(this.editMaterialButton);
+            this.Controls.Add(this.selectMaterialButton);
             this.Controls.Add(this.colorTextBox);
-            this.Controls.Add(this.editColorButton);
+            this.Controls.Add(this.selectColorButton);
             this.Controls.Add(this.manufacturerTextBox);
             this.Controls.Add(this.categoryTextBox);
             this.Controls.Add(this.label13);
@@ -458,9 +449,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.heightNumericUpDown);
-            this.Controls.Add(this.editTitleButton);
-            this.Controls.Add(this.editCategoryButton);
-            this.Controls.Add(this.editManufacturerButton);
+            this.Controls.Add(this.selectCategoryButton);
+            this.Controls.Add(this.selectManufacturerButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.actionComboBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -482,9 +472,8 @@
         #endregion
         private System.Windows.Forms.ComboBox actionComboBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button editManufacturerButton;
-        private System.Windows.Forms.Button editCategoryButton;
-        private System.Windows.Forms.Button editTitleButton;
+        private System.Windows.Forms.Button selectManufacturerButton;
+        private System.Windows.Forms.Button selectCategoryButton;
         private System.Windows.Forms.NumericUpDown heightNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -505,9 +494,9 @@
         private System.Windows.Forms.TextBox categoryTextBox;
         private System.Windows.Forms.TextBox manufacturerTextBox;
         private System.Windows.Forms.TextBox colorTextBox;
-        private System.Windows.Forms.Button editColorButton;
+        private System.Windows.Forms.Button selectColorButton;
         private System.Windows.Forms.TextBox materialTextBox;
-        private System.Windows.Forms.Button editMaterialButton;
+        private System.Windows.Forms.Button selectMaterialButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.PictureBox productPictureBox;
         private System.Windows.Forms.Button selectImageButton;

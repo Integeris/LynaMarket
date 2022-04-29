@@ -33,6 +33,8 @@
             this.editManufacturerButton = new System.Windows.Forms.Button();
             this.editCategoriesButton = new System.Windows.Forms.Button();
             this.editDeliveryButton = new System.Windows.Forms.Button();
+            this.editUsersButton = new System.Windows.Forms.Button();
+            this.editProductsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EditNewsButton
@@ -85,11 +87,33 @@
             this.editDeliveryButton.UseVisualStyleBackColor = true;
             this.editDeliveryButton.Click += new System.EventHandler(this.EditDeliveryButtonOnClick);
             // 
+            // editUsersButton
+            // 
+            this.editUsersButton.Location = new System.Drawing.Point(187, 166);
+            this.editUsersButton.Name = "editUsersButton";
+            this.editUsersButton.Size = new System.Drawing.Size(157, 51);
+            this.editUsersButton.TabIndex = 5;
+            this.editUsersButton.Text = "Пользователи";
+            this.editUsersButton.UseVisualStyleBackColor = true;
+            this.editUsersButton.Click += new System.EventHandler(this.EditUsersButtonOnClick);
+            // 
+            // editProductsButton
+            // 
+            this.editProductsButton.Location = new System.Drawing.Point(30, 239);
+            this.editProductsButton.Name = "editProductsButton";
+            this.editProductsButton.Size = new System.Drawing.Size(115, 51);
+            this.editProductsButton.TabIndex = 6;
+            this.editProductsButton.Text = "Товары";
+            this.editProductsButton.UseVisualStyleBackColor = true;
+            this.editProductsButton.Click += new System.EventHandler(this.EditProductsButtonOnClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.editProductsButton);
+            this.Controls.Add(this.editUsersButton);
             this.Controls.Add(this.editDeliveryButton);
             this.Controls.Add(this.editCategoriesButton);
             this.Controls.Add(this.editManufacturerButton);
@@ -110,5 +134,7 @@
         private System.Windows.Forms.Button editManufacturerButton;
         private System.Windows.Forms.Button editCategoriesButton;
         private System.Windows.Forms.Button editDeliveryButton;
+        private System.Windows.Forms.Button editUsersButton;
+        private System.Windows.Forms.Button editProductsButton;
     }
 }
