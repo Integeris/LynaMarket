@@ -4,7 +4,7 @@
              x:Class="LynaMarketMobile.Pages.SortingSettingsPage"
              Title="Настройки сортировки">
     <ContentPage.Content>
-        <Grid Margin="10">
+        <StackLayout Margin="10">
             <Label Text="Выберите параметры для сортировки:"/>
             <Grid Margin="0, 10, 0, 0">
                 <Grid.Resources>
@@ -81,6 +81,6 @@
             </StackLayout>
             <Button x:Name="ApplyButton"
                     Text="Применить"/>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
