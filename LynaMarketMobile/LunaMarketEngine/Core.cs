@@ -1101,7 +1101,7 @@ namespace LunaMarketEngine
         /// Получение количесва товара.
         /// </summary>
         /// <returns>Количество товара.</returns>
-        public static async Task<int> GetProductCountAsync()
+        public static async Task<long> GetProductCountAsync()
         {
             return await GetObjectsCount<Product>();
         }
