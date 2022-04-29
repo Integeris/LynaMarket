@@ -8,4 +8,5 @@
 
 	<color name="colorAccent">#00BFFF</color>
 	<color name="BackgroundColorService">#8C8C8C</color>
+	<color name="BackroundColorListView">#BAEAFF</color>
 </resources>

@@ -38,7 +38,15 @@ namespace LynaMarketMobile.Pages
 
         private void SortButtonOnClicked(object sender, EventArgs e)
         {
+            SortingSettingsPage sortingSettingsPage = new SortingSettingsPage(filter);
+            sortingSettingsPage.Disappearing += SortingSettingsPageOnDisappearing;
 
+            NavigationManager.PushPage(sortingSettingsPage);
+        }
+
+        private void SortingSettingsPageOnDisappearing(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void FilterButtonOnClicked(object sender, EventArgs e)

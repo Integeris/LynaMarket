@@ -24,11 +24,6 @@ namespace LunaMarketEngine.QueryConstructors
         private int skip;
 
         /// <summary>
-        /// По возрастанию?
-        /// </summary>
-        private bool isASC;
-
-        /// <summary>
         /// Свойства с диапазоном.
         /// </summary>
         private List<BetweenProperty> betweenProperties;
@@ -41,7 +36,7 @@ namespace LunaMarketEngine.QueryConstructors
         /// <summary>
         /// Список столбцов для сортировки.
         /// </summary>
-        private List<string> sortColumns;
+        private List<SortingProperty> sortProperties;
 
         /// <summary>
         /// Взять.
@@ -75,15 +70,6 @@ namespace LunaMarketEngine.QueryConstructors
 
                 skip = value;
             }
-        }
-
-        /// <summary>
-        /// По возрастанию?
-        /// </summary>
-        public bool IsASC
-        {
-            get => isASC;
-            set => isASC = value;
         }
 
         /// <summary>
@@ -123,9 +109,9 @@ namespace LunaMarketEngine.QueryConstructors
         /// <summary>
         /// Список столбцов для сортировки.
         /// </summary>
-        public List<string> SortColumns
+        public List<SortingProperty> SortProperties
         {
-            get => sortColumns;
+            get => sortProperties;
             set
             {
                 if (value != null && value.Count == 0)
@@ -133,7 +119,7 @@ namespace LunaMarketEngine.QueryConstructors
                     throw new ArgumentOutOfRangeException("Список не может быть пустым.", nameof(value));
                 }
 
-                sortColumns = value;
+                sortProperties = value;
             }
         }
 
@@ -164,9 +150,9 @@ namespace LunaMarketEngine.QueryConstructors
 
                 if (multiProperties != null)
                 {
-                    foreach (var properties in multiProperties)
+                    foreach (var property in multiProperties)
                     {
-                        foreach (var item in properties.Parameters)
+                        foreach (var item in property.Parameters)
                         {
                             mySqlParameters.Add(item);
                         }
@@ -190,14 +176,13 @@ namespace LunaMarketEngine.QueryConstructors
         /// <param name="isASC">Сортировка по возрастанию?</param>
         public SelectQuery(string tableName, List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
-            List<string> sortColumns = default, int take = Int32.MaxValue, int skip = 0, bool isASC = true)
+            List<SortingProperty> sortingProperties = default, int take = Int32.MaxValue, int skip = 0)
         {
             TableName = tableName;
             StaticProperties = staticProperties;
             BetweenProperties = betweenProperties;
             MultiProperties = multiProperties;
-            SortColumns = sortColumns;
-            IsASC = isASC;
+            SortProperties = sortingProperties;
             this.take = take;
             this.skip = skip;
         }
@@ -214,7 +199,7 @@ namespace LunaMarketEngine.QueryConstructors
 
             if (staticProperties != null || betweenProperties != null || multiProperties != null)
             {
-                stringBuilder.AppendLine($" WHERE ");
+                stringBuilder.Append($"WHERE ");
                 List<String> stringBlocks = new List<string>();
 
                 if (staticProperties != null)
@@ -241,17 +226,16 @@ namespace LunaMarketEngine.QueryConstructors
                     }
                 }
 
-                stringBuilder.Append(String.Join(", ", stringBlocks));
+                stringBuilder.AppendLine(String.Join(", ", stringBlocks));
             }
 
-            if (sortColumns != null)
+            if (sortProperties != null)
             {
-                stringBuilder.AppendLine(" ORDER BY ");
-                stringBuilder.Append(String.Join(", ", sortColumns));
-                stringBuilder.Append($"{(isASC ? "ASC" : "DESC")}");
+                stringBuilder.Append("ORDER BY ");
+                stringBuilder.AppendLine(String.Join(", ", sortProperties));
             }
 
-            stringBuilder.AppendLine($" LIMIT {take} OFFSET {skip};");
+            stringBuilder.Append($"LIMIT {take} OFFSET {skip};");
             return stringBuilder.ToString();
         }
     }

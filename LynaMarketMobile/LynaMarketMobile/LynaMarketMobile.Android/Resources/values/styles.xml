@@ -16,6 +16,11 @@
 	    <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/BackgroundColorService</item>
 		<item name="android:navigationBarColor">@color/BackgroundColorService</item>
+		<item name="android:colorPressedHighlight">@color/BackroundColorListView</item>
+	    <item name="android:colorLongPressedHighlight">@color/BackroundColorListView</item>
+	    <item name="android:colorFocusedHighlight">@color/BackroundColorListView</item>
+	    <item name="android:colorActivatedHighlight">@color/BackroundColorListView</item>
+	    <item name="android:activatedBackgroundIndicator">@color/BackroundColorListView</item>
     </style>
 
 	<style name="MyTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">

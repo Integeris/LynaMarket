@@ -75,11 +75,6 @@ namespace LunaMarketEngine
         private int take = Int32.MaxValue;
 
         /// <summary>
-        /// По возрастанию?
-        /// </summary>
-        private bool isASC = true;
-
-        /// <summary>
         /// Категории стоваров.
         /// </summary>
         private List<ProductCategory> productCategories;
@@ -102,7 +97,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Свойства для сортировки (по порядку).
         /// </summary>
-        private List<string> sortingProperties;
+        private List<SortingProperty> sortingProperties;
 
         /// <summary>
         /// Название.
@@ -301,15 +296,6 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
-        /// По возрастанию?
-        /// </summary>
-        public bool IsASC
-        {
-            get => isASC;
-            set => isASC = value;
-        }
-
-        /// <summary>
         /// Категории стоваров.
         /// </summary>
         public List<ProductCategory> ProductCategories
@@ -348,7 +334,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Свойства для сортировки (по порядку).
         /// </summary>
-        public List<string> SortingProperties
+        public List<SortingProperty> SortingProperties
         {
             get => sortingProperties;
             set => sortingProperties = value;
@@ -441,7 +427,7 @@ namespace LunaMarketEngine
                 }
             }
 
-            List<Product> products = await Core.GetProductsAsync(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties, isASC);
+            List<Product> products = await Core.GetProductsAsync(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
 
             if (title != null)
             {

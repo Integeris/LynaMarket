@@ -460,14 +460,13 @@ namespace LunaMarketEngine
         /// <param name="multiProperties">Свойста с множеством значений.</param>
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
-        /// <param name="orderByColums">Колонки для сортировки.</param>
-        /// <param name="isASC">По возрастанию.</param>
+        /// <param name="sortingProperties">Колонки для сортировки.</param>
         /// <returns>Список информации о продуктах.</returns>
         public static async Task<List<ProductInfo>> GetProductInfosAsync(List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
-            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
+            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
         {
-            return await GetObjectsListAsync<ProductInfo>(staticProperties, betweenProperties, multiProperties, skip, take, orderByColums, isASC);
+            return await GetObjectsListAsync<ProductInfo>(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
         }
 
         /// <summary>
@@ -1069,17 +1068,18 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение списка товаров.
         /// </summary>
-        /// <param name="staticProperties">Свойства фильтрации со статическим значением.</param>
-        /// <param name="betweenProperties">Свойства с диапозоном.</param>
-        /// <param name="orProperties">Свойства с логическим оператором ИЛИ.</param>
+        /// <param name="staticProperties">Свойства с постоянным значением.</param>
+        /// <param name="betweenProperties">Свойста с диапазоном.</param>
+        /// <param name="multiProperties">Свойста с множеством значений.</param>
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
+        /// <param name="sortingProperties">Колонки для сортировки.</param>
         /// <returns>Список товаров.</returns>
         public static async Task<List<Product>> GetProductsAsync(List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
-            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
+            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
         {
-            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, multiProperties, skip, take, orderByColums, isASC);
+            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
         }
 
         /// <summary>
@@ -1111,21 +1111,19 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
-        /// <param name="idProductPhoto">Идентификатор фотографии товара.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static async Task<long> AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
+        public static async Task<long> AddProduct(int idManufacturer, int idProductCategory, string title, 
             int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
                 new StaticProperty("IdManufacturer", idManufacturer),
                 new StaticProperty("IdProductCategory", idProductCategory),
-                new StaticProperty("IdProductPhoto", idProductPhoto),
                 new StaticProperty("Title", title),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),
@@ -1143,14 +1141,13 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
-        /// <param name="idProductPhoto">Идентификатор фотографии товара.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
+        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, string title, 
             int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -1162,7 +1159,6 @@ namespace LunaMarketEngine
             {
                 new StaticProperty("IdManufacturer", idManufacturer),
                 new StaticProperty("IdProductCategory", idProductCategory),
-                new StaticProperty("IdProductPhoto", idProductPhoto),
                 new StaticProperty("Title", title),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),
@@ -1229,14 +1225,13 @@ namespace LunaMarketEngine
         /// <param name="staticProperties">Постоянные свойства объекта.</param>
         /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
         /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        /// <param name="sortingProperties">Колонки для сортировки.</param>
         /// <param name="skip">Пропутить.</param>
         /// <param name="take">Взять.</param>
-        /// <param name="orderByColums">Колонки для сортировки.</param>
-        /// <param name="isASC">Сортировка по возрастанию?</param>
         /// <returns>Список объектов указанного типа.</returns>
         internal static async Task<List<T>> GetObjectsListAsync<T>(List<StaticProperty> staticProperties = default, 
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
-            int skip = 0, int take = Int32.MaxValue, List<string> orderByColums = default, bool isASC = true)
+            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1248,8 +1243,8 @@ namespace LunaMarketEngine
             List<T> objectList = new List<T>();
             Type type = typeof(T);
 
-            SelectQuery selectQuery = new SelectQuery(type.Name, staticProperties, betweenProperties, multiProperties, orderByColums,
-                take, skip, isASC);
+            SelectQuery selectQuery = new SelectQuery(type.Name, staticProperties, betweenProperties, multiProperties, sortingProperties,
+                take, skip);
 
             foreach (var item in selectQuery.Parameters)
             {

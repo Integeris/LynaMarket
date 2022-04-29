@@ -36,6 +36,9 @@ namespace LunaMarketEngine.QueryConstructors
                 case nameof(Decimal):
                     mySqltype = MySqlDbType.Decimal;
                     break;
+                case nameof(Boolean):
+                    mySqltype = MySqlDbType.Bool;
+                    break;
                 case "Byte[]":
                     mySqltype= MySqlDbType.LongBlob;
                     break;
