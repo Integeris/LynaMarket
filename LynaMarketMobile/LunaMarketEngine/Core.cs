@@ -108,7 +108,7 @@ namespace LunaMarketEngine
         /// Добавление категории товара.
         /// </summary>
         /// <param name="title">Наименование категории товара.</param>
-        public static async Task<int> AddProductCategory(string title)
+        public static async Task<long> AddProductCategory(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -180,7 +180,7 @@ namespace LunaMarketEngine
         /// Добавление цвета.
         /// </summary>
         /// <param name="title">Название цвета.</param>
-        public static async Task<int> AddColor(string title)
+        public static async Task<long> AddColor(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -252,7 +252,7 @@ namespace LunaMarketEngine
         /// Добавление типа доставки.
         /// </summary>
         /// <param name="title">Название типа доставки.</param>
-        public static Task<int> AddDeliveryType(string title)
+        public static Task<long> AddDeliveryType(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -324,7 +324,7 @@ namespace LunaMarketEngine
         /// Добавление материала.
         /// </summary>
         /// <param name="title">Название материала.</param>
-        public static async Task<int> AddMaterial(string title)
+        public static async Task<long> AddMaterial(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -399,7 +399,7 @@ namespace LunaMarketEngine
         /// <param name="date">Дата публикации новости.</param>
         /// <param name="photo">Изображение новости.</param>
         /// <param name="description">Описание новости.</param>
-        public static async Task<int> AddNews(string title, DateTime date, byte[] photo, string description)
+        public static async Task<long> AddNews(string title, DateTime date, byte[] photo, string description)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -497,7 +497,7 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static Task<int> AddProductInfo(int idProduct, int idColor, int idMaterial, decimal price, int amount)
+        public static Task<long> AddProductInfo(int idProduct, int idColor, int idMaterial, decimal price, int amount)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -609,7 +609,7 @@ namespace LunaMarketEngine
         /// <param name="secondName">Фамилия.</param>
         /// <param name="email">Электронна почта.</param>
         /// <param name="phone">Номер телефона.</param>
-        public static async Task<int> AddCustomer(string login, string password, string firstName, string secondName, string email, string phone)
+        public static async Task<long> AddCustomer(string login, string password, string firstName, string secondName, string email, string phone)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -696,7 +696,7 @@ namespace LunaMarketEngine
         /// Добавление производителя.
         /// </summary>
         /// <param name="title">Название производителя.</param>
-        public static async Task<int> AddManufacturer(string title)
+        public static async Task<long> AddManufacturer(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -768,7 +768,7 @@ namespace LunaMarketEngine
         /// Добавление статуса заказа.
         /// </summary>
         /// <param name="title">Название ствтуса заказа.</param>
-        public static async Task<int> AddOrderStatus(string title)
+        public static async Task<long> AddOrderStatus(string title)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -844,7 +844,7 @@ namespace LunaMarketEngine
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
         /// <param name="adress">Адрес доставки.</param>
-        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
+        public static async Task<long> AddOrder(int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -933,7 +933,7 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static async Task<int> AddOrderProduct(int idOrder, int idProduct, decimal price, int amount)
+        public static async Task<long> AddOrderProduct(int idOrder, int idProduct, decimal price, int amount)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1019,7 +1019,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="image">Изображение.</param>
-        public static async Task<int> AddProductPhoto(int idProduct, byte[] image)
+        public static async Task<long> AddProductPhoto(int idProduct, byte[] image)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1118,7 +1118,7 @@ namespace LunaMarketEngine
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static async Task<int> AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
+        public static async Task<long> AddProduct(int idManufacturer, int idProductCategory, int idProductPhoto, string title, 
             int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -1366,7 +1366,7 @@ namespace LunaMarketEngine
         /// </summary>
         /// <typeparam name="T">Тип объекта.</typeparam>
         /// <param name="staticProperties">Свойства объекта.</param>
-        internal static async Task<int> AddObjectAsync<T>(List<StaticProperty> staticProperties)
+        internal static async Task<long> AddObjectAsync<T>(List<StaticProperty> staticProperties)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1385,10 +1385,10 @@ namespace LunaMarketEngine
             command.CommandText = addQuery.ToString();
 
             OpenConnection(mySqlConnection);
-            object id = await command.ExecuteScalarAsync();
+            long id = (long)await command.ExecuteScalarAsync();
             CloseConnection(mySqlConnection);
 
-            return (int)id;
+            return id;
         }
 
         /// <summary>
