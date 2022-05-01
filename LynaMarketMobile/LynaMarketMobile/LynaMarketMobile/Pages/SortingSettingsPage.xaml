@@ -6,7 +6,8 @@
     <ContentPage.Content>
         <StackLayout Margin="10">
             <Label Text="Выберите параметры для сортировки:"/>
-            <Grid Margin="0, 10, 0, 0">
+            <Grid Margin="0, 10, 0, 0"
+                  HeightRequest="35">
                 <Grid.Resources>
                     <ResourceDictionary>
                         <Style TargetType="Label">
@@ -29,7 +30,8 @@
                 <Label Text="По возрастинию?"
                        Grid.Column="2"/>
             </Grid>
-            <ListView x:Name="PropertyListView">
+            <ListView x:Name="PropertyListView"
+                      ItemSelected="PropertyListViewOnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -52,22 +54,19 @@
                                 </Grid.ColumnDefinitions>
 
                                 <CheckBox x:Name="EnableCheckBox"
-                                          Grid.Column="0"/>
-                                <Label Text="{Binding .}"
+                                          Grid.Column="0"
+                                          IsChecked="{Binding IsEnabled}"/>
+                                <Label Text="{Binding Title}"
                                        Grid.Column="1"/>
                                 <CheckBox x:Name="IsASCCheckBox"
-                                          Grid.Column="2"/>
+                                          Grid.Column="2"
+                                          IsChecked="{Binding IsASC}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Привет</x:String>
-                        <x:String>Пока</x:String>
-                    </x:Array>
-                </ListView.ItemsSource>
             </ListView>
+            <Label Text=""/>
             <StackLayout Orientation="Horizontal">
                 <StackLayout.Resources>
                     <ResourceDictionary>
@@ -76,11 +75,16 @@
                         </Style>
                     </ResourceDictionary>
                 </StackLayout.Resources>
-                <Button Text="Поднять"/>
-                <Button Text="Опустить"/>
+                <Button x:Name="UpButton" 
+                        Text="Поднять"
+                        Clicked="UpButtonOnClicked"/>
+                <Button x:Name="DownButton" 
+                        Text="Опустить"
+                        Clicked="DownButtonOnClicked"/>
             </StackLayout>
             <Button x:Name="ApplyButton"
-                    Text="Применить"/>
+                    Text="Применить"
+                    Clicked="ApplyButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

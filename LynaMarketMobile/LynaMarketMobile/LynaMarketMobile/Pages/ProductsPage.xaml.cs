@@ -16,7 +16,7 @@ namespace LynaMarketMobile.Pages
     public partial class ProductsPage : ContentPage
     {
         private List<ProductView> productViews = new List<ProductView>();
-        private Filter filter = new Filter()
+        private readonly Filter filter = new Filter()
         {
             Skip = 0,
             Take = 20
@@ -25,6 +25,7 @@ namespace LynaMarketMobile.Pages
         public ProductsPage(ProductCategory productCategory)
         {
             InitializeComponent();
+
             filter.ProductCategories = new List<ProductCategory> { productCategory };
             LoadData();
         }
@@ -39,19 +40,22 @@ namespace LynaMarketMobile.Pages
         private void SortButtonOnClicked(object sender, EventArgs e)
         {
             SortingSettingsPage sortingSettingsPage = new SortingSettingsPage(filter);
-            sortingSettingsPage.Disappearing += SortingSettingsPageOnDisappearing;
+            sortingSettingsPage.Disappearing += SettingspagesOnDisappearing;
 
             NavigationManager.PushPage(sortingSettingsPage);
         }
 
-        private void SortingSettingsPageOnDisappearing(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void FilterButtonOnClicked(object sender, EventArgs e)
         {
+            FilterPage filterPage = new FilterPage(filter);
+            filterPage.Disappearing += SettingspagesOnDisappearing;
 
+            NavigationManager.PushPage(filterPage);
+        }
+
+        private void SettingspagesOnDisappearing(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }

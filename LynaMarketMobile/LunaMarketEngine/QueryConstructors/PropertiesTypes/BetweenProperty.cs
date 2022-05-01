@@ -23,16 +23,6 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         private object toValue;
 
         /// <summary>
-        /// Название начального свойства.
-        /// </summary>
-        private string fromValueName;
-
-        /// <summary>
-        /// Название конечного свойства.
-        /// </summary>
-        private string toValueName;
-
-        /// <summary>
         /// Начальное значение.
         /// </summary>
         public object FromValue
@@ -40,7 +30,12 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get => fromValue;
             set
             {
-                fromValue = value ?? throw new ArgumentNullException(nameof(value), "Свойство не может быть null.");
+                if (value == null && toValue == null)
+                {
+                    throw new ArgumentNullException(nameof(value), "Две границы не могут быть равны null.");
+                }
+
+                fromValue = value;
             }
         }
 
@@ -52,7 +47,12 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get => toValue;
             set
             {
-                toValue = value ?? throw new ArgumentNullException(nameof(value), "Свойство не может быть null.");
+                if (value == null && fromValue == null)
+                {
+                    throw new ArgumentNullException(nameof(value), "Две границы не могут быть равны null.");
+                }
+
+                toValue = value;
             }
         }
 
@@ -61,16 +61,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// </summary>
         public string FromValueName
         {
-            get => fromValueName;
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Название свойства не может быть пустым.", nameof(value));
-                }
-
-                fromValueName = value;
-            }
+            get => $"@from{columnName}";
         }
 
         /// <summary>
@@ -78,16 +69,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// </summary>
         public string ToValueName
         {
-            get => toValueName;
-            set
-            {
-                if (String.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Название свойства не может быть пустым.", nameof(value));
-                }
-
-                toValueName = value;
-            }
+            get => $"@to{columnName}";
         }
 
         /// <summary>
@@ -98,20 +80,28 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get
             {
                 List<MySqlParameter> parameters = new List<MySqlParameter>();
+                MySqlParameter mySqlParameter;
 
-                MySqlParameter mySqlParameter = new MySqlParameter(fromValueName, type)
+                if (fromValue != null)
                 {
-                    Value = fromValue
-                };
+                    mySqlParameter = new MySqlParameter(FromValueName, type)
+                    {
+                        Value = fromValue
+                    };
 
-                parameters.Add(mySqlParameter);
+                    parameters.Add(mySqlParameter);
+                }
 
-                mySqlParameter = new MySqlParameter(toValueName, type)
+                if (toValue != null)
                 {
-                    Value = toValue
-                };
+                    mySqlParameter = new MySqlParameter(ToValueName, type)
+                    {
+                        Value = toValue
+                    };
 
-                parameters.Add(mySqlParameter);
+                    parameters.Add(mySqlParameter);
+                }
+
                 return parameters;
             }
         }
@@ -124,6 +114,11 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// <param name="toValue">Конечное значение.</param>
         public BetweenProperty(string columnName, object fromValue, object toValue)
         {
+            if (fromValue == null && toValue == null)
+            {
+                throw new ArgumentException("У свойства с диапазоном должна быть хотябы одна граница.");
+            }
+
             ColumnName = columnName;
             FromValue = fromValue;
             ToValue = toValue;
@@ -135,7 +130,22 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// <returns>Текст sql.</returns>
         public override string ToString()
         {
-            return $"{columnName} BETWEEN {fromValueName} AND {toValueName}";
+            string sqlText;
+
+            if (fromValue != null && toValue != null)
+            {
+                sqlText = $"{columnName} BETWEEN {FromValueName} AND {ToValueName}";
+            }
+            else if (fromValue != null)
+            {
+                sqlText = $"{columnName} > {FromValueName}";
+            }
+            else
+            {
+                sqlText = $"{columnName} < {ToValueName}";
+            }
+
+            return sqlText;
         }
     }
 }

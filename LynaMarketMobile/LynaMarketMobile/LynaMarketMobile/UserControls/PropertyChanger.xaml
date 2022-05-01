@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.UserControls.PropertyChanger">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="Keyboard" Value="Numeric"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="Margin" Value="0, 0, 0, 13"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+  <ContentView.Content>
+      <StackLayout Orientation="Horizontal">
+            <Label Text="От:"/>
+            <Entry x:Name="FromValueEntry"
+                   Completed="EntryOnCompleted"/>
+            <Label Text="До:"
+                   Margin="20, 0, 0, 13"/>
+            <Entry x:Name="ToValueEntry"
+                   Completed="EntryOnCompleted"/>
+        </StackLayout>
+  </ContentView.Content>
+</ContentView>

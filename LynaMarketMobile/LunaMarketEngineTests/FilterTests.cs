@@ -14,7 +14,7 @@ namespace LunaMarketEngine.Tests
         [TestMethod("Проверка филтрациии продуктов.")]
         public void GetProductsTest()
         {
-            Filter filter = new Filter();
+            //Filter filter = new Filter();
         }
     }
 }

@@ -124,7 +124,7 @@ namespace LunaMarketEngine.QueryConstructors
 
             if (staticProperties != null || betweenProperties != null || multiProperties != null)
             {
-                stringBuilder.AppendLine($"WHERE ");
+                stringBuilder.Append($"WHERE ");
                 List<String> stringBlocks = new List<string>();
 
                 if (staticProperties != null)
@@ -151,7 +151,7 @@ namespace LunaMarketEngine.QueryConstructors
                     }
                 }
 
-                stringBuilder.Append(String.Join(", ", stringBlocks));
+                stringBuilder.AppendLine(String.Join(", ", stringBlocks));
             }
 
             stringBuilder.Append(";");

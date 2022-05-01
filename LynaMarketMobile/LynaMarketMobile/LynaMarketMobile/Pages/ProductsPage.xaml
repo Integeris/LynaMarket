@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:LynaMarketMobile.UserControls"
              x:Class="LynaMarketMobile.Pages.ProductsPage"
              Title="Каталог">
     <ContentPage.Content>
@@ -9,7 +10,7 @@
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="55"/>
             </Grid.RowDefinitions>
 
             <SearchBar x:Name="MainSearchBar" 
@@ -36,6 +37,8 @@
             <ListView x:Name="ProductsListView">
                 
             </ListView>
+
+            <controls:Navigator Grid.Row="3"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

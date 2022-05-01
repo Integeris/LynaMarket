@@ -226,7 +226,7 @@ namespace LunaMarketEngine.QueryConstructors
                     }
                 }
 
-                stringBuilder.AppendLine(String.Join(", ", stringBlocks));
+                stringBuilder.AppendLine(String.Join(" AND ", stringBlocks));
             }
 
             if (sortProperties != null)

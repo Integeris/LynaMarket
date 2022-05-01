@@ -180,7 +180,7 @@ namespace LunaMarketEngine
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
-                toPrice = value;
+                fromPrice = value;
             }
         }
 
@@ -248,7 +248,7 @@ namespace LunaMarketEngine
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
-                fromPrice = value;
+                toPrice = value;
             }
         }
 
@@ -385,11 +385,6 @@ namespace LunaMarketEngine
                 {
                     betweenProperties.Add(new BetweenProperty("Depth", fromDepth, toDepth));
                 }
-
-                if (AnyNotNull(fromPrice, toPrice))
-                {
-                    betweenProperties.Add(new BetweenProperty("Price", fromPrice, toPrice));
-                }
             }
 
             if (AnyNotNull(manufacturers, productCategories, colors))
@@ -411,6 +406,7 @@ namespace LunaMarketEngine
                 if (AnyNotNull(colors, materials))
                 {
                     List<MultiProperty> innerMultiProperty = new List<MultiProperty>();
+                    List<BetweenProperty> innerBetweenProperties = new List<BetweenProperty>();
 
                     if (colors != null)
                     {
@@ -422,7 +418,12 @@ namespace LunaMarketEngine
                         innerMultiProperty.Add(new MultiProperty("IdMaterial", materials.Select(material => (object)material.IdMaterial).ToList()));
                     }
 
-                    List<ProductInfo> productInfos = await Core.GetProductInfosAsync(default, default, multiProperties);
+                    if (AnyNotNull(fromPrice, toPrice))
+                    {
+                        innerBetweenProperties.Add(new BetweenProperty("Price", fromPrice, toPrice));
+                    }
+
+                    List<ProductInfo> productInfos = await Core.GetProductInfosAsync(default, default, innerMultiProperty);
                     multiProperties.Add(new MultiProperty("IdProduct", productInfos.Select(productInfo => (object)productInfo.IdProduct).ToList()));
                 }
             }
