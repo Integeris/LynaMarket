@@ -112,7 +112,7 @@ namespace LunaMarketAdministration.Forms
                     if ((Database.CheckingTextBoxes(this) == 0) && (Database.CheckingNumericUpDowns(this) == 0) && (imagePath != ""))
                     {
                         int idProduct = await Core.AddProduct(Database.IdManufacturer, Database.IdCategory,
-                            Database.IdColor, Database.IdMaterial, titleTextBox.Text, (int)heightNumericUpDown.Value,
+                            Database.IdColor, Database.IdMaterial, titleTextBox.Text, priceNumericUpDown.Value, (int)amontNumericUpDown.Value,(int)heightNumericUpDown.Value,
                             (int)widthNumericUpDown.Value, (int)depthNumericUpDown.Value, descriptionTextBox.Text);
                         int idPhoto = await Core.AddProductPhoto(idProduct, File.ReadAllBytes(imagePath));
                         string text = ((idProduct != 0) && (idPhoto != 0)) ? "Товар добавлен." : "Товар не добавлен.";
