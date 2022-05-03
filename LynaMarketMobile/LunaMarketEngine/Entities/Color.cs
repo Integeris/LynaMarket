@@ -1,6 +1,7 @@
 ﻿using LunaMarketEngine.QueryConstructors.PropertiesTypes;
 using MySqlConnector;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LunaMarketEngine.Entities
 {
@@ -22,17 +23,14 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Получение продуктов с этим цветом.
         /// </summary>
-        public List<Product> GetProductы
+        public async Task<List<Product>> GetProductsAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdColor", IdColor)
-                };
+                new StaticProperty("IdColor", IdColor)
+            };
 
-                return Core.GetObjectsListAsync<Product>(staticProperties).Result;
-            }
+            return await Core.GetObjectsListAsync<Product>(staticProperties);
         }
     }
 }

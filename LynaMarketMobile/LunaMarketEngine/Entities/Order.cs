@@ -46,65 +46,53 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Статус заказа.
         /// </summary>
-        public OrderStatus OrderStatus
+        public async Task<OrderStatus> GetOrderStatusAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdOrderStatus", IdOrderStatus)
-                };
+                new StaticProperty("IdOrderStatus", IdOrderStatus)
+            };
 
-                return Core.GetObjectAsync<OrderStatus>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<OrderStatus>(staticProperties);
         }
-
+        
         /// <summary>
         /// Заказчик.
         /// </summary>
-        public Customer Customer
+        public async Task<Customer> GetCustomerAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdCustomer", IdCustomer)
-                };
+                new StaticProperty("IdCustomer", IdCustomer)
+            };
 
-                return Core.GetObjectAsync<Customer>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<Customer>(staticProperties);
         }
 
         /// <summary>
         /// Тип заказа.
         /// </summary>
-        public DeliveryType DeliveryType
+        public async Task<DeliveryType> GetDeliveryTypeAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdDeliveryType", IdDeliveryType)
-                };
+                new StaticProperty("IdDeliveryType", IdDeliveryType)
+            };
 
-                return Core.GetObjectAsync<DeliveryType>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<DeliveryType>(staticProperties);
         }
 
         /// <summary>
         /// Продукты заказа.
         /// </summary>
-        public List<OrderProduct> OrderProducts
+        public async Task<List<OrderProduct>> GetOrderProductsAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdOrder", IdOrder)
-                };
+                new StaticProperty("IdOrder", IdOrder)
+            };
 
-                return Core.GetObjectsListAsync<OrderProduct>(staticProperties).Result;
-            }
+            return await Core.GetObjectsListAsync<OrderProduct>(staticProperties);
         }
     }
 }

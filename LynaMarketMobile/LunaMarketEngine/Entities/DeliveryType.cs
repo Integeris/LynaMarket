@@ -26,17 +26,14 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Продукты заказа.
         /// </summary>
-        public List<Order> Orders
+        public async Task<List<Order>> GetOrdersAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdDeliveryType", IdDeliveryType)
-                };
+                new StaticProperty("IdDeliveryType", IdDeliveryType)
+            };
 
-                return Core.GetObjectsListAsync<Order>(staticProperties).Result;
-            }
+            return await Core.GetObjectsListAsync<Order>(staticProperties);
         }
     }
 }

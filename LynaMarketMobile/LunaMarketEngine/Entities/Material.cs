@@ -26,17 +26,14 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Получение продуктов с этим материалом.
         /// </summary>
-        public List<Product> GetProducts
+        public async Task<List<Product>> GetProductsAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdMaterial", IdMaterial)
-                };
+                new StaticProperty("IdMaterial", IdMaterial)
+            };
 
-                return Core.GetObjectsListAsync<Product>(staticProperties).Result;
-            }
+            return await Core.GetObjectsListAsync<Product>(staticProperties);
         }
     }
 }
