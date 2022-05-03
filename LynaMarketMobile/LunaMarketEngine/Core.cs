@@ -1006,15 +1006,15 @@ namespace LunaMarketEngine
         /// <param name="idColor">Идентификатор цвета.</param>
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="title">Название товара.</param>
-        /// <param name="Price">Цена.</param>
-        /// <param name="Amount">Количество.</param>
+        /// <param name="price">Цена.</param>
+        /// <param name="amount">Количество.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
         public static async Task<int> AddProduct(int idManufacturer, int idProductCategory, int idColor, int idMaterial, string title,
-            decimal Price, int Amount, int height, int width, int depth, string description, bool deleted = false)
+            decimal price, int amount, int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1023,8 +1023,8 @@ namespace LunaMarketEngine
                 new StaticProperty("IdColor", idColor),
                 new StaticProperty("IdMaterial", idMaterial),
                 new StaticProperty("Title", title),
-                new StaticProperty("Price", Price),
-                new StaticProperty("Amount", Amount),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),
                 new StaticProperty("Depth", depth),
@@ -1045,15 +1045,15 @@ namespace LunaMarketEngine
         /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="title">Название товара.</param>
-        /// <param name="Price">Цена.</param>
-        /// <param name="Amount">Количество.</param>
+        /// <param name="price">Цена.</param>
+        /// <param name="amount">Количество.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
         public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idColor, int idMaterial, string title,
-            decimal Price, int Amount, int height, int width, int depth, string description, bool deleted = false)
+            decimal price, int amount, int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1067,8 +1067,8 @@ namespace LunaMarketEngine
                 new StaticProperty("IdColor", idColor),
                 new StaticProperty("IdMaterial", idMaterial),
                 new StaticProperty("Title", title),
-                new StaticProperty("Price", Price),
-                new StaticProperty("Amount", Amount),
+                new StaticProperty("Price", price),
+                new StaticProperty("Amount", amount),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),
                 new StaticProperty("Depth", depth),

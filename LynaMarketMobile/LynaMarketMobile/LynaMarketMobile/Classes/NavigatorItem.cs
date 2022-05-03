@@ -5,14 +5,29 @@ using Xamarin.Forms;
 
 namespace LynaMarketMobile.Classes
 {
+    /// <summary>
+    /// Элемент навигации.
+    /// </summary>
     internal sealed class NavigatorItem
     {
+        /// <summary>
+        /// Цвет.
+        /// </summary>
         public Color Color { get; set; }   
+
+        /// <summary>
+        /// Значение.
+        /// </summary>
         public int Value { get; set; }
 
-        public NavigatorItem(int title, Color color)
+        /// <summary>
+        /// Создание нового элемента навигации.
+        /// </summary>
+        /// <param name="value">Значение.</param>
+        /// <param name="color">Цвет.</param>
+        public NavigatorItem(int value, Color color)
         {
-            Value = title;
+            Value = value;
             Color = color;
         }
     }
