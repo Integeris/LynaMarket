@@ -64,6 +64,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.selectProductButton = new System.Windows.Forms.Button();
+            this.listView = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.depthNumericUpDown)).BeginInit();
@@ -103,6 +104,7 @@
             this.selectManufacturerButton.TabIndex = 3;
             this.selectManufacturerButton.Text = "Выберите производителя";
             this.selectManufacturerButton.UseVisualStyleBackColor = true;
+            this.selectManufacturerButton.Click += new System.EventHandler(this.SelectManufacturerButtonOnClick);
             // 
             // selectCategoryButton
             // 
@@ -112,6 +114,7 @@
             this.selectCategoryButton.TabIndex = 5;
             this.selectCategoryButton.Text = "Выберите категорию";
             this.selectCategoryButton.UseVisualStyleBackColor = true;
+            this.selectCategoryButton.Click += new System.EventHandler(this.SelectCategoryButtonOnClick);
             // 
             // heightNumericUpDown
             // 
@@ -311,6 +314,7 @@
             this.selectColorButton.TabIndex = 28;
             this.selectColorButton.Text = "Выберите цвет";
             this.selectColorButton.UseVisualStyleBackColor = true;
+            this.selectColorButton.Click += new System.EventHandler(this.SelectColorButtonOnClick);
             // 
             // materialTextBox
             // 
@@ -328,6 +332,7 @@
             this.selectMaterialButton.TabIndex = 30;
             this.selectMaterialButton.Text = "Выберите материал";
             this.selectMaterialButton.UseVisualStyleBackColor = true;
+            this.selectMaterialButton.Click += new System.EventHandler(this.SelectMaterialButtonOnClick);
             // 
             // editButton
             // 
@@ -336,21 +341,22 @@
             this.editButton.Size = new System.Drawing.Size(126, 32);
             this.editButton.TabIndex = 32;
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.EditButtonOnClick);
             // 
             // productPictureBox
             // 
-            this.productPictureBox.Location = new System.Drawing.Point(19, 296);
+            this.productPictureBox.Location = new System.Drawing.Point(139, 296);
             this.productPictureBox.Name = "productPictureBox";
-            this.productPictureBox.Size = new System.Drawing.Size(328, 225);
+            this.productPictureBox.Size = new System.Drawing.Size(208, 225);
             this.productPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.productPictureBox.TabIndex = 33;
             this.productPictureBox.TabStop = false;
             // 
             // selectImageButton
             // 
-            this.selectImageButton.Location = new System.Drawing.Point(19, 527);
+            this.selectImageButton.Location = new System.Drawing.Point(139, 527);
             this.selectImageButton.Name = "selectImageButton";
-            this.selectImageButton.Size = new System.Drawing.Size(246, 32);
+            this.selectImageButton.Size = new System.Drawing.Size(208, 32);
             this.selectImageButton.TabIndex = 34;
             this.selectImageButton.Text = "Выбрать изображение";
             this.selectImageButton.UseVisualStyleBackColor = true;
@@ -411,12 +417,22 @@
             this.selectProductButton.UseVisualStyleBackColor = true;
             this.selectProductButton.Click += new System.EventHandler(this.SelectProductButtonOnClick);
             // 
+            // listView
+            // 
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(19, 296);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(98, 225);
+            this.listView.TabIndex = 41;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            // 
             // ProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(742, 566);
+            this.Controls.Add(this.listView);
             this.Controls.Add(this.selectProductButton);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -506,5 +522,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button selectProductButton;
+        private System.Windows.Forms.ListView listView;
     }
 }

@@ -27,6 +27,8 @@ namespace LunaMarketAdministration.Forms
         {
             actionComboBox.SelectedIndex = 0;
             productPictureBox.Image = Properties.Resources.no;
+            //selectProductButton.Visible = true;
+            //ListViewItem listViewItem = new ListViewItem(new );
         }
 
         private void ActionComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
@@ -81,18 +83,127 @@ namespace LunaMarketAdministration.Forms
         {
             try
             {
-                Database.Idproduct = 0;
+                Database.IdProduct = 0;
                 Database.Type = "Product";
                 SelectForm selectForm = new SelectForm();
                 selectForm.ShowDialog();
-                if (Database.Idproduct != 0)
+                if (Database.IdProduct != 0)
                 {
-                    Product product = await Core.GetProductAsync(Database.Idproduct);
+                    Product product = await Core.GetProductAsync(Database.IdProduct);
+                    manufacturerTextBox.Text = product.Manufacturer.ToString();
 
                     //using (MemoryStream memoryStream = new MemoryStream(pr.Photo))
                     //{
                     //    productPictureBox.Image = Bitmap.FromStream(memoryStream);
                     //}
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void EditButtonOnClick(object sender, EventArgs e)
+        {
+            switch (actionComboBox.SelectedIndex)
+            {
+                case 0:
+                    if ((Database.CheckingTextBoxes(this) == 0) && (Database.CheckingNumericUpDowns(this) == 0) && (imagePath != ""))
+                    {
+                        int idProduct = await Core.AddProduct(Database.IdManufacturer, Database.IdCategory,
+                            Database.IdColor, Database.IdMaterial, titleTextBox.Text, (int)heightNumericUpDown.Value,
+                            (int)widthNumericUpDown.Value, (int)depthNumericUpDown.Value, descriptionTextBox.Text);
+                        int idPhoto = await Core.AddProductPhoto(idProduct, File.ReadAllBytes(imagePath));
+                        string text = ((idProduct != 0) && (idPhoto != 0)) ? "Товар добавлен." : "Товар не добавлен.";
+                        MessageBox.Show(text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля!");
+                    }
+                    break;
+                case 1:
+                    //Core.UpdateProduct(Database.IdProduct, );
+
+                    break;
+                case 2:
+                    break;
+            }
+        }
+
+        private async void SelectManufacturerButtonOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Database.IdManufacturer = 0;
+                Database.Type = "Manufacturer";
+                SelectForm selectForm = new SelectForm();
+                selectForm.ShowDialog();
+                if (Database.IdManufacturer != 0)
+                {
+                    Manufacturer manufacturer = await Core.GetManufacturerAnsyc(Database.IdManufacturer);
+                    manufacturerTextBox.Text = manufacturer.Title;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void SelectCategoryButtonOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Database.IdCategory = 0;
+                Database.Type = "Category";
+                SelectForm selectForm = new SelectForm();
+                selectForm.ShowDialog();
+                if (Database.IdCategory != 0)
+                {
+                    ProductCategory productCategory = await Core.GetProductCategoryAsync(Database.IdCategory);
+                    categoryTextBox.Text = productCategory.Title;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void SelectColorButtonOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Database.IdColor = 0;
+                Database.Type = "Color";
+                SelectForm selectForm = new SelectForm();
+                selectForm.ShowDialog();
+                if (Database.IdColor != 0)
+                {
+                    LunaMarketEngine.Entities.Color color = await Core.GetColorAsync(Database.IdColor);
+                    colorTextBox.Text = color.Title;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void SelectMaterialButtonOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Database.IdMaterial = 0;
+                Database.Type = "Material";
+                SelectForm selectForm = new SelectForm();
+                selectForm.ShowDialog();
+                if (Database.IdMaterial != 0)
+                {
+                    Material material = await Core.GetMaterialAsync(Database.IdMaterial);
+                    materialTextBox.Text = material.Title;
                 }
             }
             catch (Exception ex)

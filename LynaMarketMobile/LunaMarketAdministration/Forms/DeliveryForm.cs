@@ -69,15 +69,22 @@ namespace LunaMarketAdministration.Forms
             switch (actionDeliveryComboBox.SelectedIndex)
             {
                 case 0:
-                    await Core.AddProductCategory(deliveryTextBox.Text);
-                    deliveryTextBox.Text = null;
-                    Database.IdDelivery = 0;
-                    MessageBox.Show("Вы ничего не выбрали");
+                    int id = await Core.AddDeliveryType(deliveryTextBox.Text);
+                    if (id != 0)
+                    {
+                        deliveryTextBox.Text = null;
+                        Database.IdDelivery = 0;
+                        MessageBox.Show("Запись добавлена.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка добавления.");
+                    }
                     break;
                 case 1:
                     if (Database.IdDelivery != 0)
                     {
-                        Core.UpdateProductCategory(Database.IdDelivery, deliveryTextBox.Text);
+                        Core.UpdateDeliveryType(Database.IdDelivery, deliveryTextBox.Text);
                         deliveryTextBox.Text = null;
                         Database.IdDelivery = 0;
                     }
@@ -89,7 +96,7 @@ namespace LunaMarketAdministration.Forms
                 case 2:
                     if (Database.IdDelivery != 0)
                     {
-                        Core.DeleteProductCategory(Database.IdDelivery);
+                        Core.DeleteDeliveryType(Database.IdDelivery);
                         deliveryTextBox.Text = null;
                         Database.IdDelivery = 0;
                     }

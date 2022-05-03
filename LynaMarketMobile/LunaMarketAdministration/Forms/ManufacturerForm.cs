@@ -48,6 +48,7 @@ namespace LunaMarketAdministration.Forms
         {
             try
             {
+                Database.СlearingTextBoxes(this);
                 Database.IdManufacturer = 0;
                 Database.Type = "Manufacturer";
                 SelectForm selectForm = new SelectForm();
@@ -72,6 +73,7 @@ namespace LunaMarketAdministration.Forms
                     await Core.AddManufacturer(manufacturerTextBox.Text);
                     manufacturerTextBox = null;
                     Database.IdManufacturer = 0;
+                    Database.СlearingTextBoxes(this);
                     break;
                 case 1:
                     if (Database.IdManufacturer != 0)
@@ -79,6 +81,7 @@ namespace LunaMarketAdministration.Forms
                         Core.UpdateManufacturer(Database.IdManufacturer, manufacturerTextBox.Text);
                         manufacturerTextBox = null;
                         Database.IdManufacturer = 0;
+                        Database.СlearingTextBoxes(this);
                     }
                     else
                     {
@@ -91,6 +94,7 @@ namespace LunaMarketAdministration.Forms
                         Core.DeleteManufacturer(Database.IdManufacturer);
                         manufacturerTextBox = null;
                         Database.IdManufacturer = 0;
+                        Database.СlearingTextBoxes(this);
                     }
                     else
                     {

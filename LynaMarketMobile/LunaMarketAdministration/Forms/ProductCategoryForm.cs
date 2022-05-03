@@ -27,14 +27,17 @@ namespace LunaMarketAdministration.Forms
                 case 1:
                     actionCategoryButton.Text = "Изменить";
                     selectCategoryButton.Visible = true;
+                    Database.СlearingTextBoxes(this);
                     break;
                 case 2:
                     actionCategoryButton.Text = "Удалить";
                     selectCategoryButton.Visible = true;
+                    Database.СlearingTextBoxes(this);
                     break;
                 default:
                     actionCategoryButton.Text = "Добавить";
                     selectCategoryButton.Visible = false;
+                    Database.СlearingTextBoxes(this);
                     break;
             }
         }
@@ -49,16 +52,25 @@ namespace LunaMarketAdministration.Forms
             switch (actionCategoryComboBox.SelectedIndex)
             {
                 case 0:
-                    await Core.AddProductCategory(categoryTextBox.Text);
-                    categoryTextBox.Text = null;
-                    Database.IdCategory = 0;
+                    if (Database.CheckingTextBoxes(this) == 0)
+                    {
+                        await Core.AddProductCategory(categoryTextBox.Text);
+                        categoryTextBox.Text = null;
+                        Database.IdCategory = 0;
+                        Database.СlearingTextBoxes(this);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы сударь мудак?");
+                    }
                     break;
                 case 1:
-                    if (Database.IdCategory != 0)
+                    if ((Database.IdCategory != 0) || (Database.CheckingTextBoxes(this) == 0))
                     {
                         Core.UpdateProductCategory(Database.IdCategory, categoryTextBox.Text);
                         categoryTextBox = null;
                         Database.IdCategory = 0;
+                        Database.СlearingTextBoxes(this);
                     }
                     else
                     {
@@ -71,6 +83,7 @@ namespace LunaMarketAdministration.Forms
                         Core.DeleteProductCategory(Database.IdCategory);
                         categoryTextBox = null;
                         Database.IdCategory = 0;
+                        Database.СlearingTextBoxes(this);
                     }
                     else
                     {
