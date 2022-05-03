@@ -16,8 +16,8 @@ namespace LunaMarketEngine.Tests
         {
             MailSender sender = new MailSender("toxaserega14@gmail.com")
             {
-                FromAddress = "noreply@unverified.beget.ru",
-                Password = "B5dlwdFX",
+                FromAddress = "ninellsh@gmail.com",
+                Password = "nikt20012006",
                 Subject = "Привет, черт.",
                 Body = "Не ожидал? <b>Да?</b>"
             };

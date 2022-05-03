@@ -385,9 +385,14 @@ namespace LunaMarketEngine
                 {
                     betweenProperties.Add(new BetweenProperty("Depth", fromDepth, toDepth));
                 }
+
+                if (AnyNotNull(fromPrice, toPrice))
+                {
+                    betweenProperties.Add(new BetweenProperty("Price", fromPrice, toPrice));
+                }
             }
 
-            if (AnyNotNull(manufacturers, productCategories, colors))
+            if (AnyNotNull(manufacturers, productCategories, colors, materials))
             {
                 multiProperties = new List<MultiProperty>();
 
@@ -403,28 +408,16 @@ namespace LunaMarketEngine
                         productCategories.Select(productCategory => (object)productCategory.IdProductCategory).ToList()));
                 }
 
-                if (AnyNotNull(colors, materials))
+                if (colors != null)
                 {
-                    List<MultiProperty> innerMultiProperty = new List<MultiProperty>();
-                    List<BetweenProperty> innerBetweenProperties = new List<BetweenProperty>();
+                    multiProperties.Add(new MultiProperty("IdColor",
+                        colors.Select(color => (object)color.IdColor).ToList()));
+                }
 
-                    if (colors != null)
-                    {
-                        innerMultiProperty.Add(new MultiProperty("IdColor", colors.Select(color => (object)color.IdColor).ToList()));
-                    }
-
-                    if (materials != null)
-                    {
-                        innerMultiProperty.Add(new MultiProperty("IdMaterial", materials.Select(material => (object)material.IdMaterial).ToList()));
-                    }
-
-                    if (AnyNotNull(fromPrice, toPrice))
-                    {
-                        innerBetweenProperties.Add(new BetweenProperty("Price", fromPrice, toPrice));
-                    }
-
-                    List<ProductInfo> productInfos = await Core.GetProductInfosAsync(default, default, innerMultiProperty);
-                    multiProperties.Add(new MultiProperty("IdProduct", productInfos.Select(productInfo => (object)productInfo.IdProduct).ToList()));
+                if (materials != null)
+                {
+                    multiProperties.Add(new MultiProperty("IdMaterial",
+                        materials.Select(material => (object)material.IdMaterial).ToList()));
                 }
             }
 

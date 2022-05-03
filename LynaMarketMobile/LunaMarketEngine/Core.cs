@@ -453,114 +453,6 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
-        /// Получение информации о продуктах.
-        /// </summary>
-        /// <param name="staticProperties">Свойства с постоянным значением.</param>
-        /// <param name="betweenProperties">Свойста с диапазоном.</param>
-        /// <param name="multiProperties">Свойста с множеством значений.</param>
-        /// <param name="skip">Пропустить.</param>
-        /// <param name="take">Взять.</param>
-        /// <param name="sortingProperties">Колонки для сортировки.</param>
-        /// <returns>Список информации о продуктах.</returns>
-        public static async Task<List<ProductInfo>> GetProductInfosAsync(List<StaticProperty> staticProperties = default,
-            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
-            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
-        {
-            return await GetObjectsListAsync<ProductInfo>(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
-        }
-
-        /// <summary>
-        /// Получение информации о товаре.
-        /// </summary>
-        /// <param name="idProduct">Идентификатор продукта.</param>
-        /// <param name="idColor">Идентификатор цвета.</param>
-        /// <param name="idMaterial">Идентификатор материала.</param>
-        /// <returns>Информация о товаре.</returns>
-        public static async Task<ProductInfo> GetProductInfoAsync(int idProduct, int idColor, int idMaterial)
-        {
-            List<StaticProperty> staticProperties = new List<StaticProperty>()
-            {
-                new StaticProperty("IdProduct", idProduct),
-                new StaticProperty("IdColor", idColor),
-                new StaticProperty("IdMaterial", idMaterial)
-            };
-
-            return await GetObjectAsync<ProductInfo>(staticProperties);
-        }
-
-        /// <summary>
-        /// Добавление информации о товаре.
-        /// </summary>
-        /// <param name="idProduct">Идентификатор товара.</param>
-        /// <param name="idColor">Идентификатор цвета.</param>
-        /// <param name="idMaterial">Идентификатор материала.</param>
-        /// <param name="price">Цена.</param>
-        /// <param name="amount">Количество.</param>
-        public static Task<int> AddProductInfo(int idProduct, int idColor, int idMaterial, decimal price, int amount)
-        {
-            List<StaticProperty> staticProperties = new List<StaticProperty>()
-            {
-                new StaticProperty("IdProduct", idProduct),
-                new StaticProperty("IdColor", idColor),
-                new StaticProperty("IdMaterial", idMaterial),
-                new StaticProperty("Price", price),
-                new StaticProperty("Amount", amount)
-            };
-
-            return AddObjectAsync<ProductInfo>(staticProperties);
-        }
-
-        /// <summary>
-        /// Обновление информации о товаре.
-        /// </summary>
-        /// <param name="idProduct">Идентификатор товара.</param>
-        /// <param name="idColor">Идентификатор цвета.</param>
-        /// <param name="idMaterial">Идентификатор материала.</param>
-        /// <param name="newIdProduct">Новый идентификатор продукта.</param>
-        /// <param name="newIdColor">Новый идентификатор цвета.</param>
-        /// <param name="newIdMaterial">Новый идентификатор материала.</param>
-        /// <param name="price">Цена.</param>
-        /// <param name="amount">Количество.</param>
-        public static void UpdateProductInfo(int idProduct, int idColor, int idMaterial, int newIdProduct, int newIdColor, int newIdMaterial, decimal price, int amount)
-        {
-            List<StaticProperty> staticProperties = new List<StaticProperty>()
-            {
-                new StaticProperty("IdProduct", idProduct),
-                new StaticProperty("IdColor", idColor),
-                new StaticProperty("IdMaterial", idMaterial)
-            };
-
-            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
-            {
-                new StaticProperty("IdProduct", newIdProduct),
-                new StaticProperty("IdColor", newIdColor),
-                new StaticProperty("IdMaterial", newIdMaterial),
-                new StaticProperty("Price", price),
-                new StaticProperty("Amount", amount)
-            };
-
-            UpdateObject<ProductInfo>(setStaticProperties, staticProperties);
-        }
-
-        /// <summary>
-        /// Удаление информации о товаре.
-        /// </summary>
-        /// <param name="idProduct">Идентификатор товара.</param>
-        /// <param name="idColor">Идентификатор цвета.</param>
-        /// <param name="idMaterial">Идентификатор материала.</param>
-        public static void DeleteProductInfo(int idProduct, int idColor, int idMaterial)
-        {
-            List<StaticProperty> staticProperties = new List<StaticProperty>()
-            {
-                new StaticProperty("IdProduct", idProduct),
-                new StaticProperty("IdColor", idColor),
-                new StaticProperty("IdMaterial", idMaterial)
-            };
-
-            DeleteObject<ProductInfo>(staticProperties);
-        }
-
-        /// <summary>
         /// Получение списка заказчиков.
         /// </summary>
         /// <returns>Список заказчиков.</returns>
@@ -1111,19 +1003,23 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        /// <param name="idColor">Идентификатор цвета.</param>
+        /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static async Task<int> AddProduct(int idManufacturer, int idProductCategory, string title, 
+        public static async Task<int> AddProduct(int idManufacturer, int idProductCategory, int idColor, int idMaterial, string title, 
             int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
                 new StaticProperty("IdManufacturer", idManufacturer),
                 new StaticProperty("IdProductCategory", idProductCategory),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial),
                 new StaticProperty("Title", title),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),
@@ -1141,13 +1037,15 @@ namespace LunaMarketEngine
         /// <param name="idProduct">Идентификатор товара.</param>
         /// <param name="idManufacturer">Идентификатор производителя.</param>
         /// <param name="idProductCategory">Идентификатор категории товара.</param>
+        /// <param name="idColor">Идентификатор цвета.</param>
+        /// <param name="idMaterial">Идентификатор материала.</param>
         /// <param name="title">Название товара.</param>
         /// <param name="height">Выстота товара.</param>
         /// <param name="width">Ширина товара.</param>
         /// <param name="depth">Глубина товара.</param>
         /// <param name="description">Описание товара.</param>
         /// <param name="deleted">Удалён ли товар.</param>
-        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, string title, 
+        public static void UpdateProduct(int idProduct, int idManufacturer, int idProductCategory, int idColor, int idMaterial, string title, 
             int height, int width, int depth, string description, bool deleted = false)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -1159,6 +1057,8 @@ namespace LunaMarketEngine
             {
                 new StaticProperty("IdManufacturer", idManufacturer),
                 new StaticProperty("IdProductCategory", idProductCategory),
+                new StaticProperty("IdColor", idColor),
+                new StaticProperty("IdMaterial", idMaterial),
                 new StaticProperty("Title", title),
                 new StaticProperty("Height", height),
                 new StaticProperty("Width", width),

@@ -1,7 +1,9 @@
-﻿using LunaMarketEngine.Entities;
+﻿using LunaMarketEngine;
+using LunaMarketEngine.Entities;
 using LynaMarketMobile.Classes;
 using LynaMarketMobile.Pages;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +17,6 @@ namespace LynaMarketMobile
 
             // Получение данных пользователя.
 
-            int idCustomer;
             string key = "IdCustomer";
             bool contain = Application.Current.Properties.ContainsKey(key);
 
@@ -24,20 +25,7 @@ namespace LynaMarketMobile
                 Application.Current.Properties[key] = 0;
             }
 
-            idCustomer = (int)Application.Current.Properties[key];
-
-            key = "Authorizated";
-            contain = Application.Current.Properties.ContainsKey(key);
-
-            if (!contain)
-            {
-                Application.Current.Properties[key] = false;
-            }
-
-            if ((bool)Application.Current.Properties[key])
-            {
-                CurrentCustomer.Authorizate(idCustomer);
-            }
+            Task.Run(() => Authoriated((int)Application.Current.Properties[key])).Wait();
 
             // Выставление остальных настроек.
 
@@ -61,6 +49,14 @@ namespace LynaMarketMobile
 
         protected override void OnResume()
         {
+        }
+
+        private async Task Authoriated(int idCustomer)
+        {
+            if ((await Core.GetCustomerAsync(idCustomer)) != default)
+            {
+                CurrentCustomer.Authorizate(idCustomer);
+            }
         }
     }
 }

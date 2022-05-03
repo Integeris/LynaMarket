@@ -33,7 +33,6 @@ namespace LynaMarketMobile.Classes
             Authorizated = true;
 
             Application.Current.Properties["IdCustomer"] = IdCustomer;
-            Application.Current.Properties["Authorizated"] = Authorizated;
             Application.Current.SavePropertiesAsync();
         }
 
@@ -43,7 +42,7 @@ namespace LynaMarketMobile.Classes
         public static void Exit()
         {
             Authorizated = false;
-            Application.Current.Properties["Authorizated"] = Authorizated;
+            Application.Current.Properties["IdCustomer"] = 0;
             Application.Current.SavePropertiesAsync();
         }
     }

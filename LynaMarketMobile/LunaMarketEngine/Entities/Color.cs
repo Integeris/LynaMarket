@@ -20,9 +20,9 @@ namespace LunaMarketEngine.Entities
         public string Title { get; set; }
 
         /// <summary>
-        /// Получение информации о продуктах с этим цветом.
+        /// Получение продуктов с этим цветом.
         /// </summary>
-        public List<ProductInfo> GetProductInfos
+        public List<Product> GetProductы
         {
             get
             {
@@ -31,7 +31,7 @@ namespace LunaMarketEngine.Entities
                     new StaticProperty("IdColor", IdColor)
                 };
 
-                return Core.GetObjectsListAsync<ProductInfo>(staticProperties).Result;
+                return Core.GetObjectsListAsync<Product>(staticProperties).Result;
             }
         }
     }

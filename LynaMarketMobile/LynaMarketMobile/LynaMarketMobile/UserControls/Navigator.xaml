@@ -2,6 +2,13 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.UserControls.Navigator">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SelectedButton" TargetType="Button">
+                
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
         <CollectionView>
             <CollectionView.ItemsLayout>

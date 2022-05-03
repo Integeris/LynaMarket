@@ -16,7 +16,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Адрес отправителя.
         /// </summary>
-        private string fromAddress = "Их почта.";
+        private string fromAddress = "ninellsh@gmail.com";
 
         /// <summary>
         /// Адрес получателя.
@@ -41,7 +41,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Пароль.
         /// </summary>
-        private string password = "12344543";
+        private string password = "nikt20012006";
 
         /// <summary>
         /// Порт.
@@ -130,7 +130,7 @@ namespace LunaMarketEngine
         /// </summary>
         public async void SendAsync()
         {
-            MailMessage message = new MailMessage(fromAddress, toAddress, subject, "")
+            MailMessage message = new MailMessage(fromAddress, toAddress, subject, body)
             {
                 IsBodyHtml = true,
                 Priority = MailPriority.High

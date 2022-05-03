@@ -29,9 +29,14 @@ namespace LunaMarketEngine.Entities
         public int IdProductCategory { get; set; }
 
         /// <summary>
-        /// Идентификатор фотографии товара.
+        /// Идентификатор цвета.
         /// </summary>
-        public int IdProductPhoto { get; set; }
+        public int IdColor { get; set; }
+
+        /// <summary>
+        /// Идентификатор материала.
+        /// </summary>
+        public int IdMaterial { get; set; }
 
         /// <summary>
         /// Название.
@@ -52,6 +57,16 @@ namespace LunaMarketEngine.Entities
         /// Глубина.
         /// </summary>
         public int Depth { get; set; }
+
+        /// <summary>
+        /// Цена.
+        /// </summary>
+        public decimal Price { get; set; }
+
+        /// <summary>
+        /// Количество.
+        /// </summary>
+        public int Amount { get; set; }
 
         /// <summary>
         /// Описание.
@@ -80,6 +95,54 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
+        /// Цвет.
+        /// </summary>
+        public Color Color
+        {
+            get
+            {
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
+                {
+                    new StaticProperty("IdColor", IdColor)
+                };
+
+                return Core.GetObjectAsync<Color>(staticProperties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Материал.
+        /// </summary>
+        public Material Material
+        {
+            get
+            {
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
+                {
+                    new StaticProperty("IdMaterial", IdMaterial)
+                };
+
+                return Core.GetObjectAsync<Material>(staticProperties).Result;
+            }
+        }
+
+        /// <summary>
+        /// Производитель.
+        /// </summary>
+        public Manufacturer Manufacturer
+        {
+            get
+            {
+                List<StaticProperty> staticProperties = new List<StaticProperty>()
+                {
+                    new StaticProperty("IdManufacturer", IdManufacturer)
+                };
+
+                return Core.GetObjectAsync<Manufacturer>(staticProperties).Result;
+            }
+        }
+
+        /// <summary>
         /// Фотографии продукта.
         /// </summary>
         public List<ProductPhoto> ProductPhotos
@@ -88,7 +151,7 @@ namespace LunaMarketEngine.Entities
             {
                 List<StaticProperty> staticProperties = new List<StaticProperty>()
                 {
-                    new StaticProperty("IdProductPhoto", IdProductPhoto)
+                    new StaticProperty("IdProduct", IdProduct)
                 };
 
                 return Core.GetObjectsListAsync<ProductPhoto>(staticProperties).Result;
@@ -108,22 +171,6 @@ namespace LunaMarketEngine.Entities
                 };
 
                 return Core.GetObjectsListAsync<OrderProduct>(staticProperties).Result;
-            }
-        }
-
-        /// <summary>
-        /// Производитель.
-        /// </summary>
-        public Manufacturer Manufacturer
-        {
-            get
-            {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdManufacturer", IdManufacturer)
-                };
-
-                return Core.GetObjectAsync<Manufacturer>(staticProperties).Result;
             }
         }
     }

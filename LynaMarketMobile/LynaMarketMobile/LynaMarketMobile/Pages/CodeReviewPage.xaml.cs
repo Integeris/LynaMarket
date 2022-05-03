@@ -52,7 +52,7 @@ namespace LynaMarketMobile.Pages
             }
         }
 
-        private void ConfirmButtonOnClicked(object sender, EventArgs e)
+        private async void ConfirmButtonOnClicked(object sender, EventArgs e)
         {
             timer.Stop();
 
@@ -64,7 +64,7 @@ namespace LynaMarketMobile.Pages
                 return;
             }
 
-            Core.AddCustomer(customer.Login, customer.Password, customer.FirstName, 
+            await Core.AddCustomer(customer.Login, customer.Password, customer.FirstName,
                 customer.SecondName, customer.Email, customer.Phone);
 
             CurrentCustomer.Authorizate(customer.IdCustomer);

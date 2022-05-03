@@ -94,6 +94,14 @@ namespace LynaMarketMobile.Pages
                 }
             }
 
+            MailSender mailSender = new MailSender(customer.Email)
+            {
+                Subject = "ООО <<ЛУНА>>",
+                Body = $"Код: <b>{new String(code)}</b>"
+            };
+
+            mailSender.SendAsync();
+
             CodeReviewPage reviewPage = new CodeReviewPage(customer, new String(code));
             reviewPage.Disappearing += ReviewPageOnDisappearing;
             NavigationManager.PushPage(reviewPage);
@@ -103,11 +111,11 @@ namespace LynaMarketMobile.Pages
         {
             if (((CodeReviewPage)sender).Result)
             {
-                InfoViewer.ShowInfo(this, "Вы успешно зарегистрировадись.");
+                InfoViewer.ShowInfo(this, "Вы успешно зарегистрировались.");
             }
             else
             {
-                InfoViewer.ShowError(this, "Вы не зарегистрировадись.");
+                InfoViewer.ShowError(this, "Вы не зарегистрировались.");
             }
         }
     }

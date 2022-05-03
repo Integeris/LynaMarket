@@ -24,9 +24,9 @@ namespace LunaMarketEngine.Entities
         public string Title { get; set; }
 
         /// <summary>
-        /// Получение информации о продуктах с этим материалом.
+        /// Получение продуктов с этим материалом.
         /// </summary>
-        public List<ProductInfo> GetProductInfos
+        public List<Product> GetProducts
         {
             get
             {
@@ -35,7 +35,7 @@ namespace LunaMarketEngine.Entities
                     new StaticProperty("IdMaterial", IdMaterial)
                 };
 
-                return Core.GetObjectsListAsync<ProductInfo>(staticProperties).Result;
+                return Core.GetObjectsListAsync<Product>(staticProperties).Result;
             }
         }
     }

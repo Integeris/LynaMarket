@@ -77,7 +77,6 @@
     <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductCategory.cs" />
-    <Compile Include="Entities\ProductInfo.cs" />
     <Compile Include="Entities\ProductPhoto.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="MailSender.cs" />
