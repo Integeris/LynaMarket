@@ -1231,7 +1231,7 @@ namespace LunaMarketEngine
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
                     PropertyInfo property = type.GetProperty(reader.GetName(i));
-                    property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType));
+                    property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType)); 
                 }
 
                 reader.Close();
