@@ -81,81 +81,66 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Категория товара.
         /// </summary>
-        public ProductCategory ProductCategory
+        public async Task<ProductCategory> GetProductCategoryAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdProductCategory", IdProductCategory)
-                };
+                new StaticProperty("IdProductCategory", IdProductCategory)
+            };
 
-                return Core.GetObjectAsync<ProductCategory>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<ProductCategory>(staticProperties);
         }
 
         /// <summary>
         /// Цвет.
         /// </summary>
-        public Color Color
+        public async Task<Color> GetProductColorAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdColor", IdColor)
-                };
+                new StaticProperty("IdColor", IdColor)
+            };
 
-                return Core.GetObjectAsync<Color>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<Color>(staticProperties);
         }
 
         /// <summary>
         /// Материал.
         /// </summary>
-        public Material Material
+        public async Task<Material> GetMaterialAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdMaterial", IdMaterial)
-                };
+                new StaticProperty("IdMaterial", IdMaterial)
+            };
 
-                return Core.GetObjectAsync<Material>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<Material>(staticProperties);
         }
 
         /// <summary>
         /// Производитель.
         /// </summary>
-        public Manufacturer Manufacturer
+        public async Task<Manufacturer> GetManufacturerAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdManufacturer", IdManufacturer)
-                };
+                new StaticProperty("IdManufacturer", IdManufacturer)
+            };
 
-                return Core.GetObjectAsync<Manufacturer>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<Manufacturer>(staticProperties);
         }
 
         /// <summary>
         /// Фотографии продукта.
         /// </summary>
-        public List<ProductPhoto> ProductPhotos
+        public async Task<List<ProductPhoto>> GetProductPhotoAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdProduct", IdProduct)
-                };
+                new StaticProperty("IdProduct", IdProduct)
+            };
 
-                return Core.GetObjectsListAsync<ProductPhoto>(staticProperties).Result;
-            }
+            return await Core.GetObjectsListAsync<ProductPhoto>(staticProperties);
         }
 
         /// <summary>
@@ -172,6 +157,16 @@ namespace LunaMarketEngine.Entities
 
                 return Core.GetObjectsListAsync<OrderProduct>(staticProperties).Result;
             }
+        }
+
+        public async Task<List<OrderProduct>> OrderaProductsAsync()
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdProduct", IdProduct)
+            };
+
+            return await Core.GetObjectsListAsync<OrderProduct>(staticProperties);
         }
     }
 }

@@ -90,7 +90,29 @@ namespace LunaMarketAdministration.Forms
                 if (Database.IdProduct != 0)
                 {
                     Product product = await Core.GetProductAsync(Database.IdProduct);
-                    manufacturerTextBox.Text = product.Manufacturer.ToString();
+
+                    Manufacturer manufacturer = await Core.GetManufacturerAnsyc(product.IdManufacturer);
+                    manufacturerTextBox.Text = manufacturer.Title;
+
+                    ProductCategory category = await Core.GetProductCategoryAsync(product.IdProductCategory);
+                    categoryTextBox.Text = category.Title;
+
+                    LunaMarketEngine.Entities.Color color = await Core.GetColorAsync(product.IdColor);
+                    colorTextBox.Text = color.Title;
+
+                    Material material = await Core.GetMaterialAsync(product.IdMaterial); 
+                    materialTextBox.Text = material.Title;
+
+                    titleTextBox.Text = product.Title;
+                    heightNumericUpDown.Value = product.Height;
+                    widthNumericUpDown.Value = product.Width;
+                    depthNumericUpDown.Value = product.Depth;
+                    priceNumericUpDown.Value = product.Price;
+                    amontNumericUpDown.Value = product.Amount;
+                    descriptionTextBox.Text = product.Description;
+
+                    //int count = product.ProductPhotos.Count;
+                    //MessageBox.Show(count.ToString());
 
                     //using (MemoryStream memoryStream = new MemoryStream(pr.Photo))
                     //{

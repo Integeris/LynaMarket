@@ -31,17 +31,14 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Товар.
         /// </summary>
-        public Product Product
+        public async Task<Product> GetProductPhotoAsync()
         {
-            get
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                List<StaticProperty> staticProperties = new List<StaticProperty>()
-                {
-                    new StaticProperty("IdProduct", IdProduct)
-                };
+                new StaticProperty("IdProduct", IdProduct)
+            };
 
-                return Core.GetObjectAsync<Product>(staticProperties).Result;
-            }
+            return await Core.GetObjectAsync<Product>(staticProperties);
         }
     }
 }
