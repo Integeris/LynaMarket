@@ -37,6 +37,11 @@ namespace LynaMarketMobile.UserControls
         private int itemsCount;
 
         /// <summary>
+        /// Элементы навигации.
+        /// </summary>
+        private readonly List<NavigatorItem> items = new List<NavigatorItem>();
+
+        /// <summary>
         /// Текущая страница.
         /// </summary>
         public int CurrentPage
@@ -44,13 +49,21 @@ namespace LynaMarketMobile.UserControls
             get => currentPage;
             set
             {
-                if (value < 0 || value > pageCount)
+                if (value < 1 || value > pageCount)
                 {
                     throw new ArgumentException("Недопустимое значение свойства.");
                 }
 
+                MainCollectionView.ItemsSource = null;
+
+                items[currentPage - 1].Color = Color.LightGray;
+                items[value - 1].Color = Color.DarkGray;
+
+                MainCollectionView.ItemsSource = items;
+                MainCollectionView.ScrollTo(value - 1, default, ScrollToPosition.Center, false);
+
                 currentPage = value;
-                SelectPage(this, new SelectPageEventArgs(value));
+                SelectPage?.Invoke(this, new SelectPageEventArgs(value));
             }
         }
 
@@ -116,6 +129,9 @@ namespace LynaMarketMobile.UserControls
         public Navigator()
         {
             InitializeComponent();
+
+            MainCollectionView.ItemsSource = items;
+            SetNewPropertyValues();
         }
 
         /// <summary>
@@ -125,10 +141,34 @@ namespace LynaMarketMobile.UserControls
         {
             pageCount = itemsCount / itemsCountOnPage + 1;
 
+            if (items.Count < pageCount)
+            {
+                for (int i = items.Count + 1; i <= pageCount; i++)
+                {
+                    NavigatorItem item = new NavigatorItem(i, Color.LightGray);
+                    items.Add(item);
+                }
+            }
+            else if (items.Count > pageCount)
+            {
+                for (int i = items.Count; i > pageCount; i--)
+                {
+                    items.RemoveAt(i - 1);
+                }
+            }
+
             if (currentPage > pageCount)
             {
                 CurrentPage = pageCount;
             }
+        }
+
+        private void ButtonOnClicked(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            NavigatorItem navigatorItem = (NavigatorItem)clickedButton.BindingContext;
+            int index = items.IndexOf(navigatorItem);
+            CurrentPage = index + 1;
         }
     }
 }

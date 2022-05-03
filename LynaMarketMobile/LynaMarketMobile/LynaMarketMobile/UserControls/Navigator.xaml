@@ -4,31 +4,25 @@
              x:Class="LynaMarketMobile.UserControls.Navigator">
     <ContentView.Resources>
         <ResourceDictionary>
-            <Style x:Key="SelectedButton" TargetType="Button">
-                
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <CollectionView>
+        <CollectionView x:Name="MainCollectionView"
+                        SelectionMode="None"
+                        HorizontalScrollBarVisibility="Always">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="0"/>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button Text="{Binding .}"/>
+                    <Button Text="{Binding Value}"
+                            BackgroundColor="{Binding Color}"
+                            Clicked="ButtonOnClicked"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>1</x:String>
-                    <x:String>2</x:String>
-                    <x:String>3</x:String>
-                    <x:String>4</x:String>
-                    <x:String>5</x:String>
-                    <x:String>6</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
         </CollectionView>
     </ContentView.Content>
 </ContentView>

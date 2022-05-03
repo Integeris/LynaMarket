@@ -38,7 +38,8 @@
                 
             </ListView>
 
-            <controls:Navigator Grid.Row="3"/>
+            <controls:Navigator x:Name="MainNavigator" 
+                                Grid.Row="3"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -35,6 +35,7 @@ namespace LynaMarketMobile.Pages
             List<Product> products = await filter.GetProducts();
             productViews = products.Select(product => new ProductView(product.IdProduct, product.Title, product.ProductPhotos.First().Image)).ToList();
             ProductsListView.ItemsSource = productViews;
+            MainNavigator.ItemsCount = productViews.Count;
         }
 
         private void SortButtonOnClicked(object sender, EventArgs e)
