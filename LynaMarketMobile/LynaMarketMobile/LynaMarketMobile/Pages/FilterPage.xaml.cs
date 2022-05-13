@@ -20,6 +20,7 @@ namespace LynaMarketMobile.Pages
     {
         private readonly Filter filter;
 
+        private List<FilterView> productCategoriesViews;
         private List<FilterView> manufacturersViews;
         private List<FilterView> colorsViews;
         private List<FilterView> materialsViews;
@@ -28,32 +29,47 @@ namespace LynaMarketMobile.Pages
         {
             InitializeComponent();
             this.filter = filter;
-            LoadData();
+            Task.Run(() => LoadData());
         }
 
         private async void LoadData()
         {
+            List<ProductCategory> productCategories = await Core.GetProductCategoriesAsync();
             List<Manufacturer> manufacturers = await Core.GetManufacturersAsync();
             List<Color> colors = await Core.GetColorsAsync();
             List<Material> materials = await Core.GetMaterialsAsync();
 
-            manufacturersViews = manufacturers.Select(manufacturer => new FilterView() 
+            productCategoriesViews = productCategories.AsParallel().Select(category => new FilterView()
+            {
+                IdObject = category.IdProductCategory,
+                Title = category.Title
+            }).ToList();
+
+            manufacturersViews = manufacturers.AsParallel().Select(manufacturer => new FilterView() 
             { 
                 IdObject = manufacturer.IdManufacturer, 
                 Title = manufacturer.Title
             }).ToList();
 
-            colorsViews = colors.Select(color => new FilterView()
+            colorsViews = colors.AsParallel().Select(color => new FilterView()
             {
                 IdObject = color.IdColor,
                 Title = color.Title
             }).ToList();
 
-            materialsViews = materials.Select(material => new FilterView()
+            materialsViews = materials.AsParallel().Select(material => new FilterView()
             {
                 IdObject = material.IdMaterial,
                 Title = material.Title
             }).ToList();
+
+            if (filter.ProductCategories != null)
+            {
+                foreach (var category in filter.ProductCategories)
+                {
+                    productCategoriesViews.First(innerManufacturer => innerManufacturer.IdObject == category.IdProductCategory).IsEnabled = true;
+                }
+            }
 
             if (filter.Manufacturers != null)
             {
@@ -79,14 +95,18 @@ namespace LynaMarketMobile.Pages
                 }
             }
 
-            ManufactorersListView.ItemsSource = manufacturersViews;
-            ColorsListView.ItemsSource = colorsViews;
-            MaterialsListView.ItemsSource = materialsViews;
+            this.Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                ProductCategoriesListView.ItemsSource = productCategoriesViews;
+                ManufactorersListView.ItemsSource = manufacturersViews;
+                ColorsListView.ItemsSource = colorsViews;
+                MaterialsListView.ItemsSource = materialsViews;
 
-            SetIfNotNull(PricePropertyChanger, filter.FromPrice, filter.ToPrice);
-            SetIfNotNull(WidthPropertyChanger, filter.FromWidth, filter.ToWidth);
-            SetIfNotNull(HeightPropertyChanger, filter.FromHeight, filter.ToHeight);
-            SetIfNotNull(DepthPropertyChanger, filter.FromDepth, filter.ToDepth);
+                SetIfNotNull(PricePropertyChanger, filter.FromPrice, filter.ToPrice);
+                SetIfNotNull(WidthPropertyChanger, filter.FromWidth, filter.ToWidth);
+                SetIfNotNull(HeightPropertyChanger, filter.FromHeight, filter.ToHeight);
+                SetIfNotNull(DepthPropertyChanger, filter.FromDepth, filter.ToDepth);
+            });
         }
 
         private void PropertyChangerOnCompleted(object sender, PropertyChangerEventArgs e)
@@ -105,11 +125,22 @@ namespace LynaMarketMobile.Pages
             }
         }
 
-        private async void ApplyButtonOnClicked(object sender, EventArgs e)
+        private void ApplyButtonOnClicked(object sender, EventArgs e)
         {
+            Task.Run(() => FilterUpdate());
+        }
+
+        private async void FilterUpdate()
+        {
+            List<ProductCategory> productCategories = new List<ProductCategory>();
             List<Manufacturer> manufacturers = new List<Manufacturer>();
             List<Color> colors = new List<Color>();
             List<Material> materials = new List<Material>();
+
+            foreach (var item in productCategoriesViews.Where(category => category.IsEnabled == true))
+            {
+                productCategories.Add(await Core.GetProductCategoryAsync(item.IdObject));
+            }
 
             foreach (var item in manufacturersViews.Where(manufacturer => manufacturer.IsEnabled == true))
             {
@@ -126,6 +157,7 @@ namespace LynaMarketMobile.Pages
                 materials.Add(await Core.GetMaterialAsync(item.IdObject));
             }
 
+            filter.ProductCategories = productCategories.Count > 0 ? productCategories : null;
             filter.Manufacturers = manufacturers.Count > 0 ? manufacturers : null;
             filter.Colors = colors.Count > 0 ? colors : null;
             filter.Materials = materials.Count > 0 ? materials : null;
@@ -142,7 +174,7 @@ namespace LynaMarketMobile.Pages
             SetFilterValue(nameof(filter.FromDepth), DepthPropertyChanger.FromValue);
             SetFilterValue(nameof(filter.ToDepth), DepthPropertyChanger.ToValue);
 
-            NavigationManager.PopPage();
+            this.Dispatcher.BeginInvokeOnMainThread(() => NavigationManager.PopPage());
         }
 
         private void SetFilterValue(string nameProperty, string value)

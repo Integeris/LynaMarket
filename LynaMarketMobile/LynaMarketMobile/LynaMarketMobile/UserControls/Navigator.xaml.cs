@@ -1,6 +1,7 @@
 ﻿using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,12 +35,27 @@ namespace LynaMarketMobile.UserControls
         /// <summary>
         /// Количество элементов.
         /// </summary>
-        private int itemsCount;
+        private int itemsCount = 1;
 
         /// <summary>
         /// Элементы навигации.
         /// </summary>
-        private readonly List<NavigatorItem> items = new List<NavigatorItem>();
+        private readonly ObservableCollection<NavigatorItem> items = new ObservableCollection<NavigatorItem>()
+        {
+            new NavigatorItem(1, Color.DarkGray)
+        };
+
+        /// <summary>
+        /// Методы события SelectPage.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Параметры события.</param>
+        public delegate void SelectPageHandle(object sender, SelectPageEventArgs e);
+
+        /// <summary>
+        /// Событие выбора страницы.
+        /// </summary>
+        public event SelectPageHandle SelectPage;
 
         /// <summary>
         /// Текущая страница.
@@ -54,6 +70,7 @@ namespace LynaMarketMobile.UserControls
                     throw new ArgumentException("Недопустимое значение свойства.");
                 }
 
+                currentPage = value;
                 MainCollectionView.ItemsSource = null;
 
                 items[currentPage - 1].Color = Color.LightGray;
@@ -61,9 +78,6 @@ namespace LynaMarketMobile.UserControls
 
                 MainCollectionView.ItemsSource = items;
                 MainCollectionView.ScrollTo(value - 1, default, ScrollToPosition.Center, false);
-
-                currentPage = value;
-                SelectPage?.Invoke(this, new SelectPageEventArgs(value));
             }
         }
 
@@ -105,23 +119,18 @@ namespace LynaMarketMobile.UserControls
                 {
                     throw new ArgumentException("Недопустимое значение свойства.");
                 }
+                else if (value == 0)
+                {
+                    itemsCount = 1;
+                }
+                else
+                {
+                    itemsCount = value;
+                }
 
-                itemsCount = value;
                 SetNewPropertyValues();
             }
         }
-
-        /// <summary>
-        /// Методы события SelectPage.
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший событие.</param>
-        /// <param name="e">Параметры события.</param>
-        public delegate void SelectPageHandle(object sender, SelectPageEventArgs e);
-
-        /// <summary>
-        /// Событие выбора страницы.
-        /// </summary>
-        public event SelectPageHandle SelectPage;
 
         /// <summary>
         /// Новый навигатор по страницам каталога.
@@ -139,7 +148,7 @@ namespace LynaMarketMobile.UserControls
         /// </summary>
         private void SetNewPropertyValues()
         {
-            pageCount = itemsCount / itemsCountOnPage + 1;
+            pageCount = (int)Math.Ceiling((double)itemsCount / itemsCountOnPage);
 
             if (items.Count < pageCount)
             {
@@ -160,6 +169,7 @@ namespace LynaMarketMobile.UserControls
             if (currentPage > pageCount)
             {
                 CurrentPage = pageCount;
+                SelectPage?.Invoke(this, new SelectPageEventArgs(currentPage));
             }
         }
 
@@ -168,7 +178,13 @@ namespace LynaMarketMobile.UserControls
             Button clickedButton = (Button)sender;
             NavigatorItem navigatorItem = (NavigatorItem)clickedButton.BindingContext;
             int index = items.IndexOf(navigatorItem);
-            CurrentPage = index + 1;
+            int pageNumber = index + 1;
+
+            if (currentPage != pageNumber)
+            {
+                CurrentPage = pageNumber;
+                SelectPage?.Invoke(this, new SelectPageEventArgs(pageNumber));
+            }
         }
     }
 }

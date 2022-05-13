@@ -19,14 +19,18 @@ namespace LynaMarketMobile.Pages
         public NewsPage(int idNews)
         {
             InitializeComponent();
-            LoadNews(idNews);
+            Task.Run(() => LoadData(idNews));
         }
 
-        public async void LoadNews(int idNews)
+        public async void LoadData(int idNews)
         {
             News = await Core.GetNewsAsync(idNews);
-            this.BindingContext = News;
-            MainImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(News.Photo));
+
+            this.Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.BindingContext = News;
+                MainImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(News.Photo));
+            });
         }
     }
 }

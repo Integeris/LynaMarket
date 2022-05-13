@@ -966,12 +966,13 @@ namespace LunaMarketEngine
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять.</param>
         /// <param name="sortingProperties">Колонки для сортировки.</param>
+        /// <param name="livensgtainProperty">Свойство для растояния Лиывенштейна.</param>
         /// <returns>Список товаров.</returns>
         public static async Task<List<Product>> GetProductsAsync(List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default,
-            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
+            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default, LivensgtainProperty livensgtainProperty = default)
         {
-            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
+            return await GetObjectsListAsync<Product>(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties, livensgtainProperty);
         }
 
         /// <summary>
@@ -992,10 +993,15 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение количесва товара.
         /// </summary>
+        /// <param name="staticProperties">Постоянные свойства объекта.</param>
+        /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
+        /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        /// <param name="livensgtainProperty">Свойство для растояния Лиывенштейна.</param>
         /// <returns>Количество товара.</returns>
-        public static async Task<long> GetProductCountAsync()
+        public static async Task<long> GetProductCountAsync(List<StaticProperty> staticProperties = default,
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, LivensgtainProperty livensgtainProperty = default)
         {
-            return await GetObjectsCount<Product>();
+            return await GetObjectsCount<Product>(staticProperties, betweenProperties, multiProperties, livensgtainProperty);
         }
 
         /// <summary>
@@ -1137,10 +1143,11 @@ namespace LunaMarketEngine
         /// <param name="sortingProperties">Колонки для сортировки.</param>
         /// <param name="skip">Пропутить.</param>
         /// <param name="take">Взять.</param>
+        /// <param name="livensgtainProperty">Свойство для растояния Лиывенштейна.</param>
         /// <returns>Список объектов указанного типа.</returns>
         internal static async Task<List<T>> GetObjectsListAsync<T>(List<StaticProperty> staticProperties = default, 
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
-            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default)
+            int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default, LivensgtainProperty livensgtainProperty = default)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1153,7 +1160,7 @@ namespace LunaMarketEngine
             Type type = typeof(T);
 
             SelectQuery selectQuery = new SelectQuery(type.Name, staticProperties, betweenProperties, multiProperties, sortingProperties,
-                take, skip);
+                livensgtainProperty, take, skip);
 
             foreach (var item in selectQuery.Parameters)
             {
@@ -1172,8 +1179,12 @@ namespace LunaMarketEngine
 
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    PropertyInfo property = type.GetProperty(reader.GetName(i));
-                    property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType));
+                    try
+                    {
+                        PropertyInfo property = type.GetProperty(reader.GetName(i));
+                        property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType));
+                    }
+                    catch (Exception) { }
                 }
 
                 objectList.Add(obj);
@@ -1246,8 +1257,14 @@ namespace LunaMarketEngine
         /// Получение количества записей.
         /// </summary>
         /// <typeparam name="T">Тип сущности для расчёта.</typeparam>
+        /// <param name="staticProperties">Постоянные свойства объекта.</param>
+        /// <param name="betweenProperties">Свойства объекта с диапазоном.</param>
+        /// <param name="multiProperties">Свойства объекта с множеством значений.</param>
+        /// <param name="livensgtainProperty">Свойство для растояния Лиывенштейна.</param>
         /// <returns>Количесво записей.</returns>
-        internal static async Task<long> GetObjectsCount<T>()
+        internal static async Task<long> GetObjectsCount<T>(List<StaticProperty> staticProperties = default,
+            List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
+            LivensgtainProperty livensgtainProperty = default)
         {
             // Создание команды и подключения.
             MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
@@ -1256,7 +1273,15 @@ namespace LunaMarketEngine
                 Connection = mySqlConnection
             };
 
-            command.CommandText = $"SELECT COUNT(*) FROM `{typeof(T).Name}`;";
+            CountQuery countQuery = new CountQuery(typeof(T).Name, staticProperties, 
+                betweenProperties, multiProperties, livensgtainProperty);
+
+            foreach (var item in countQuery.Parameters)
+            {
+                command.Parameters.Add(item);
+            }
+
+            command.CommandText = countQuery.ToString();
 
             OpenConnection(mySqlConnection);
             long count = (long)await command.ExecuteScalarAsync();

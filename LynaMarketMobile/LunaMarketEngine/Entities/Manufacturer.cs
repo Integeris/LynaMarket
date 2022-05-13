@@ -24,8 +24,9 @@ namespace LunaMarketEngine.Entities
         public string Title { get; set; }
 
         /// <summary>
-        /// Товары производителя.
+        /// Получение товаров производителя.
         /// </summary>
+        /// <returns>Товары производителя.</returns>
         public async Task<List<Product>> GetProductsAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()

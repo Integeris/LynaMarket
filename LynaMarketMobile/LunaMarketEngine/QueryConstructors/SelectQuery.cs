@@ -24,6 +24,11 @@ namespace LunaMarketEngine.QueryConstructors
         private int skip;
 
         /// <summary>
+        /// Свойство для расстояния Ливенштейна.
+        /// </summary>
+        private LivensgtainProperty livensgtainProperty;
+
+        /// <summary>
         /// Свойства с диапазоном.
         /// </summary>
         private List<BetweenProperty> betweenProperties;
@@ -37,6 +42,15 @@ namespace LunaMarketEngine.QueryConstructors
         /// Список столбцов для сортировки.
         /// </summary>
         private List<SortingProperty> sortProperties;
+
+        /// <summary>
+        /// Свойство для расстояния Ливенштейна.
+        /// </summary>
+        public LivensgtainProperty LivensgtainProperty
+        {
+            get => livensgtainProperty;
+            set => livensgtainProperty = value;
+        }
 
         /// <summary>
         /// Взять.
@@ -159,6 +173,14 @@ namespace LunaMarketEngine.QueryConstructors
                     }
                 }
 
+                if (livensgtainProperty != null)
+                {
+                    foreach (var item in livensgtainProperty.Parameters)
+                    {
+                        mySqlParameters.Add(item);
+                    }
+                }
+
                 return mySqlParameters;
             }
         }
@@ -170,19 +192,21 @@ namespace LunaMarketEngine.QueryConstructors
         /// <param name="staticProperties">Статические свойства.</param>
         /// <param name="betweenProperties">Свойста с дмапозоном.</param>
         /// <param name="multiProperties">Свойства с множеством значений.</param>
-        /// <param name="sortColumns">Список столбцов для сортировки.</param>
+        /// <param name="sortingProperties">Список столбцов для сортировки.</param>
+        /// <param name="livensgtainProperty">Свойство для расстояния Ливенштейна.</param>
         /// <param name="take">Количество элементов для получения.</param>
         /// <param name="skip">Количество элеентов для пропуска.</param>
-        /// <param name="isASC">Сортировка по возрастанию?</param>
         public SelectQuery(string tableName, List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
-            List<SortingProperty> sortingProperties = default, int take = Int32.MaxValue, int skip = 0)
+            List<SortingProperty> sortingProperties = default, LivensgtainProperty livensgtainProperty = default, 
+            int take = Int32.MaxValue, int skip = 0)
         {
             TableName = tableName;
             StaticProperties = staticProperties;
             BetweenProperties = betweenProperties;
             MultiProperties = multiProperties;
             SortProperties = sortingProperties;
+            LivensgtainProperty = livensgtainProperty;
             this.take = take;
             this.skip = skip;
         }
@@ -194,10 +218,17 @@ namespace LunaMarketEngine.QueryConstructors
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("SELECT *");
+            stringBuilder.Append("SELECT *");
+
+            if (livensgtainProperty != null)
+            {
+                stringBuilder.Append($", {livensgtainProperty}");
+            }
+
+            stringBuilder.AppendLine();
             stringBuilder.AppendLine($"FROM `{tableName}`");
 
-            if (staticProperties != null || betweenProperties != null || multiProperties != null)
+            if (staticProperties != null || betweenProperties != null || multiProperties != null || livensgtainProperty != null)
             {
                 stringBuilder.Append($"WHERE ");
                 List<String> stringBlocks = new List<string>();
@@ -229,10 +260,29 @@ namespace LunaMarketEngine.QueryConstructors
                 stringBuilder.AppendLine(String.Join(" AND ", stringBlocks));
             }
 
-            if (sortProperties != null)
+            if (livensgtainProperty != null && livensgtainProperty.MaxStringLen != null)
+            {
+                stringBuilder.AppendLine($"HAVING {livensgtainProperty.GetHavingBlock()}");
+            }
+
+            if (livensgtainProperty != null || sortProperties != null)
             {
                 stringBuilder.Append("ORDER BY ");
-                stringBuilder.AppendLine(String.Join(", ", sortProperties));
+
+                if (livensgtainProperty != null)
+                {
+                    stringBuilder.Append($"{livensgtainProperty.ColumnName} ASC");
+                }
+
+                if (sortProperties != null)
+                {
+                    if (livensgtainProperty != null)
+                    {
+                        stringBuilder.Append(", ");
+                    }
+
+                    stringBuilder.AppendLine(String.Join(", ", sortProperties));
+                }
             }
 
             stringBuilder.Append($"LIMIT {take} OFFSET {skip};");

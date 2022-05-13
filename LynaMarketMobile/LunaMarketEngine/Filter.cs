@@ -40,6 +40,11 @@ namespace LunaMarketEngine
         private decimal? fromPrice;
 
         /// <summary>
+        /// Минимальное количество.
+        /// </summary>
+        private int? fromAmount;
+
+        /// <summary>
         /// Максимальная высота.
         /// </summary>
         private int? toHeight;
@@ -60,6 +65,11 @@ namespace LunaMarketEngine
         private decimal? toPrice;
 
         /// <summary>
+        /// Максимальное количество.
+        /// </summary>
+        private int? toAmount;
+
+        /// <summary>
         /// Удалён?
         /// </summary>
         private bool? deleted;
@@ -73,6 +83,16 @@ namespace LunaMarketEngine
         /// Получить.
         /// </summary>
         private int take = Int32.MaxValue;
+
+        /// <summary>
+        /// Максимальное растояние для отдельного слова.
+        /// </summary>
+        private int maxWordLen;
+
+        /// <summary>
+        /// Максимальное растояние для всего предложения.
+        /// </summary>
+        private int? maxStringLen;
 
         /// <summary>
         /// Категории стоваров.
@@ -107,7 +127,7 @@ namespace LunaMarketEngine
             get => title;
             set
             {
-                if (value != null && value.Any(chr => Char.IsWhiteSpace(chr)))
+                if (value != null && value.All(chr => Char.IsWhiteSpace(chr)))
                 {
                     throw new ArgumentNullException(nameof(title), "Название не может быть пустым.");
                 }
@@ -185,6 +205,23 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Минимальное количество.
+        /// </summary>
+        public int? FromAmount
+        {
+            get => fromAmount;
+            set
+            {
+                if (value > toAmount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+
+                fromAmount = value;
+            }
+        }
+
+        /// <summary>
         /// Максимальная высота.
         /// </summary>
         public int? ToHeight
@@ -253,6 +290,23 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Максимальное количество.
+        /// </summary>
+        public int? ToAmount
+        {
+            get => toAmount;
+            set
+            {
+                if (value < fromAmount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+
+                toAmount = value;
+            }
+        }
+
+        /// <summary>
         /// Удалён?
         /// </summary>
         public bool? Deleted
@@ -286,12 +340,62 @@ namespace LunaMarketEngine
             get => take;
             set
             {
-                if (take <= 0)
+                if (value <= 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 take = value;
+            }
+        }
+
+        /// <summary>
+        /// Максимальное растояние для отдельного слова.
+        /// </summary>
+        public int MaxWordLen
+        {
+            get => maxWordLen;
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Степень совпадения слов не может быть меньше 1.");
+                }
+
+                maxWordLen = value;
+            }
+        }
+
+        /// <summary>
+        /// Максимальное растояние для всего предложения.
+        /// </summary>
+        public int? MaxStringLen
+        {
+            get => maxStringLen;
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Степень совпадения предложения не может быть меньше 1.");
+                }
+
+                maxStringLen = value;
+            }
+        }
+
+        /// <summary>
+        /// Свйоство растояния Ливенштейна.
+        /// </summary>
+        public LivensgtainProperty LivensgtainProperty
+        {
+            get
+            {
+                if (title != null)
+                {
+                    return new LivensgtainProperty("Cost", "Title", title, maxWordLen, MaxStringLen);
+                }
+
+                return null;
             }
         }
 
@@ -341,6 +445,112 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Получение статических свойств.
+        /// </summary>
+        public List<StaticProperty> GetStaticProperties
+        {
+            get
+            {
+                List<StaticProperty> properties = new List<StaticProperty>();
+
+                if (deleted != null)
+                {
+                    properties = new List<StaticProperty>
+                    {
+                        new StaticProperty("Deleted", deleted)
+                    };
+                }
+
+                return properties;
+            }
+        }
+
+        /// <summary>
+        /// Получение свойств с диапазоном.
+        /// </summary>
+        public List<BetweenProperty> GetBetweenProperties
+        {
+            get
+            {
+                List<BetweenProperty> properties = null;
+
+                if (AnyNotNull(fromHeight, toHeight, fromWidth, toWidth, fromDepth, toDepth, fromPrice, toPrice, fromAmount, toAmount))
+                {
+                    properties = new List<BetweenProperty>();
+
+                    if (AnyNotNull(fromHeight, toHeight))
+                    {
+                        properties.Add(new BetweenProperty("Height", fromHeight, toHeight));
+                    }
+
+                    if (AnyNotNull(fromWidth, toWidth))
+                    {
+                        properties.Add(new BetweenProperty("Width", fromWidth, toWidth));
+                    }
+
+                    if (AnyNotNull(fromDepth, toDepth))
+                    {
+                        properties.Add(new BetweenProperty("Depth", fromDepth, toDepth));
+                    }
+
+                    if (AnyNotNull(fromPrice, toPrice))
+                    {
+                        properties.Add(new BetweenProperty("Price", fromPrice, toPrice));
+                    }
+
+                    if (AnyNotNull(fromAmount, toAmount))
+                    {
+                        properties.Add(new BetweenProperty("Amount", fromAmount, toAmount));
+                    }
+                }
+
+                return properties;
+            }
+        }
+
+        /// <summary>
+        /// Получение свойств с множеством значений.
+        /// </summary>
+        public List<MultiProperty> GetMultiProperties
+        {
+            get
+            {
+                List<MultiProperty> properties = null;
+
+                if (AnyNotNull(manufacturers, productCategories, colors, materials))
+                {
+                    properties = new List<MultiProperty>();
+
+                    if (manufacturers != null)
+                    {
+                        properties.Add(new MultiProperty("IdManufacturer",
+                            manufacturers.Select(manufacturer => (object)manufacturer.IdManufacturer).ToList()));
+                    }
+
+                    if (productCategories != null)
+                    {
+                        properties.Add(new MultiProperty("IdProductCategory",
+                            productCategories.Select(productCategory => (object)productCategory.IdProductCategory).ToList()));
+                    }
+
+                    if (colors != null)
+                    {
+                        properties.Add(new MultiProperty("IdColor",
+                            colors.Select(color => (object)color.IdColor).ToList()));
+                    }
+
+                    if (materials != null)
+                    {
+                        properties.Add(new MultiProperty("IdMaterial",
+                            materials.Select(material => (object)material.IdMaterial).ToList()));
+                    }
+                }
+
+                return properties;
+            }
+        }
+
+        /// <summary>
         /// Создание фильтра.
         /// </summary>
         /// <param name="products">Список товаров.</param>
@@ -355,78 +565,13 @@ namespace LunaMarketEngine
         /// <returns>Список товаров.</returns>
         public async Task<List<Product>> GetProducts()
         {
-            List<StaticProperty> staticProperties = null;
-            List<BetweenProperty> betweenProperties = null;
-            List<MultiProperty> multiProperties = null;
+            List<StaticProperty> staticProperties = GetStaticProperties;
+            List<BetweenProperty> betweenProperties = GetBetweenProperties;
+            List<MultiProperty> multiProperties = GetMultiProperties;
+            LivensgtainProperty livensgtainProperty = LivensgtainProperty;
 
-            if (deleted != null)
-            {
-                staticProperties = new List<StaticProperty>
-                {
-                    new StaticProperty("Deleted", deleted)
-                };
-            }
-
-            if (AnyNotNull(fromHeight, toHeight, fromWidth, toWidth, fromDepth, toDepth, fromPrice, toPrice))
-            {
-                betweenProperties = new List<BetweenProperty>();
-
-                if (AnyNotNull(fromHeight, toHeight))
-                {
-                    betweenProperties.Add(new BetweenProperty("Height", fromHeight, toHeight));
-                }
-
-                if (AnyNotNull(fromWidth, toWidth))
-                {
-                    betweenProperties.Add(new BetweenProperty("Width", fromWidth, toWidth));
-                }
-
-                if (AnyNotNull(fromDepth, toDepth))
-                {
-                    betweenProperties.Add(new BetweenProperty("Depth", fromDepth, toDepth));
-                }
-
-                if (AnyNotNull(fromPrice, toPrice))
-                {
-                    betweenProperties.Add(new BetweenProperty("Price", fromPrice, toPrice));
-                }
-            }
-
-            if (AnyNotNull(manufacturers, productCategories, colors, materials))
-            {
-                multiProperties = new List<MultiProperty>();
-
-                if (manufacturers != null)
-                {
-                    multiProperties.Add(new MultiProperty("IdManufacturer", 
-                        manufacturers.Select(manufacturer => (object)manufacturer.IdManufacturer).ToList()));
-                }
-
-                if (productCategories != null)
-                {
-                    multiProperties.Add(new MultiProperty("IdProductCategory", 
-                        productCategories.Select(productCategory => (object)productCategory.IdProductCategory).ToList()));
-                }
-
-                if (colors != null)
-                {
-                    multiProperties.Add(new MultiProperty("IdColor",
-                        colors.Select(color => (object)color.IdColor).ToList()));
-                }
-
-                if (materials != null)
-                {
-                    multiProperties.Add(new MultiProperty("IdMaterial",
-                        materials.Select(material => (object)material.IdMaterial).ToList()));
-                }
-            }
-
-            List<Product> products = await Core.GetProductsAsync(staticProperties, betweenProperties, multiProperties, skip, take, sortingProperties);
-
-            if (title != null)
-            {
-                products = products.Where(product => LivenshtainLen(title, product.Title)).ToList();
-            }
+            List<Product> products = await Core.GetProductsAsync(staticProperties, betweenProperties, multiProperties, 
+                skip, take, sortingProperties, livensgtainProperty);
 
             return products;
         }
@@ -444,47 +589,6 @@ namespace LunaMarketEngine
             }
 
             return objects.Any(x => x != null);
-        }
-
-        /// <summary>
-        /// Проверяет строку на сходство.
-        /// </summary>
-        /// <param name="searchTemlate">Строка для сравнения.</param>
-        /// <param name="text">Сравниваемая строка.</param>
-        /// <returns>Совпадают ли строки.</returns>
-        private bool LivenshtainLen(string searchTemlate, string text)
-        {
-            const int maxCount = 3;
-
-            int[,] matrix = new int[searchTemlate.Length + 1, text.Length + 1];
-
-            for (int i = 0; i <= text.Length; i++)
-            {
-                matrix[0, i] = i;
-            }
-
-            for (int i = 1; i <= searchTemlate.Length; i++)
-            {
-                matrix[i, 0] = i;
-            }
-
-            for (int i = 0; i < searchTemlate.Length; i++)
-            {
-                for (int j = 0; j < text.Length; j++)
-                {
-                    int minSteps = Math.Min(matrix[i, j], matrix[i, j + 1]);
-                    minSteps = Math.Min(minSteps, matrix[i + 1, j]);
-
-                    if (searchTemlate[i] != text[j])
-                    {
-                        minSteps++;
-                    }
-
-                    matrix[i + 1, j + 1] = minSteps;
-                }
-            }
-
-            return matrix[searchTemlate.Length, text.Length] <= maxCount;
         }
     }
 }

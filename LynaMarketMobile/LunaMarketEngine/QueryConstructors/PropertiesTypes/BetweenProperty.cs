@@ -30,11 +30,6 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get => fromValue;
             set
             {
-                if (value == null && toValue == null)
-                {
-                    throw new ArgumentNullException(nameof(value), "Две границы не могут быть равны null.");
-                }
-
                 fromValue = value;
             }
         }
@@ -47,11 +42,6 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get => toValue;
             set
             {
-                if (value == null && fromValue == null)
-                {
-                    throw new ArgumentNullException(nameof(value), "Две границы не могут быть равны null.");
-                }
-
                 toValue = value;
             }
         }
@@ -138,11 +128,11 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             }
             else if (fromValue != null)
             {
-                sqlText = $"{columnName} > {FromValueName}";
+                sqlText = $"{columnName} >= {FromValueName}";
             }
             else
             {
-                sqlText = $"{columnName} < {ToValueName}";
+                sqlText = $"{columnName} <= {ToValueName}";
             }
 
             return sqlText;

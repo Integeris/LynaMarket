@@ -18,19 +18,35 @@ namespace LynaMarketMobile.Pages
         public CatalogPage()
         {
             InitializeComponent();
-            LoadCategeries();
+            LoadDataAsync();
         }
 
-        public async void LoadCategeries()
+        private void LoadDataAsync()
+        {
+            Task.Run(() => LoadData());
+        }
+
+        public async void LoadData()
         {
             List<ProductCategory> productCategories = await Core.GetProductCategoriesAsync();
-            CatalogListView.ItemsSource = productCategories;
+
+            this.Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                CatalogListView.ItemsSource = productCategories;
+            });
         }
 
         private void ListViewButtonOnClicked(object sender, EventArgs e)
         {
             ProductCategory productCategory = (ProductCategory)((Button)sender).Parent.BindingContext;
-            NavigationManager.PushPage(new ProductsPage(productCategory));
+            ProductsPage productsPage = new ProductsPage(productCategory);
+            productsPage.Disappearing += ProductsPageOnDisappearing;
+            NavigationManager.PushPage(productsPage);
+        }
+
+        private void ProductsPageOnDisappearing(object sender, EventArgs e)
+        {
+            LoadDataAsync();
         }
     }
 }

@@ -44,8 +44,9 @@ namespace LunaMarketEngine.Entities
         public string Adress { get; set; }
 
         /// <summary>
-        /// Статус заказа.
+        /// Получение статусаа заказа.
         /// </summary>
+        /// <returns>Статус заказа.</returns>
         public async Task<OrderStatus> GetOrderStatusAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -55,10 +56,11 @@ namespace LunaMarketEngine.Entities
 
             return await Core.GetObjectAsync<OrderStatus>(staticProperties);
         }
-        
+
         /// <summary>
-        /// Заказчик.
+        /// Получение заказчика.
         /// </summary>
+        /// <returns>Заказчик.</returns>
         public async Task<Customer> GetCustomerAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -70,8 +72,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Тип заказа.
+        /// Получение типа заказа.
         /// </summary>
+        /// <returns>Тип заказа.</returns>
         public async Task<DeliveryType> GetDeliveryTypeAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -83,8 +86,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Продукты заказа.
+        /// Получение продуктов заказа.
         /// </summary>
+        /// <returns>Продукты заказа.</returns>
         public async Task<List<OrderProduct>> GetOrderProductsAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()

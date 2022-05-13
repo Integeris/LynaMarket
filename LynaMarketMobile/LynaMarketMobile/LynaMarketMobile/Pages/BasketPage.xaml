@@ -1,17 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LynaMarketMobile.UserControls"
              x:Class="LynaMarketMobile.Pages.BasketPage">
     <ContentPage.Content>
-        <Grid Style="{StaticResource MainGrid}">
+        <Grid Style="{StaticResource MainGrid}"
+              Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
-            <ListView x:Name="OrderListView"/>
+            <ListView x:Name="BasketListView"
+                      SelectionMode="None"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCellOnTapped">
+                            <local:BasketProduct BindingContext="{Binding .}"
+                                                 Delete="BasketProductOnDelete"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <Button Grid.Row="1" 
+            <Label x:Name="CostLabel" 
+                   Grid.Row="1"
+                   FontSize="16"
+                   Text="{Binding Cost, StringFormat='Итого: {0} руб.'}"/>
+            <Button Grid.Row="2"
                     Text="Купить"/>
         </Grid>
     </ContentPage.Content>

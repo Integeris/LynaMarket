@@ -22,7 +22,9 @@
                          Style="{DynamicResource HeaderStackLayout}">
                 <Label Text="Луна"
                        Style="{DynamicResource LogoLabel}"/>
-                <SearchBar Margin="10, 0, 10, 10"/>
+                <SearchBar x:Name="MainSearchBar" 
+                           Margin="10, 0, 10, 10"
+                           SearchButtonPressed="MainSearchBarOnSearchButtonPressed"/>
                 <Frame Style="{StaticResource NavigationFrame}"/>
             </StackLayout>
 

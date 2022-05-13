@@ -7,7 +7,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
-                <Setter Property="Margin" Value="0, 0, 0, 5"/>
+                <Setter Property="Margin" Value="0, 10, 0, 5"/>
+                <Setter Property="FontSize" Value="18"/>
             </Style>
             <Style TargetType="ListView">
                 <Setter Property="HeightRequest" Value="150"/>
@@ -19,7 +20,10 @@
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding IsEnabled}"/>
-                                    <Label Text="{Binding Title}" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Title}" 
+                                           VerticalOptions="Center"
+                                           Margin="0"
+                                           FontSize="14"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -32,14 +36,17 @@
         <StackLayout Margin="10">
             <ScrollView HorizontalScrollBarVisibility="Never">
                 <StackLayout Orientation="Vertical">
+                    <Label Text="Категория товара:"
+                           Margin="0, 0, 0, 5"/>
+                    <ListView x:Name="ProductCategoriesListView"/>
                     <Label Text="Производители:"/>
                     <ListView x:Name="ManufactorersListView"/>
                     <Label Text="Цвета:"/>
                     <ListView x:Name="ColorsListView"/>
                     <Label Text="Материалы:"/>
                     <ListView x:Name="MaterialsListView"/>
-                    <Label Text="Цена:"/>
                     
+                    <Label Text="Цена:"/>
                     <controls:PropertyChanger x:Name="PricePropertyChanger" 
                                               OnCompleted="PropertyChangerOnCompleted"/>
                     <Label Text="Ширина:"/>

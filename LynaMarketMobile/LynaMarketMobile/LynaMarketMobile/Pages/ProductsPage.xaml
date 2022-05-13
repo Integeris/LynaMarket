@@ -14,7 +14,9 @@
             </Grid.RowDefinitions>
 
             <SearchBar x:Name="MainSearchBar" 
-                       Grid.Row="0"/>
+                       Grid.Row="0"
+                       TextChanged="MainSearchBarOnTextChanged"
+                       SearchButtonPressed="MainSearchBarOnSearchButtonPressed"/>
 
             <StackLayout Grid.Row="1"
                          Orientation="Horizontal">
@@ -34,12 +36,80 @@
                         Clicked="FilterButtonOnClicked"/>
             </StackLayout>
 
-            <ListView x:Name="ProductsListView">
-                
+            <ListView x:Name="ProductsListView"
+                      Grid.Row="2" 
+                      RowHeight="150"
+                      SelectionMode="None"
+                      SeparatorColor="#111111">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCellOnTapped">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" 
+                                       Grid.Column="0"
+                                       Grid.RowSpan="3"
+                                       HeightRequest="150"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Start"
+                                       Aspect="AspectFit"
+                                       Source="{Binding Photo}"/>
+
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       FontSize="16">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Path="Manufacturer"/>
+                                            <Binding Path="Title"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Amount, StringFormat='{0} шт.'}"/>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1" 
+                                       Text="{Binding Price, StringFormat='{0} ₽'}"
+                                       HorizontalOptions="End"
+                                       FontAttributes="Bold"/>
+
+                                <ScrollView Grid.Row="2"
+                                            Grid.Column="1">
+                                    <Label Text="{Binding Description}"
+                                           HorizontalOptions="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizerOnTapped"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </ScrollView>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
+            <Label x:Name="EmptySearchLabel" 
+                   Grid.Row="2" 
+                   HorizontalOptions="CenterAndExpand"
+                   Opacity="0"
+                   Text="Товаров не найдено."/>
 
             <controls:Navigator x:Name="MainNavigator" 
-                                Grid.Row="3"/>
+                                Grid.Row="3"
+                                SelectPage="MainNavigatorOnSelectPage"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

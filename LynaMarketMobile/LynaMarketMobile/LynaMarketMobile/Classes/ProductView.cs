@@ -1,42 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using Xamarin.Forms;
 
 namespace LynaMarketMobile.Classes
 {
     /// <summary>
-    /// Класс для вывода товара.
+    /// Интерфейс вывода товара.
     /// </summary>
-    internal sealed class ProductView
+    internal class ProductView
     {
         /// <summary>
-        /// Идентификатор продукта.
+        /// Идентификатор товара.
         /// </summary>
         public int IdProduct { get; set; }
 
         /// <summary>
-        /// Название товара.
+        /// Название.
         /// </summary>
         public string Title { get; set; }
 
         /// <summary>
-        /// Фотография.
+        /// Производитель.
         /// </summary>
-        public ImageSource Photo { get; set; }
+        public string Manufacturer { get; set; }
 
         /// <summary>
-        /// Создание нового отображаемого товара.
+        /// Название цвета.
         /// </summary>
-        /// <param name="idProduct">Идентификатор товара.</param>
-        /// <param name="title">Название товара.</param>
-        /// <param name="photo">Изображение товара.</param>
-        public ProductView(int idProduct, string title, byte[] photo)
-        {
-            IdProduct = idProduct;
-            Title = title;
-            Photo = ImageSource.FromStream(() => new MemoryStream(photo));
-        }
+        public string ColorTitle { get; set; }
+
+        /// <summary>
+        /// Название материала.
+        /// </summary>
+        public string MatrialTitle { get; set; }
+
+        /// <summary>
+        /// Высота.
+        /// </summary>
+        public int Height { get; set; }
+
+        /// <summary>
+        /// Ширина.
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
+        /// Глубина.
+        /// </summary>
+        public int Depth { get; set; }
+
+        /// <summary>
+        /// Цена.
+        /// </summary>
+        public decimal Price { get; set; }
+
+        /// <summary>
+        /// Количество.
+        /// </summary>
+        public int Amount { get; set; }
+
+        /// <summary>
+        /// Описание.
+        /// </summary>
+        public string Description { get; set; }
     }
 }

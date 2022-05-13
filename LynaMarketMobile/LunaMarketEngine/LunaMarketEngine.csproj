@@ -83,9 +83,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryConstructors\AddQuery.cs" />
     <Compile Include="QueryConstructors\BaseQuery.cs" />
+    <Compile Include="QueryConstructors\CountQuery.cs" />
     <Compile Include="QueryConstructors\DeleteQuery.cs" />
     <Compile Include="QueryConstructors\PropertiesTypes\BaseProperty.cs" />
     <Compile Include="QueryConstructors\PropertiesTypes\BetweenProperty.cs" />
+    <Compile Include="QueryConstructors\PropertiesTypes\LivensgtainProperty.cs" />
     <Compile Include="QueryConstructors\PropertiesTypes\MultiProperty.cs" />
     <Compile Include="QueryConstructors\PropertiesTypes\SortingProperty.cs" />
     <Compile Include="QueryConstructors\PropertiesTypes\StaticProperty.cs" />

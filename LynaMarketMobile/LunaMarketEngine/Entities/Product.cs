@@ -79,8 +79,9 @@ namespace LunaMarketEngine.Entities
         public bool Deleted { get; set; }
 
         /// <summary>
-        /// Категория товара.
+        /// Получение категории товара.
         /// </summary>
+        /// <returns>Категория товара.</returns>
         public async Task<ProductCategory> GetProductCategoryAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -92,8 +93,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Цвет.
+        /// Получение цвета.
         /// </summary>
+        /// <returns>Цвет.</returns>
         public async Task<Color> GetProductColorAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -105,8 +107,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Материал.
+        /// Получение материала.
         /// </summary>
+        /// <returns>Материал.</returns>
         public async Task<Material> GetMaterialAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -118,8 +121,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Производитель.
+        /// Получение производителя.
         /// </summary>
+        /// <returns>Производитель.</returns>
         public async Task<Manufacturer> GetManufacturerAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -131,8 +135,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Фотографии продукта.
+        /// Получение списка фотографий продукта.
         /// </summary>
+        /// <returns>Список фотографий продукта.</returns>
         public async Task<List<ProductPhoto>> GetProductPhotoAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
@@ -144,8 +149,9 @@ namespace LunaMarketEngine.Entities
         }
 
         /// <summary>
-        /// Получение заказов с товаром.
+        /// Получение списка заказов с товаром.
         /// </summary>
+        /// <returns>Список заказов с товаром.</returns>
         public List<OrderProduct> OrdersProduct
         {
             get
@@ -159,7 +165,11 @@ namespace LunaMarketEngine.Entities
             }
         }
 
-        public async Task<List<OrderProduct>> OrderaProductsAsync()
+        /// <summary>
+        /// Получение списка заказов с продуктом.
+        /// </summary>
+        /// <returns>Список заказов с продуктом.</returns>
+        public async Task<List<OrderProduct>> GetOrderProductsAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {

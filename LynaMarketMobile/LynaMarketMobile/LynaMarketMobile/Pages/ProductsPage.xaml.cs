@@ -1,5 +1,6 @@
 ﻿using LunaMarketEngine;
 using LunaMarketEngine.Entities;
+using LunaMarketEngine.QueryConstructors.PropertiesTypes;
 using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
@@ -15,27 +16,104 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductsPage : ContentPage
     {
-        private List<ProductView> productViews = new List<ProductView>();
+        private List<ProductListView> productViews = new List<ProductListView>();
+
         private readonly Filter filter = new Filter()
         {
+            FromAmount = 1,
+            Deleted = false,
+            MaxWordLen = 2,
+            MaxStringLen = 10,
             Skip = 0,
-            Take = 20
+            Take = 4,
+            SortingProperties = new List<SortingProperty>()
+            {
+                new SortingProperty("Price")
+            }
         };
+
+        public ProductsPage(string searchText)
+        {
+            InitializeComponent();
+
+            MainSearchBar.Text = searchText;
+            MainNavigator.ItemsCountOnPage = filter.Take;
+            LoadDataAsync();
+        }
 
         public ProductsPage(ProductCategory productCategory)
         {
             InitializeComponent();
 
             filter.ProductCategories = new List<ProductCategory> { productCategory };
-            LoadData();
+            MainNavigator.ItemsCountOnPage = filter.Take;
+            LoadDataAsync();
+        }
+
+        private void LoadDataAsync()
+        {
+            ProductsListView.ItemsSource = null;
+            Task.Run(() => LoadData());
         }
 
         private async void LoadData()
         {
+            Device.BeginInvokeOnMainThread(() => ProductsListView.BeginRefresh());
+            ProductsListView.ItemsSource = null;
+
+            if (!String.IsNullOrWhiteSpace(MainSearchBar.Text))
+            {
+                filter.Title = MainSearchBar.Text;
+            }
+            else
+            {
+                filter.Title = null;
+            }
+
+            int navigatorPage = MainNavigator.CurrentPage;
+            int itemsCount = (int)await Core.GetProductCountAsync(filter.GetStaticProperties,
+                    filter.GetBetweenProperties, filter.GetMultiProperties, filter.LivensgtainProperty);
+
+            this.Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                MainNavigator.ItemsCount = itemsCount;
+            });
+
+            int pageCount = (int)Math.Ceiling((double)itemsCount / filter.Take);
+
+            if (pageCount == 0)
+            {
+                pageCount++;
+            }
+
+            int skip = ((navigatorPage < pageCount ? navigatorPage : pageCount) - 1) * filter.Take;
+            filter.Skip = skip;
+
             List<Product> products = await filter.GetProducts();
-            productViews = products.Select(product => new ProductView(product.IdProduct, product.Title, product.ProductPhotos.First().Image)).ToList();
-            ProductsListView.ItemsSource = productViews;
-            MainNavigator.ItemsCount = productViews.Count;
+            productViews = new List<ProductListView>();
+
+            productViews = products.AsParallel().Select(async product =>
+            {
+                return new ProductListView(product.IdProduct, product.Title, (await product.GetManufacturerAsync()).Title, product.Price,
+                    product.Amount, product.Description, (await product.GetProductPhotoAsync()).FirstOrDefault().Image);
+            }).Select(i => i.Result).ToList();
+
+            if (products.Count == 0)
+            {
+                await Task.Delay(100);
+                EmptySearchLabel.Opacity = 1;
+            }
+            else
+            {
+                EmptySearchLabel.Opacity = 0;
+            }
+
+            this.Dispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                ProductsListView.ItemsSource = productViews;
+            });
+            
+            Device.BeginInvokeOnMainThread(() => ProductsListView.EndRefresh());
         }
 
         private void SortButtonOnClicked(object sender, EventArgs e)
@@ -56,7 +134,47 @@ namespace LynaMarketMobile.Pages
 
         private void SettingspagesOnDisappearing(object sender, EventArgs e)
         {
-            LoadData();
+            LoadDataAsync();
+        }
+
+        private void ViewCellOnTapped(object sender, EventArgs e)
+        {
+            ViewCell viewCell = (ViewCell)sender;
+            ProductListView productView = (ProductListView)viewCell.BindingContext;
+            ProductPage productPage = new ProductPage(productView.IdProduct);
+            productPage.Disappearing += ProductPageOnDisappearing;
+            NavigationManager.PushPage(productPage);
+        }
+
+        private void TapGestureRecognizerOnTapped(object sender, EventArgs e)
+        {
+            Label label = (Label)sender;
+            ViewCell viewCell = (ViewCell)label.Parent.Parent.Parent;
+            ViewCellOnTapped(viewCell, e);
+        }
+
+        private void ProductPageOnDisappearing(object sender, EventArgs e)
+        {
+            LoadDataAsync();
+        }
+
+        private void MainSearchBarOnSearchButtonPressed(object sender, EventArgs e)
+        {
+            LoadDataAsync();
+        }
+
+        private void MainSearchBarOnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(MainSearchBar.Text))
+            {
+                LoadDataAsync();
+                MainSearchBar.Unfocus();
+            }
+        }
+
+        private void MainNavigatorOnSelectPage(object sender, SelectPageEventArgs e)
+        {
+            LoadDataAsync();
         }
     }
 }

@@ -29,8 +29,9 @@ namespace LunaMarketEngine.Entities
         public byte[] Image { get; set; }
 
         /// <summary>
-        /// Товар.
+        /// Получение товара.
         /// </summary>
+        /// <returns>Товар.</returns>
         public async Task<Product> GetProductPhotoAsync()
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()

@@ -24,7 +24,8 @@
 
             <Label Text="{Binding Description}"/>
             <Label TextType="Html" 
-                   Text="{Binding Date, StringFormat=&lt;strong>Дата&lt;/strong>\&#x20;написания:{0}.}"/>
+                   FontAttributes="Bold"
+                   Text="{Binding Date, StringFormat='Дата написания: {0}&lt;'}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
