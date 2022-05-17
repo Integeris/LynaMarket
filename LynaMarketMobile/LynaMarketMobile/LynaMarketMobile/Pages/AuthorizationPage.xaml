@@ -13,6 +13,9 @@
             <Button x:Name="EntryButton" 
                     Text="Войти"
                     Clicked="EntryButtonOnClicked"/>
+            <Button x:Name="RecoverPasswordButton" 
+                    Text="Восстановить пароль"
+                    Clicked="RecoverPasswordButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

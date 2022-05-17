@@ -8,7 +8,7 @@
               Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
@@ -28,9 +28,12 @@
             <Label x:Name="CostLabel" 
                    Grid.Row="1"
                    FontSize="16"
+                   VerticalOptions="End"
                    Text="{Binding Cost, StringFormat='Итого: {0} руб.'}"/>
-            <Button Grid.Row="2"
-                    Text="Купить"/>
+            <Button x:Name="PayButton" 
+                    Grid.Row="2"
+                    Text="Купить"
+                    Clicked="PayButtonOnClicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

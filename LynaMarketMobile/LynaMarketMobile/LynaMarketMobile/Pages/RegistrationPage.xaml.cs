@@ -15,6 +15,8 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage : ContentPage
     {
+        Customer customer;
+
         public RegistrationPage()
         {
             InitializeComponent();
@@ -62,7 +64,7 @@ namespace LynaMarketMobile.Pages
                 return;
             }
 
-            Customer customer = new Customer
+            customer = new Customer
             {
                 Login = LoginEntry.Text,
                 Password = PasswordEntry.Text,
@@ -72,45 +74,30 @@ namespace LynaMarketMobile.Pages
                 Phone = PhoneEntry.Text
             };
 
-            char[] chars = new char[]
-            {
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
-                'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-                'y', 'z'
-            };
-
-            char[] code = new char[5];
-
-            {
-                Random random = new Random();
-
-                for (int i = 0; i < code.Length; i++)
-                {
-                    code[i] = chars[random.Next(chars.Length)];
-                }
-            }
+            string code = new CodeGenerator().Generate();
 
             MailSender mailSender = new MailSender(customer.Email)
             {
                 Subject = "ООО <<ЛУНА>>",
-                Body = $"Код: <b>{new String(code)}</b>"
+                Body = $"Код: <b>{code}</b>"
             };
 
             mailSender.SendAsync();
 
-            CodeReviewPage reviewPage = new CodeReviewPage(customer, new String(code));
+            CodeReviewPage reviewPage = new CodeReviewPage(code);
             reviewPage.Disappearing += ReviewPageOnDisappearing;
             NavigationManager.PushPage(reviewPage);
         }
 
-        private void ReviewPageOnDisappearing(object sender, EventArgs e)
+        private async void ReviewPageOnDisappearing(object sender, EventArgs e)
         {
             if (((CodeReviewPage)sender).Result)
             {
+                await Core.AddCustomer(customer.Login, customer.Password, customer.FirstName,
+                    customer.SecondName, customer.Email, customer.Phone);
+
+                CurrentCustomer.Authorizate(customer.IdCustomer);
+
                 InfoViewer.ShowInfo(this, "Вы успешно зарегистрировались.");
             }
             else

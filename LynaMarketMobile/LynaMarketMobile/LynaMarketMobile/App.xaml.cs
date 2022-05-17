@@ -1,5 +1,4 @@
 ﻿using LunaMarketEngine;
-using LunaMarketEngine.Entities;
 using LynaMarketMobile.Classes;
 using LynaMarketMobile.Pages;
 using System;
@@ -16,7 +15,6 @@ namespace LynaMarketMobile
             InitializeComponent();
 
             // Получение данных пользователя.
-
             string key = "IdCustomer";
             bool contain = Application.Current.Properties.ContainsKey(key);
 
@@ -25,10 +23,7 @@ namespace LynaMarketMobile
                 Application.Current.Properties[key] = 0;
             }
 
-            Task.Run(() => Authoriated((int)Application.Current.Properties[key])).Wait();
-
             // Выставление остальных настроек.
-
             NavigationPage navigatePage = new NavigationPage(new NavigatePage())
             {
                 BarBackgroundColor = Xamarin.Forms.Color.FromHex("#8C8C8C")
@@ -49,14 +44,6 @@ namespace LynaMarketMobile
 
         protected override void OnResume()
         {
-        }
-
-        private async Task Authoriated(int idCustomer)
-        {
-            if ((await Core.GetCustomerAsync(idCustomer)) != default)
-            {
-                CurrentCustomer.Authorizate(idCustomer);
-            }
         }
     }
 }

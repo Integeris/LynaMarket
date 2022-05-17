@@ -112,7 +112,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// </summary>
         public string TemplateName
         {
-            get => $"@${nameof(Template)}{template}";
+            get => $"@${nameof(Template)}{template.Trim().Replace(" ", "")}";
         }
 
         /// <summary>

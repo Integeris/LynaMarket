@@ -10,9 +10,6 @@
             <Button x:Name="RegistrationButton" 
                     Text="Регистрация"
                     Clicked="RegistrationButtonOnClicked"/>
-            <Button x:Name="AboutButton" 
-                    Text="О программе"
-                    Clicked="AboutButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

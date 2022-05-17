@@ -19,7 +19,6 @@ namespace LynaMarketMobile.Pages
         private bool result;
 
         private TimeSpan timeSpan = new TimeSpan(0, 2, 0);
-        private readonly Customer customer;
         private readonly Timer timer;
 
         public bool Result
@@ -27,15 +26,14 @@ namespace LynaMarketMobile.Pages
             get => result;
         }
 
-        public CodeReviewPage(Customer customer, string code)
+        public CodeReviewPage(string code)
         {
-            this.customer = customer;
+            InitializeComponent();
+
             this.code = code;
 
             timer = new Timer(1000);
             timer.Elapsed += TimerOnElapsed;
-
-            InitializeComponent();
 
             timer.Start();
         }
@@ -52,7 +50,7 @@ namespace LynaMarketMobile.Pages
             }
         }
 
-        private async void ConfirmButtonOnClicked(object sender, EventArgs e)
+        private void ConfirmButtonOnClicked(object sender, EventArgs e)
         {
             timer.Stop();
 
@@ -64,10 +62,6 @@ namespace LynaMarketMobile.Pages
                 return;
             }
 
-            await Core.AddCustomer(customer.Login, customer.Password, customer.FirstName,
-                customer.SecondName, customer.Email, customer.Phone);
-
-            CurrentCustomer.Authorizate(customer.IdCustomer);
             result = true;
             NavigationManager.PopPage();
         }

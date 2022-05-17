@@ -81,6 +81,19 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Строка подключения.
+        /// </summary>
+        internal static string ConnectionString
+        {
+            get => connectionString;
+        }
+
+        public delegate void ConnectHandle();
+        public delegate void DisconnectHandle();
+        public static event ConnectHandle Connect;
+        public static event DisconnectHandle Disconnect;
+
+        /// <summary>
         /// Получение списка категорий товаров.
         /// </summary>
         /// <returns>Список категорий товаров.</returns>
@@ -294,6 +307,79 @@ namespace LunaMarketEngine
             };
 
             DeleteObject<DeliveryType>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение списка адресов офисов.
+        /// </summary>
+        /// <returns>Список адресов.</returns>
+        public static async Task<List<OfficeAddress>> GetAddressesAsync()
+        {
+            return await GetObjectsListAsync<OfficeAddress>();
+        }
+
+        /// <summary>
+        /// Получение адреса офиса.
+        /// </summary>
+        /// <param name="idOfficeAddress">Идентификатор адреса офиса.</param>
+        /// <returns>Адрес офиса.</returns>
+        public static async Task<OfficeAddress> GetOfficeAddressAsync(int idOfficeAddress)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdOfficeAddress", idOfficeAddress)
+            };
+
+            return await GetObjectAsync<OfficeAddress>(staticProperties);
+        }
+
+        /// <summary>
+        /// Добавление адреса офиса.
+        /// </summary>
+        /// <param name="title">Адрес офиса.</param>
+        /// <returns>Идентификатор адреса офиса.</returns>
+        public static Task<int> AddOfficeAddress(string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            return AddObjectAsync<OfficeAddress>(staticProperties);
+        }
+
+        /// <summary>
+        /// Изменение адреса офиса.
+        /// </summary>
+        /// <param name="idOfficeAddress">Идентификатор адреса офиса.</param>
+        /// <param name="title">Адрес офиса.</param>
+        public static void UpdateOfficeAddress(int idOfficeAddress, string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdOfficeAddress", idOfficeAddress)
+            };
+
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            UpdateObject<OfficeAddress>(setStaticProperties, staticProperties);
+        }
+
+        /// <summary>
+        /// Удаление адреса офиса.
+        /// </summary>
+        /// <param name="idOfficeAddress">Идентификатор адреса офиса.</param>
+        public static void DeleteOfficeAddress(int idOfficeAddress)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdOfficeAddress", idOfficeAddress)
+            };
+
+            DeleteObject<OfficeAddress>(staticProperties);
         }
 
         /// <summary>
@@ -1106,13 +1192,31 @@ namespace LunaMarketEngine
         /// <exception cref="Exception">Ошибка подключения к базе данных.</exception>
         private static void OpenConnection(MySqlConnection connection)
         {
-            try
+            bool isDisconectd = false;
+
+            while (connection.State != System.Data.ConnectionState.Open)
             {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Не удалось подключится к базе данных.", ex);
+                try
+                {
+                    connection.Open();
+
+                    if (isDisconectd)
+                    {
+                        isDisconectd = false;
+                        Connect?.Invoke();  
+                    }
+                }
+                catch (Exception)
+                {
+                    if (!isDisconectd)
+                    {
+                        Disconnect?.Invoke();
+                        isDisconectd = true;
+                    }
+                    
+                    System.Threading.Thread.Sleep(500);
+                    //throw new Exception("Не удалось подключится к базе данных.", ex);
+                }
             }
         }
 

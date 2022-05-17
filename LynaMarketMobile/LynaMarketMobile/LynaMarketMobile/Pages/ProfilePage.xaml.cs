@@ -17,7 +17,8 @@ namespace LynaMarketMobile.Pages
         public ProfilePage()
         {
             InitializeComponent();
-            LoadContent();
+
+            Task.Run(() => LoadData());
         }
 
         public void LoadContent()
@@ -30,6 +31,18 @@ namespace LynaMarketMobile.Pages
             {
                 MainContentView.Content = new NotAuthorizationProfilePage(this).Content;
             }
+        }
+
+        private async void LoadData()
+        {
+            int idCustomer = (int)Application.Current.Properties["IdCustomer"];
+
+            if ((await Core.GetCustomerAsync(idCustomer)) != default)
+            {
+                CurrentCustomer.Authorizate(idCustomer);
+            }
+
+            this.Dispatcher.BeginInvokeOnMainThread(() => LoadContent());
         }
     }
 }

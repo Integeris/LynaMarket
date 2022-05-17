@@ -36,5 +36,18 @@ namespace LynaMarketMobile.Pages
             Authorizated = true;
             this.Dispatcher.BeginInvokeOnMainThread(() => NavigationManager.PopPage());
         }
+
+        private async void RecoverPasswordButtonOnClicked(object sender, EventArgs e)
+        {
+            Customer customer = await Core.GetCustomerAsync(LoginEntry.Text);
+
+            if (customer == default)
+            {
+                InfoViewer.ShowError(this, "Такого пользователя не существует.");
+                return;
+            }
+
+            NavigationManager.PushPage(new RecoverPasswordPage(customer));
+        }
     }
 }

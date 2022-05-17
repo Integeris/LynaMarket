@@ -3,16 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.CatalogPage">
     <ContentPage.Content>
-        <ListView x:Name="CatalogListView">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Button Text="{Binding Title}"
-                                Margin="-6"
-                                Clicked="ListViewButtonOnClicked"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView>
+            <ListView x:Name="CatalogListView"
+                      VerticalScrollBarVisibility="Never"
+                      RowHeight="45">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Button Text="{Binding Title}"
+                                    Margin="-6"
+                                    Clicked="ListViewButtonOnClicked"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

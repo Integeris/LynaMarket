@@ -40,14 +40,16 @@
                 <Label Style="{StaticResource RedStarLabel}"/>
                 <Label Text=":"/>
             </StackLayout>
-            <Entry x:Name="PasswordEntry"/>
+            <Entry x:Name="PasswordEntry"
+                   IsPassword="True"/>
 
             <StackLayout>
                 <Label Text="Почта"/>
                 <Label Style="{StaticResource RedStarLabel}"/>
                 <Label Text=":"/>
             </StackLayout>
-            <Entry x:Name="EmailEntry"/>
+            <Entry x:Name="EmailEntry"
+                   Keyboard="Email"/>
 
             <Label Text="Имя:"/>
             <Entry x:Name="FirstNameEntry"/>
@@ -56,7 +58,8 @@
             <Entry x:Name="SecondNameEntry"/>
 
             <Label Text="Телефон:"/>
-            <Entry x:Name="PhoneEntry"/>
+            <Entry x:Name="PhoneEntry"
+                   Keyboard="Telephone"/>
 
             <Button x:Name="RegistrationButton" 
                     Text="Зарегистрироваться"

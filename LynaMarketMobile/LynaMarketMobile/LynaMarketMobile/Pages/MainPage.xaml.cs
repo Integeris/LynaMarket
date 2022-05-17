@@ -37,7 +37,9 @@ namespace LynaMarketMobile.Pages
         {
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                CatalogContentView.Content = new CatalogPage().Content;
+                ListView listView = (ListView)new CatalogPage().Content.FindByName("CatalogListView");
+                listView.ItemAppearing += ListViewOnItemAppearing;
+                CatalogContentView.Content = listView;
             });
 
             List<NewsView> newNews = (await Core.GetNewsAsync()).AsParallel().Select(innerNews => new NewsView(innerNews)).ToList();
@@ -54,23 +56,41 @@ namespace LynaMarketMobile.Pages
             });
         }
 
+        private void ListViewOnItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            CatalogContentView.HeightRequest = listView.RowHeight * (e.ItemIndex + 1);
+        }
+
         private void NewsButtonOnClicked(object sender, EventArgs e)
         {
             NewsView newsView = (NewsView)NewsCarouselView.CurrentItem;
-            NavigationManager.PushPage(new NewsPage(newsView.IdNews));
+            NewsPage newsPage = new NewsPage(newsView.IdNews);
+            newsPage.Disappearing += PagesOnDisappearing;
+            NavigationManager.PushPage(newsPage);
         }
 
         private void MainSearchBarOnSearchButtonPressed(object sender, EventArgs e)
         {
             ProductsPage productsPage = new ProductsPage(MainSearchBar.Text);
-            productsPage.Disappearing += ProductsPageOnDisappearing;
+            productsPage.Disappearing += PagesOnDisappearing;
             NavigationManager.PushPage(productsPage);
         }
 
-        private void ProductsPageOnDisappearing(object sender, EventArgs e)
+        private void PagesOnDisappearing(object sender, EventArgs e)
         {
             MainSearchBar.Text = null;
             LoadDataAsync();
+        }
+
+        private void AboutProgramButtonOnClicked(object sender, EventArgs e)
+        {
+            NavigationManager.PushPage(new AboutProgramPage());
+        }
+
+        private void AboutCompanyButtonOnClicked(object sender, EventArgs e)
+        {
+            NavigationManager.PushPage(new AboutCompanyPage());
         }
     }
 }

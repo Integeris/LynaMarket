@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LunaMarketEngine;
+using LynaMarketMobile.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,9 @@ namespace LynaMarketMobile.Pages
 
         public NavigatePage()
         {
+            Core.Disconnect += CoreOnDisconnect;
+            Core.Connect += CoreOnConnect;
+
             InitializeComponent();
 
             selectedButton = MainButton;
@@ -71,6 +76,16 @@ namespace LynaMarketMobile.Pages
             clickedButton.Style = (Style)App.Current.Resources["SelectedNavigationButton"];
             selectedButton.Style = (Style)App.Current.Resources["NavigationButton"];
             selectedButton = clickedButton;
+        }
+
+        private void CoreOnConnect()
+        {
+            this.Dispatcher.BeginInvokeOnMainThread(() => this.Navigation.PopAsync(false));
+        }
+
+        private void CoreOnDisconnect()
+        {
+            this.Dispatcher.BeginInvokeOnMainThread(() => this.Navigation.PushAsync(new FailConnectionPage(), false));
         }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -25,7 +26,7 @@ namespace LynaMarketMobile.Pages
             MaxWordLen = 2,
             MaxStringLen = 10,
             Skip = 0,
-            Take = 4,
+            Take = 20,
             SortingProperties = new List<SortingProperty>()
             {
                 new SortingProperty("Price")
@@ -63,7 +64,8 @@ namespace LynaMarketMobile.Pages
 
             if (!String.IsNullOrWhiteSpace(MainSearchBar.Text))
             {
-                filter.Title = MainSearchBar.Text;
+                string tmp = Regex.Replace(MainSearchBar.Text, @"[\s\.();,:\-/\\]+", " ");
+                filter.Title = Regex.Replace(tmp, @"\s{2,}", "").Trim();
             }
             else
             {
@@ -108,7 +110,7 @@ namespace LynaMarketMobile.Pages
                 EmptySearchLabel.Opacity = 0;
             }
 
-            this.Dispatcher.BeginInvokeOnMainThread(async () =>
+            this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 ProductsListView.ItemsSource = productViews;
             });

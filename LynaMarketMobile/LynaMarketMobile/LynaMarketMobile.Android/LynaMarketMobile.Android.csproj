@@ -79,6 +79,10 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LunaMarketEngine\LunaMarketEngine.csproj">
+      <Project>{01670149-C13C-4CD4-86BE-311D19984F62}</Project>
+      <Name>LunaMarketEngine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LynaMarketMobile\LynaMarketMobile.csproj">
       <Project>{067CA242-F724-4129-A069-96A93CA81C64}</Project>
       <Name>LynaMarketMobile</Name>

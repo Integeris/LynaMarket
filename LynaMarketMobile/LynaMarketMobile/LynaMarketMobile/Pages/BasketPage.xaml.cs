@@ -54,14 +54,15 @@ namespace LynaMarketMobile.Pages
                 BasketListView.BeginRefresh();
             });
 
+            basketProductViews.Clear();
             List<MultiProperty> multiProperties = null;
 
             if (BasketManager.ProductIds.Count > 0)
             {
                 multiProperties = new List<MultiProperty>()
-            {
-                new MultiProperty("IdProduct", BasketManager.ProductIds.Select(id => (object)id).ToList())
-            };
+                {
+                    new MultiProperty("IdProduct", BasketManager.ProductIds.Select(id => (object)id).ToList())
+                };
             }
 
             List<SortingProperty> sortingProperties = new List<SortingProperty>()
@@ -70,45 +71,23 @@ namespace LynaMarketMobile.Pages
             };
 
             List<Product> products = BasketManager.ProductIds.Count == 0 ? new List<Product>() : 
-                await Core.GetProductsAsync(multiProperties: multiProperties, sortingProperties: sortingProperties);
-
-            for (int i = 0; i < basketProductViews.Count; i++)
-            {
-                Product product = products.FirstOrDefault(innerProduct => innerProduct.IdProduct == basketProductViews[i].IdProduct);
-
-                if (product == null)
-                {
-                    basketProductViews.Remove(basketProductViews[i]);
-                    i--;
-                }
-            }
+                (await Core.GetProductsAsync(multiProperties: multiProperties, sortingProperties: sortingProperties)).AsParallel()
+                .OrderBy(i => i.Title).ToList();
 
             foreach (Product product in products)
             {
-                BasketProductView basketProductView = basketProductViews.FirstOrDefault(i => i.IdProduct == product.IdProduct);
-
-                if (basketProductView != null)
+                BasketProductView productView = new BasketProductView
                 {
-                    basketProductView.Title = product.Title;
-                    basketProductView.MaxAmount = product.Amount;
-                    basketProductView.Image = basketProductView.Image;
-                    basketProductView.ProductPrice = product.Price;
-                }
-                else
-                {
-                    BasketProductView productView = new BasketProductView
-                    {
-                        IdProduct = product.IdProduct,
-                        Title = product.Title,
-                        Amount = 1,
-                        MaxAmount = product.Amount,
-                        Image = (await product.GetProductPhotoAsync()).First().Image,
-                        ProductPrice = product.Price
-                    };
+                    IdProduct = product.IdProduct,
+                    Title = product.Title,
+                    Amount = 1,
+                    MaxAmount = product.Amount,
+                    Image = (await product.GetProductPhotoAsync()).First().Image,
+                    ProductPrice = product.Price
+                };
 
-                    productView.PropertyChanged += ProductViewOnPropertyChanged;
-                    basketProductViews.Add(productView);
-                }
+                productView.PropertyChanged += ProductViewOnPropertyChanged;
+                basketProductViews.Add(productView);
             }
 
             this.Dispatcher.BeginInvokeOnMainThread(() =>
@@ -124,7 +103,6 @@ namespace LynaMarketMobile.Pages
 
         private void BasketProductViewsOnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-
             UpdateCost();
         }
 
@@ -153,6 +131,50 @@ namespace LynaMarketMobile.Pages
         }
 
         private void ProductPageOnDisappearing(object sender, EventArgs e)
+        {
+            LoadDataAsync();
+        }
+
+        private void PayButtonOnClicked(object sender, EventArgs e)
+        {
+            List<Product> products = new List<Product>();
+
+            try
+            {
+                if (!CurrentCustomer.Authorizated)
+                {
+                    throw new Exception("Вы не авторизированы.");
+                }
+                else if (basketProductViews.Count == 0)
+                {
+                    throw new Exception("Вы не выбрали ни одного товара.");
+                }
+
+                products = basketProductViews.AsParallel().Select(async basketProduct =>
+                {
+                    Product product = await Core.GetProductAsync(basketProduct.IdProduct);
+
+                    if (product.Amount < basketProduct.Amount)
+                    {
+                        throw new Exception($"К сожелению, товара '{product.Title}' не осталось в количестве '{basketProduct.Amount}.\nОсталось всего {product.Amount} шт.'");
+                    }
+
+                    return product;
+                }).Select(task => task.Result).ToList();
+            }
+            catch (Exception ex)
+            {
+                InfoViewer.ShowError(App.Current.MainPage, ex.Message);
+                LoadDataAsync();
+                return;
+            }
+
+            PayPage payPage = new PayPage();
+            payPage.Disappearing += PayPageOnDisappearing;
+            NavigationManager.PushPage(payPage);
+        }
+
+        private void PayPageOnDisappearing(object sender, EventArgs e)
         {
             LoadDataAsync();
         }

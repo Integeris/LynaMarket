@@ -21,11 +21,6 @@ namespace LynaMarketMobile.Pages
             this.profilePage = profilePage;
         }
 
-        private void AboutButtonOnClicked(object sender, EventArgs e)
-        {
-            NavigationManager.PushPage(new AboutPage());
-        }
-
         private void AuthorizationButtonOnClicked(object sender, EventArgs e)
         {
             AuthorizationPage authorizationPage = new AuthorizationPage();

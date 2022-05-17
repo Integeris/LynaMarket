@@ -70,12 +70,11 @@ namespace LynaMarketMobile.UserControls
                     throw new ArgumentException("Недопустимое значение свойства.");
                 }
 
-                currentPage = value;
                 MainCollectionView.ItemsSource = null;
 
                 items[currentPage - 1].Color = Color.LightGray;
                 items[value - 1].Color = Color.DarkGray;
-
+                currentPage = value;
                 MainCollectionView.ItemsSource = items;
                 MainCollectionView.ScrollTo(value - 1, default, ScrollToPosition.Center, false);
             }
@@ -168,6 +167,7 @@ namespace LynaMarketMobile.UserControls
 
             if (currentPage > pageCount)
             {
+                currentPage = pageCount;
                 CurrentPage = pageCount;
                 SelectPage?.Invoke(this, new SelectPageEventArgs(currentPage));
             }

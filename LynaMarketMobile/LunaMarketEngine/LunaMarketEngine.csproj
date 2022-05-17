@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Entities\Color.cs" />
     <Compile Include="Entities\Customer.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\Material.cs" />
     <Compile Include="Entities\News.cs" />
+    <Compile Include="Entities\OfficeAddress.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderProduct.cs" />
     <Compile Include="Entities\OrderStatus.cs" />

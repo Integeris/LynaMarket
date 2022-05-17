@@ -20,6 +20,7 @@ namespace LynaMarketMobile.Pages
         public ProductPage(int idProduct)
         {
             InitializeComponent();
+
             Task.Run(() => LoadData(idProduct));
         }
 
@@ -69,7 +70,7 @@ namespace LynaMarketMobile.Pages
         {
             if (BasketManager.ProductIds.Contains(Product.IdProduct))
             {
-                AddButton.Text = "Товар уже в корзине.";
+                AddButton.Text = "Товар уже в корзине";
                 AddButton.BackgroundColor = Xamarin.Forms.Color.DarkGray;
             }
             else
