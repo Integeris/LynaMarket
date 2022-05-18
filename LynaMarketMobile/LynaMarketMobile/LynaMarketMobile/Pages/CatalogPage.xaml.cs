@@ -15,6 +15,9 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CatalogPage : ContentPage
     {
+        public delegate void CloseCatalogHandle();
+        public event CloseCatalogHandle CloseCatalog;
+
         public CatalogPage()
         {
             InitializeComponent();
@@ -47,6 +50,7 @@ namespace LynaMarketMobile.Pages
         private void ProductsPageOnDisappearing(object sender, EventArgs e)
         {
             LoadDataAsync();
+            CloseCatalog?.Invoke();
         }
     }
 }

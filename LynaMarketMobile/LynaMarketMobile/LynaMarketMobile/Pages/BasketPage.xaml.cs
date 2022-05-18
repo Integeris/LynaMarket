@@ -20,7 +20,6 @@ namespace LynaMarketMobile.Pages
     public partial class BasketPage : ContentPage, INotifyPropertyChanged
     {
         private decimal cost;
-        private readonly ObservableCollection<BasketProductView> basketProductViews = new ObservableCollection<BasketProductView>();
         public new event PropertyChangedEventHandler PropertyChanged;
 
         public decimal Cost
@@ -37,63 +36,8 @@ namespace LynaMarketMobile.Pages
         {
             InitializeComponent();
 
-            BasketListView.ItemsSource = basketProductViews;
-            basketProductViews.CollectionChanged += BasketProductViewsOnCollectionChanged;
-            LoadDataAsync();
-        }
-
-        public void LoadDataAsync()
-        {
-            Task.Run(() => LoadData());
-        }
-
-        private async void LoadData()
-        {
-            this.Dispatcher.BeginInvokeOnMainThread(() =>
-            {
-                BasketListView.BeginRefresh();
-            });
-
-            basketProductViews.Clear();
-            List<MultiProperty> multiProperties = null;
-
-            if (BasketManager.ProductIds.Count > 0)
-            {
-                multiProperties = new List<MultiProperty>()
-                {
-                    new MultiProperty("IdProduct", BasketManager.ProductIds.Select(id => (object)id).ToList())
-                };
-            }
-
-            List<SortingProperty> sortingProperties = new List<SortingProperty>()
-            {
-                new SortingProperty("Title")
-            };
-
-            List<Product> products = BasketManager.ProductIds.Count == 0 ? new List<Product>() : 
-                (await Core.GetProductsAsync(multiProperties: multiProperties, sortingProperties: sortingProperties)).AsParallel()
-                .OrderBy(i => i.Title).ToList();
-
-            foreach (Product product in products)
-            {
-                BasketProductView productView = new BasketProductView
-                {
-                    IdProduct = product.IdProduct,
-                    Title = product.Title,
-                    Amount = 1,
-                    MaxAmount = product.Amount,
-                    Image = (await product.GetProductPhotoAsync()).First().Image,
-                    ProductPrice = product.Price
-                };
-
-                productView.PropertyChanged += ProductViewOnPropertyChanged;
-                basketProductViews.Add(productView);
-            }
-
-            this.Dispatcher.BeginInvokeOnMainThread(() =>
-            {
-                BasketListView.EndRefresh();
-            });
+            BasketListView.ItemsSource = BasketManager.BasketProductViews;
+            BasketManager.BasketProductViews.CollectionChanged += BasketProductViewsOnCollectionChanged;
         }
 
         private void ProductViewOnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -103,19 +47,26 @@ namespace LynaMarketMobile.Pages
 
         private void BasketProductViewsOnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (BasketProductView item in e.NewItems)
+                {
+                    item.PropertyChanged += ProductViewOnPropertyChanged;
+                }
+            }
+
             UpdateCost();
         }
 
         private void UpdateCost()
         {
-            Cost = basketProductViews.Sum(i => i.Price);
+            Cost = BasketManager.BasketProductViews.Sum(i => i.Price);
         }
 
         private void BasketProductOnDelete(object sender, DeleteItemArgs e)
         {
             BasketProductView productView = (BasketProductView)e.Item;
-            BasketManager.ProductIds.Remove(productView.IdProduct);
-            basketProductViews.Remove(productView);
+            BasketManager.BasketProductViews.Remove(productView);
         }
 
         public new void OnPropertyChanged([CallerMemberName] string prop = "")
@@ -126,13 +77,7 @@ namespace LynaMarketMobile.Pages
         private void ViewCellOnTapped(object sender, EventArgs e)
         {
             ProductPage productPage = new ProductPage(((BasketProductView)((ViewCell)sender).BindingContext).IdProduct);
-            productPage.Disappearing += ProductPageOnDisappearing;
             NavigationManager.PushPage(productPage);
-        }
-
-        private void ProductPageOnDisappearing(object sender, EventArgs e)
-        {
-            LoadDataAsync();
         }
 
         private void PayButtonOnClicked(object sender, EventArgs e)
@@ -145,12 +90,12 @@ namespace LynaMarketMobile.Pages
                 {
                     throw new Exception("Вы не авторизированы.");
                 }
-                else if (basketProductViews.Count == 0)
+                else if (BasketManager.BasketProductViews.Count == 0)
                 {
                     throw new Exception("Вы не выбрали ни одного товара.");
                 }
 
-                products = basketProductViews.AsParallel().Select(async basketProduct =>
+                products = BasketManager.BasketProductViews.AsParallel().Select(async basketProduct =>
                 {
                     Product product = await Core.GetProductAsync(basketProduct.IdProduct);
 
@@ -165,18 +110,23 @@ namespace LynaMarketMobile.Pages
             catch (Exception ex)
             {
                 InfoViewer.ShowError(App.Current.MainPage, ex.Message);
-                LoadDataAsync();
                 return;
             }
 
-            PayPage payPage = new PayPage();
+            PayPage payPage = new PayPage(cost);
             payPage.Disappearing += PayPageOnDisappearing;
             NavigationManager.PushPage(payPage);
         }
 
         private void PayPageOnDisappearing(object sender, EventArgs e)
         {
-            LoadDataAsync();
+            PayPage payPage = (PayPage)sender;
+
+            if (payPage.Result)
+            {
+                BasketManager.BasketProductViews.Clear();
+                InfoViewer.ShowInfo(App.Current.MainPage, "Вы успешно оформили заказ.");
+            }
         }
     }
 }

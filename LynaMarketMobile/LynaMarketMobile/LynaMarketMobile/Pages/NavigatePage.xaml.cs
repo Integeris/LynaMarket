@@ -66,7 +66,6 @@ namespace LynaMarketMobile.Pages
                     break;
                 case 2:
                     clickedButton = BasketButton;
-                    ((BasketPage)MainCaruselView.CurrentItem).LoadDataAsync();
                     break;
                 default:
                     clickedButton = ProfileButton;

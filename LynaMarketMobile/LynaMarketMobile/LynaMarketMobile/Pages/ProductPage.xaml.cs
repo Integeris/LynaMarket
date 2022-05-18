@@ -52,25 +52,41 @@ namespace LynaMarketMobile.Pages
             });
         }
 
-        private void AddButtonOnClicked(object sender, EventArgs e)
+        private async void AddButtonOnClicked(object sender, EventArgs e)
         {
-            if (BasketManager.ProductIds.Contains(Product.IdProduct))
+            AddButton.IsEnabled = false;
+            BasketProductView view = BasketManager.BasketProductViews.FirstOrDefault(product => product.IdProduct == Product.IdProduct);
+
+            if (view != default)
             {
-                BasketManager.ProductIds.Remove(Product.IdProduct);
+                BasketManager.BasketProductViews.Remove(view);
             }
             else
             {
-                BasketManager.ProductIds.Add(Product.IdProduct);
+                Product product = await Core.GetProductAsync(Product.IdProduct);
+
+                view = new BasketProductView()
+                {
+                    IdProduct = product.IdProduct,
+                    ProductPrice = product.Price,
+                    Title = product.Title,
+                    Image = (await product.GetProductPhotoAsync()).FirstOrDefault().Image,
+                    Amount = 1,
+                    MaxAmount = product.Amount
+                };
+
+                BasketManager.BasketProductViews.Add(view);
             }
             
             UpdateAddButton();
+            AddButton.IsEnabled = true;
         }
 
         private void UpdateAddButton()
         {
-            if (BasketManager.ProductIds.Contains(Product.IdProduct))
+            if (BasketManager.BasketProductViews.FirstOrDefault(product => product.IdProduct == Product.IdProduct) != default)
             {
-                AddButton.Text = "Товар уже в корзине";
+                AddButton.Text = "Товар в корзине";
                 AddButton.BackgroundColor = Xamarin.Forms.Color.DarkGray;
             }
             else

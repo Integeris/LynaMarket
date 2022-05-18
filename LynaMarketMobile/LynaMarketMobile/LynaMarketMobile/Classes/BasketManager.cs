@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace LynaMarketMobile.Classes
 {
@@ -10,14 +11,14 @@ namespace LynaMarketMobile.Classes
         /// <summary>
         /// Идентификаторы продуктов в корзине.
         /// </summary>
-        private static readonly List<int> productIds = new List<int>();
+        private static readonly ObservableCollection<BasketProductView> basketProductViews = new ObservableCollection<BasketProductView>();
 
         /// <summary>
         /// Идентификаторы продуктов в корзине.
         /// </summary>
-        public static List<int> ProductIds
+        public static ObservableCollection<BasketProductView> BasketProductViews
         {
-            get => productIds;
+            get => basketProductViews;
         }
     }
 }

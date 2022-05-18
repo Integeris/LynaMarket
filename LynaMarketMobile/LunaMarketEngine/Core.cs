@@ -313,7 +313,7 @@ namespace LunaMarketEngine
         /// Получение списка адресов офисов.
         /// </summary>
         /// <returns>Список адресов.</returns>
-        public static async Task<List<OfficeAddress>> GetAddressesAsync()
+        public static async Task<List<OfficeAddress>> GetOfficeAddressesAsync()
         {
             return await GetObjectsListAsync<OfficeAddress>();
         }
@@ -458,9 +458,9 @@ namespace LunaMarketEngine
         /// Получение списка новостей.
         /// </summary>
         /// <returns>Список новостей.</returns>
-        public static async Task<List<News>> GetNewsAsync()
+        public static async Task<List<News>> GetNewsAsync(int take = 5, List<SortingProperty> sortingProperties = default)
         {
-            return await GetObjectsListAsync<News>();
+            return await GetObjectsListAsync<News>(take: take, sortingProperties: sortingProperties);
         }
 
         /// <summary>
@@ -736,6 +736,21 @@ namespace LunaMarketEngine
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
                 new StaticProperty("IdOrderStatus", idOrderStatus)
+            };
+
+            return await GetObjectAsync<OrderStatus>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение статуса заказа.
+        /// </summary>
+        /// <param name="title">Название статуса заказа.</param>
+        /// <returns>Статус заказа.</returns>
+        public static async Task<OrderStatus> GetOrderStatusAsync(string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
             };
 
             return await GetObjectAsync<OrderStatus>(staticProperties);
@@ -1418,7 +1433,17 @@ namespace LunaMarketEngine
             command.CommandText = addQuery.ToString();
 
             OpenConnection(mySqlConnection);
-            int id = Convert.ToInt32(await command.ExecuteScalarAsync());
+            int id;
+
+            try
+            {
+                id = Convert.ToInt32(await command.ExecuteScalarAsync());
+            }
+            catch (Exception)
+            {
+                id = -1;
+            }
+            
             CloseConnection(mySqlConnection);
 
             return id;

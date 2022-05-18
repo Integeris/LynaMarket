@@ -1,5 +1,6 @@
 ﻿using LunaMarketEngine;
 using LunaMarketEngine.Entities;
+using LunaMarketEngine.QueryConstructors.PropertiesTypes;
 using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
@@ -37,12 +38,20 @@ namespace LynaMarketMobile.Pages
         {
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                ListView listView = (ListView)new CatalogPage().Content.FindByName("CatalogListView");
+                CatalogPage catalogPage = new CatalogPage();
+                catalogPage.CloseCatalog += CatalogPageOnCloseCatalog;
+                ListView listView = (ListView)catalogPage.Content.FindByName("CatalogListView");
                 listView.ItemAppearing += ListViewOnItemAppearing;
                 CatalogContentView.Content = listView;
             });
 
-            List<NewsView> newNews = (await Core.GetNewsAsync()).AsParallel().Select(innerNews => new NewsView(innerNews)).ToList();
+            List<SortingProperty> sortingProperties = new List<SortingProperty>()
+            {
+                new SortingProperty("Date")
+            };
+
+            List<NewsView> newNews = (await Core.GetNewsAsync(5, sortingProperties))
+                .AsParallel().Select(innerNews => new NewsView(innerNews)).ToList();
 
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
@@ -53,7 +62,14 @@ namespace LynaMarketMobile.Pages
                 {
                     news.Add(item);
                 }
+
+                NewsCarouselView.Position = 0;
             });
+        }
+
+        private void CatalogPageOnCloseCatalog()
+        {
+            LoadDataAsync();
         }
 
         private void ListViewOnItemAppearing(object sender, ItemVisibilityEventArgs e)

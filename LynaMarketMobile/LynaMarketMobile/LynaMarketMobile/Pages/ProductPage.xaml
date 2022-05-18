@@ -13,89 +13,87 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="10">
-            <local:ImagePicker x:Name="MainImagePicker" 
-                               HorizontalOptions="FillAndExpand"/>
-            <Label HorizontalOptions="EndAndExpand" 
-                   Text="{Binding Amount, StringFormat='{}{0} шт.'}"/>
-            <Line/>
-            <StackLayout Orientation="Horizontal" Padding="0, 5, 0, 5">
-                <Label Text="{Binding Price, StringFormat='{}{0} ₽'}"
-                       VerticalOptions="Center"
-                       HorizontalOptions="CenterAndExpand"
-                       FontSize="20"
-                       FontAttributes="Bold"/>
-                <Button x:Name="AddButton"
-                        HeightRequest="45"
-                        WidthRequest="200"
-                        HorizontalOptions="EndAndExpand" 
-                        Text="Добавить в корзину"
-                        Clicked="AddButtonOnClicked"/>
-            </StackLayout>
-            <Line/>
-            <Label Text="Описание"
-                       HorizontalOptions="CenterAndExpand"
-                       FontSize="20"
-                       Margin="0, 5, 0, 0"/>
-            <ScrollView HeightRequest="100"
-                        Margin="0, 5">
-                <Label Text="{Binding Description}"/>
-            </ScrollView>
-            <Line/>
-            <StackLayout Orientation="Vertical">
-                <Label Text="Характеристики"
-                       HorizontalOptions="CenterAndExpand"
-                       FontSize="20"
+        <ScrollView>
+            <StackLayout Margin="10">
+                <local:ImagePicker x:Name="MainImagePicker" 
+                                   HorizontalOptions="FillAndExpand"/>
+                <Label HorizontalOptions="EndAndExpand" 
+                       Text="{Binding Amount, StringFormat='{}{0} шт.'}"/>
+                <Line/>
+                <StackLayout Orientation="Horizontal" Padding="0, 5, 0, 5">
+                    <Label Text="{Binding Price, StringFormat='{}{0} ₽'}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                    <Button x:Name="AddButton"
+                            HeightRequest="45"
+                            WidthRequest="200"
+                            HorizontalOptions="EndAndExpand" 
+                            Text="Добавить в корзину"
+                            Clicked="AddButtonOnClicked"/>
+                </StackLayout>
+                <Line/>
+                <Label Text="Описание"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="20"
+                           Margin="0, 5, 0, 0"/>
+                <Label Text="{Binding Description, StringFormat='    {0}'}"
                        Margin="0, 5, 0, 10"/>
-
+                <Line/>
                 <StackLayout Orientation="Vertical">
-                    <StackLayout.Resources>
-                        <ResourceDictionary>
-                            <Style TargetType="StackLayout">
-                                <Setter Property="Orientation" Value="Horizontal"/>
-                            </Style>
-                            <Style TargetType="Label">
-                                <Setter Property="FontSize" Value="18"/>
-                            </Style>
-                            <Style x:Key="NameLabel" TargetType="Label">
-                                <Setter Property="FontSize" Value="18"/>
-                                <Setter Property="WidthRequest" Value="140"/>
-                            </Style>
-                        </ResourceDictionary>
-                    </StackLayout.Resources>
+                    <Label Text="Характеристики"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="20"
+                           Margin="0, 5, 0, 10"/>
 
-                    <StackLayout BackgroundColor="LightGray">
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Производитель: "/>
-                        <Label Text="{Binding Manufacturer}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Материал: "/>
-                        <Label Text="{Binding MatrialTitle}"/>
-                    </StackLayout>
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="StackLayout">
+                                    <Setter Property="Orientation" Value="Horizontal"/>
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="VerticalTextAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="20, 10"/>
+                                </Style>
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+
                         <StackLayout BackgroundColor="LightGray">
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Цвет: "/>
-                        <Label Text="{Binding ColorTitle}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Ширина: "/>
-                        <Label Text="{Binding Width, StringFormat='{}{0} мм'}"/>
-                    </StackLayout>
-                    <StackLayout BackgroundColor="LightGray">
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Высота: "/>
-                        <Label Text="{Binding Height, StringFormat='{}{0} мм'}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Style="{StaticResource NameLabel}" 
-                               Text="Глубина: "/>
-                        <Label Text="{Binding Depth, StringFormat='{}{0} мм'}"/>
+                            <Label Text="Производитель: "/>
+                            <Label Text="{Binding Manufacturer}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Материал: "/>
+                            <Label Text="{Binding MatrialTitle}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout BackgroundColor="LightGray">
+                            <Label Text="Цвет: "/>
+                            <Label Text="{Binding ColorTitle}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Ширина: "/>
+                            <Label Text="{Binding Width, StringFormat='{}{0} мм'}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout BackgroundColor="LightGray">
+                            <Label Text="Высота: "/>
+                            <Label Text="{Binding Height, StringFormat='{}{0} мм'}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Глубина: "/>
+                            <Label Text="{Binding Depth, StringFormat='{}{0} мм'}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

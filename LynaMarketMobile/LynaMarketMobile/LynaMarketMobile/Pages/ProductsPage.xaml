@@ -90,6 +90,7 @@
                                 <ScrollView Grid.Row="2"
                                             Grid.Column="1">
                                     <Label Text="{Binding Description}"
+                                           FontSize="14"
                                            HorizontalOptions="Center">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="TapGestureRecognizerOnTapped"/>

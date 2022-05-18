@@ -11,37 +11,49 @@
                     <Setter.Value>
                         <DataTemplate>
                             <ViewCell>
-                                <Label Text="{Binding .}"/>
+                                <Label Text="{Binding Title}" 
+                                       VerticalOptions="CenterAndExpand"
+                                       Margin="10, 0, 0, 0"/>
                             </ViewCell>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="10">
-            <Label Text="Тип доставки:"
-                   Margin="0, 0, 0, 10"/>
-            <ListView>
-                <ListView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Доставка</x:String>
-                        <x:String>Самовывоз.</x:String>
-                    </x:Array>
-                </ListView.ItemsSource>
-            </ListView>
-            <Label Text="Место доставки:"/>
-            <ListView>
-                <ListView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Доставка</x:String>
-                        <x:String>Самовывоз.</x:String>
-                    </x:Array>
-                </ListView.ItemsSource>
-            </ListView>
-            <Button Text="Оформить"
-                    VerticalOptions="EndAndExpand"/>
-        </StackLayout>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout>
+                <Label Text="Тип доставки:"
+                       Margin="0, 0, 0, 10"/>
+                <ListView x:Name="DevelopTypeListView"
+                          ItemSelected="DevelopTypeListViewOnItemSelected"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1">
+                <Label Text="Место доставки:"/>
+                <Entry x:Name="AddressEntry"
+                       IsReadOnly="True"/>
+                <Button x:Name="SelectAddressButton"
+                        Text="Выбрать"
+                        IsVisible="False"
+                        Clicked="SelectAddressButtonOnClicked"/>
+            </StackLayout>
+            <StackLayout Grid.Row="2">
+                <Label x:Name="CostLabel"
+                       Text="{Binding ., StringFormat='Итоговая цена: {0} руб.'}"/>
+                <Button x:Name="ApplyButton" 
+                        Text="Оформить"
+                        Clicked="ApplyButtonOnClicked"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

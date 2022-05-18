@@ -31,17 +31,21 @@
             <StackLayout Grid.Row="1"
                          Margin="10, 0, 10, 0"
                          Orientation="Vertical">
-                <Label Text="Новости: "/>
+                <Label Text="Новости: "
+                       Margin="0, 0, 0, 5"/>
                 <CarouselView x:Name="NewsCarouselView" 
                               Loop="True"
-                              HeightRequest="180"
+                              HeightRequest="161"
                               IndicatorView="NewsActivityIndicator">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <ContentView>
-                                <ImageButton x:Name="NewsButton" 
-                                             Source="{Binding Photo}"
-                                             Clicked="NewsButtonOnClicked"/>
+                                <ImageButton x:Name="NewsButton"
+                                         CornerRadius="10"
+                                         BorderColor="#2c2c2c"
+                                         BorderWidth="1"
+                                         Source="{Binding Photo}"
+                                         Clicked="NewsButtonOnClicked"/>
                             </ContentView>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
@@ -52,7 +56,8 @@
                                HorizontalOptions="FillAndExpand"
                                Margin="0, 10, 0, 0"/>
 
-                <Label Text="Категории товаров: "/>
+                <Label Text="Категории товаров: "
+                       Margin="0, 0, 0, 5"/>
                 <ScrollView>
                     <StackLayout>
                         <ContentView x:Name="CatalogContentView"/>
