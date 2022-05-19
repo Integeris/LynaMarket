@@ -20,7 +20,8 @@ namespace LynaMarketMobile
 
             if (!contain)
             {
-                Application.Current.Properties[key] = 0;
+                Application.Current.Properties.Add(key, 0);
+                Application.Current.SavePropertiesAsync();
             }
 
             // Выставление остальных настроек.

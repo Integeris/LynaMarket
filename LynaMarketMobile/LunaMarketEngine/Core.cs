@@ -1230,7 +1230,6 @@ namespace LunaMarketEngine
                     }
                     
                     System.Threading.Thread.Sleep(500);
-                    //throw new Exception("Не удалось подключится к базе данных.", ex);
                 }
             }
         }
@@ -1244,7 +1243,10 @@ namespace LunaMarketEngine
         {
             try
             {
-                connection.Close();
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -1268,12 +1270,18 @@ namespace LunaMarketEngine
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default, 
             int skip = 0, int take = Int32.MaxValue, List<SortingProperty> sortingProperties = default, LivensgtainProperty livensgtainProperty = default)
         {
-            // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                // Создание команды и подключения.
+                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
 
             List<T> objectList = new List<T>();
             Type type = typeof(T);
@@ -1287,30 +1295,34 @@ namespace LunaMarketEngine
             }
 
             command.CommandText = selectQuery.ToString();
-
             OpenConnection(command.Connection);
-            MySqlDataReader reader = await command.ExecuteReaderAsync();
 
-            while (reader.Read())
+            try
             {
-                // Создание объекта нужного типа.
-                T obj = (T)typeof(T).GetConstructor(new Type[] { }).Invoke(new object[] { });
+                MySqlDataReader reader = await command.ExecuteReaderAsync();
 
-                for (int i = 0; i < reader.FieldCount; i++)
+                while (reader.Read())
                 {
-                    try
+                    // Создание объекта нужного типа.
+                    T obj = (T)typeof(T).GetConstructor(new Type[] { }).Invoke(new object[] { });
+
+                    for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        PropertyInfo property = type.GetProperty(reader.GetName(i));
-                        property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType));
+                        try
+                        {
+                            PropertyInfo property = type.GetProperty(reader.GetName(i));
+                            property.SetValue(obj, Convert.ChangeType(reader.GetValue(i), property.PropertyType));
+                        }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
+
+                    objectList.Add(obj);
                 }
 
-                objectList.Add(obj);
+                reader.Close();
+                CloseConnection(command.Connection);
             }
-
-            reader.Close();
-            CloseConnection(command.Connection);
+            catch (Exception) { }
 
             return objectList;
         }
@@ -1324,12 +1336,19 @@ namespace LunaMarketEngine
         /// <returns>Полученный объект.</returns>
         internal static async Task<T> GetObjectAsync<T>(List<StaticProperty> staticProperties)
         {
-            // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                // Создание команды и подключения.
+                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
+            
 
             // Создание объекта нужного типа.
             Type type = typeof(T);
@@ -1343,12 +1362,11 @@ namespace LunaMarketEngine
             }
 
             command.CommandText = selectQuery.ToString();
-
             OpenConnection(command.Connection);
-            MySqlDataReader reader = await command.ExecuteReaderAsync();
 
             try
             {
+                MySqlDataReader reader = await command.ExecuteReaderAsync();
                 reader.Read();
 
                 if (!reader.HasRows)
@@ -1365,10 +1383,10 @@ namespace LunaMarketEngine
                 }
 
                 reader.Close();
+                CloseConnection(command.Connection);
             }
             catch (Exception) { }
 
-            CloseConnection(command.Connection);
             return obj;
         }
 
@@ -1386,11 +1404,18 @@ namespace LunaMarketEngine
             LivensgtainProperty livensgtainProperty = default)
         {
             // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlConnection mySqlConnection = default;
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
 
             CountQuery countQuery = new CountQuery(typeof(T).Name, staticProperties, 
                 betweenProperties, multiProperties, livensgtainProperty);
@@ -1401,10 +1426,18 @@ namespace LunaMarketEngine
             }
 
             command.CommandText = countQuery.ToString();
-
+            long count;
             OpenConnection(mySqlConnection);
-            long count = (long)await command.ExecuteScalarAsync();
-            CloseConnection(mySqlConnection);
+
+            try
+            {
+                count = (long)await command.ExecuteScalarAsync();
+                CloseConnection(mySqlConnection);
+            }
+            catch (Exception)
+            {
+                count = 0;
+            }
 
             return count;
         }
@@ -1417,11 +1450,18 @@ namespace LunaMarketEngine
         internal static async Task<int> AddObjectAsync<T>(List<StaticProperty> staticProperties)
         {
             // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlConnection mySqlConnection = default;
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
 
             AddQuery addQuery = new AddQuery(typeof(T).Name, staticProperties);
 
@@ -1438,13 +1478,12 @@ namespace LunaMarketEngine
             try
             {
                 id = Convert.ToInt32(await command.ExecuteScalarAsync());
+                CloseConnection(mySqlConnection);
             }
             catch (Exception)
             {
                 id = -1;
             }
-            
-            CloseConnection(mySqlConnection);
 
             return id;
         }
@@ -1460,12 +1499,18 @@ namespace LunaMarketEngine
         internal static void UpdateObject<T>(List<StaticProperty> setStaticProperties, List<StaticProperty> staticProperties = default, 
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default)
         {
-            // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                // Создание команды и подключения.
+                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
 
             UpdateQuery updateQuery = new UpdateQuery(typeof(T).Name, setStaticProperties, staticProperties, betweenProperties, multiProperties);
 
@@ -1488,12 +1533,18 @@ namespace LunaMarketEngine
         internal static void DeleteObject<T>(List<StaticProperty> staticProperties = default,
             List<BetweenProperty> betweenProperties = default, List<MultiProperty> multiProperties = default)
         {
-            // Создание команды и подключения.
-            MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-            MySqlCommand command = new MySqlCommand()
+            MySqlCommand command = default;
+
+            try
             {
-                Connection = mySqlConnection
-            };
+                // Создание команды и подключения.
+                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+                command = new MySqlCommand()
+                {
+                    Connection = mySqlConnection
+                };
+            }
+            catch (Exception) { }
 
             DeleteQuery deleteQuery = new DeleteQuery(typeof(T).Name, staticProperties, betweenProperties, multiProperties);
 
@@ -1513,8 +1564,13 @@ namespace LunaMarketEngine
         internal static async void SendDataAsync(MySqlCommand command)
         {
             OpenConnection(command.Connection);
-            await command.ExecuteNonQueryAsync();
-            CloseConnection(command.Connection);
+
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+                CloseConnection(command.Connection);
+            }
+            catch (Exception) { }
         }
     }
 }

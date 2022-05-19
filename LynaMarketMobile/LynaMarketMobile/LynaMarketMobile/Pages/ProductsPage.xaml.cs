@@ -74,6 +74,10 @@ namespace LynaMarketMobile.Pages
                 filter.Title = null;
             }
 
+            List<Product> products = new List<Product>();
+
+            products = await filter.GetProducts();
+
             int navigatorPage = MainNavigator.CurrentPage;
             int itemsCount = (int)await Core.GetProductCountAsync(filter.GetStaticProperties,
                     filter.GetBetweenProperties, filter.GetMultiProperties, filter.LivensgtainProperty);
@@ -93,7 +97,6 @@ namespace LynaMarketMobile.Pages
             int skip = ((navigatorPage < pageCount ? navigatorPage : pageCount) - 1) * filter.Take;
             filter.Skip = skip;
 
-            List<Product> products = await filter.GetProducts();
             productViews = new List<ProductListView>();
 
             productViews = products.AsParallel().Select(async product =>
