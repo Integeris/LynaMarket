@@ -26,12 +26,14 @@ namespace LynaMarketMobile.Pages
             MaxWordLen = 2,
             MaxStringLen = 10,
             Skip = 0,
-            Take = 20,
+            Take = 5,
             SortingProperties = new List<SortingProperty>()
             {
                 new SortingProperty("Price")
             }
         };
+
+        public bool IsClosing { get; private set; } = true;
 
         public ProductsPage(string searchText)
         {
@@ -122,7 +124,7 @@ namespace LynaMarketMobile.Pages
         {
             SortingSettingsPage sortingSettingsPage = new SortingSettingsPage(filter);
             sortingSettingsPage.Disappearing += SettingspagesOnDisappearing;
-
+            IsClosing = false;
             NavigationManager.PushPage(sortingSettingsPage);
         }
 
@@ -130,12 +132,13 @@ namespace LynaMarketMobile.Pages
         {
             FilterPage filterPage = new FilterPage(filter);
             filterPage.Disappearing += SettingspagesOnDisappearing;
-
+            IsClosing = false;
             NavigationManager.PushPage(filterPage);
         }
 
         private void SettingspagesOnDisappearing(object sender, EventArgs e)
         {
+            IsClosing = true;
             LoadDataAsync();
         }
 
@@ -145,6 +148,7 @@ namespace LynaMarketMobile.Pages
             ProductListView productView = (ProductListView)viewCell.BindingContext;
             ProductPage productPage = new ProductPage(productView.IdProduct);
             productPage.Disappearing += ProductPageOnDisappearing;
+            IsClosing = false;
             NavigationManager.PushPage(productPage);
         }
 
@@ -157,6 +161,7 @@ namespace LynaMarketMobile.Pages
 
         private void ProductPageOnDisappearing(object sender, EventArgs e)
         {
+            IsClosing = true;
             LoadDataAsync();
         }
 

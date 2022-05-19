@@ -67,7 +67,7 @@ namespace LynaMarketMobile.Pages
 
                 MailSender mailSender = new MailSender(customer.Email)
                 {
-                    Subject = "ОО <<Луна>>. Восстановление пароля",
+                    Subject = "ООО <<Луна>>. Восстановление пароля",
                     Body = $"Вы успешно восстановили пароль. Ваш новый пароль: {password}"
                 };
 

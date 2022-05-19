@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.MainPage"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorNight}}">
     <ContentPage.Content>
         <Grid Style="{StaticResource MainGrid}">
@@ -13,7 +14,6 @@
                 </ResourceDictionary>
             </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
@@ -41,11 +41,11 @@
                         <DataTemplate>
                             <ContentView>
                                 <ImageButton x:Name="NewsButton"
-                                         CornerRadius="10"
-                                         BorderColor="#2c2c2c"
-                                         BorderWidth="1"
-                                         Source="{Binding Photo}"
-                                         Clicked="NewsButtonOnClicked"/>
+                                             CornerRadius="10"
+                                             BorderColor="#2c2c2c"
+                                             BorderWidth="1"
+                                             Source="{Binding Photo}"
+                                             Clicked="NewsButtonOnClicked"/>
                             </ContentView>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>

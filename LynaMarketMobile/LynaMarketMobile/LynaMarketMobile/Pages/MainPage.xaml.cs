@@ -62,8 +62,6 @@ namespace LynaMarketMobile.Pages
                 {
                     news.Add(item);
                 }
-
-                NewsCarouselView.Position = 0;
             });
         }
 
@@ -95,18 +93,27 @@ namespace LynaMarketMobile.Pages
 
         private void PagesOnDisappearing(object sender, EventArgs e)
         {
-            MainSearchBar.Text = null;
+            MainSearchBar.Text = String.Empty;
             LoadDataAsync();
         }
 
         private void AboutProgramButtonOnClicked(object sender, EventArgs e)
         {
-            NavigationManager.PushPage(new AboutProgramPage());
+            AboutProgramPage aboutProgramPage = new AboutProgramPage();
+            aboutProgramPage.Disappearing += AboutOnDisappearing;
+            NavigationManager.PushPage(aboutProgramPage);
         }
 
         private void AboutCompanyButtonOnClicked(object sender, EventArgs e)
         {
-            NavigationManager.PushPage(new AboutCompanyPage());
+            AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
+            aboutCompanyPage.Disappearing += AboutOnDisappearing;
+            NavigationManager.PushPage(aboutCompanyPage);
+        }
+
+        private void AboutOnDisappearing(object sender, EventArgs e)
+        {
+            LoadDataAsync();
         }
     }
 }

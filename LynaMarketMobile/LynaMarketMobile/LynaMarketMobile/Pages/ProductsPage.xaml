@@ -60,7 +60,7 @@
                                        Grid.RowSpan="3"
                                        HeightRequest="150"
                                        VerticalOptions="Center"
-                                       HorizontalOptions="Start"
+                                       HorizontalOptions="Center"
                                        Aspect="AspectFit"
                                        Source="{Binding Photo}"/>
 

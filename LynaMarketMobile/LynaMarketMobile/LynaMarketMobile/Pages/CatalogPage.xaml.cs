@@ -49,8 +49,13 @@ namespace LynaMarketMobile.Pages
 
         private void ProductsPageOnDisappearing(object sender, EventArgs e)
         {
-            LoadDataAsync();
-            CloseCatalog?.Invoke();
+            ProductsPage productsPage = (ProductsPage)sender;
+
+            if (productsPage.IsClosing)
+            {
+                LoadDataAsync();
+                CloseCatalog?.Invoke();
+            }
         }
     }
 }
