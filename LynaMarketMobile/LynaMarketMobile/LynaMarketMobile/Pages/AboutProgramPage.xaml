@@ -29,6 +29,11 @@
                    Text="Разработчик"/>
             <Frame/>
             <Label Text="Черняков Антон."/>
+
+            <Label Style="{StaticResource HeaderLabel}"
+                   Text="Время поддержки"/>
+            <Frame/>
+            <Label Text="2022 - 2023 гг."/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

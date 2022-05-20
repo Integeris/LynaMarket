@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 
@@ -8,8 +10,10 @@ namespace LynaMarketMobile.Classes
     /// <summary>
     /// Элемент навигации.
     /// </summary>
-    internal sealed class NavigatorItem
+    internal sealed class NavigatorItem : INotifyPropertyChanged
     {
+        private bool isEnabled = true;
+
         /// <summary>
         /// Цвет.
         /// </summary>
@@ -21,6 +25,19 @@ namespace LynaMarketMobile.Classes
         public int Value { get; set; }
 
         /// <summary>
+        /// Акивность
+        /// </summary>
+        public bool IsEnabled
+        {
+            get => isEnabled;
+            set
+            {
+                isEnabled = value;
+                NotifyPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        /// <summary>
         /// Создание нового элемента навигации.
         /// </summary>
         /// <param name="value">Значение.</param>
@@ -29,6 +46,13 @@ namespace LynaMarketMobile.Classes
         {
             Value = value;
             Color = color;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

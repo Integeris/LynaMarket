@@ -17,9 +17,9 @@
                     </ResourceDictionary>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="140"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Активировать"

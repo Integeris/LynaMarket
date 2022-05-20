@@ -16,5 +16,11 @@ namespace LynaMarketMobile.Pages
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+            return base.OnBackButtonPressed();
+        }
     }
 }

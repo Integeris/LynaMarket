@@ -32,5 +32,11 @@ namespace LynaMarketMobile.Pages
                 MainImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(News.Photo));
             });
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+            return base.OnBackButtonPressed();
+        }
     }
 }

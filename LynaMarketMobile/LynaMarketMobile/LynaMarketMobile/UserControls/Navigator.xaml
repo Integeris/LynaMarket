@@ -19,6 +19,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Button Text="{Binding Value}"
+                            IsEnabled="{Binding IsEnabled}"
                             BackgroundColor="{Binding Color}"
                             Clicked="ButtonOnClicked"/>
                 </DataTemplate>

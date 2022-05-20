@@ -38,6 +38,11 @@ namespace LynaMarketMobile.UserControls
         private int itemsCount = 1;
 
         /// <summary>
+        /// Активность
+        /// </summary>
+        private bool isEnabled = true;
+
+        /// <summary>
         /// Элементы навигации.
         /// </summary>
         private readonly ObservableCollection<NavigatorItem> items = new ObservableCollection<NavigatorItem>()
@@ -132,6 +137,23 @@ namespace LynaMarketMobile.UserControls
         }
 
         /// <summary>
+        /// Активность
+        /// </summary>
+        public new bool IsEnabled
+        {
+            get => isEnabled;
+            set
+            {
+                foreach (NavigatorItem item in items)
+                {
+                    item.IsEnabled = value;
+                }
+
+                isEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Новый навигатор по страницам каталога.
         /// </summary>
         public Navigator()
@@ -153,7 +175,11 @@ namespace LynaMarketMobile.UserControls
             {
                 for (int i = items.Count + 1; i <= pageCount; i++)
                 {
-                    NavigatorItem item = new NavigatorItem(i, Color.LightGray);
+                    NavigatorItem item = new NavigatorItem(i, Color.LightGray)
+                    {
+                        IsEnabled = isEnabled
+                    };
+
                     items.Add(item);
                 }
             }

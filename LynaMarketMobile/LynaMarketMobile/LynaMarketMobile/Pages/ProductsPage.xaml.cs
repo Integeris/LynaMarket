@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -18,7 +19,6 @@ namespace LynaMarketMobile.Pages
     public partial class ProductsPage : ContentPage
     {
         private List<ProductListView> productViews = new List<ProductListView>();
-
         private readonly Filter filter = new Filter()
         {
             FromAmount = 1,
@@ -61,6 +61,7 @@ namespace LynaMarketMobile.Pages
 
         private async void LoadData()
         {
+            MainNavigator.IsEnabled = false;
             Device.BeginInvokeOnMainThread(() => ProductsListView.BeginRefresh());
             ProductsListView.ItemsSource = null;
 
@@ -75,8 +76,6 @@ namespace LynaMarketMobile.Pages
             }
 
             List<Product> products = new List<Product>();
-
-            products = await filter.GetProducts();
 
             int navigatorPage = MainNavigator.CurrentPage;
             int itemsCount = (int)await Core.GetProductCountAsync(filter.GetStaticProperties,
@@ -98,6 +97,7 @@ namespace LynaMarketMobile.Pages
             filter.Skip = skip;
 
             productViews = new List<ProductListView>();
+            products = await filter.GetProducts();
 
             productViews = products.AsParallel().Select(async product =>
             {
@@ -119,7 +119,8 @@ namespace LynaMarketMobile.Pages
             {
                 ProductsListView.ItemsSource = productViews;
             });
-            
+
+            MainNavigator.IsEnabled = true;
             Device.BeginInvokeOnMainThread(() => ProductsListView.EndRefresh());
         }
 
@@ -185,6 +186,12 @@ namespace LynaMarketMobile.Pages
         private void MainNavigatorOnSelectPage(object sender, SelectPageEventArgs e)
         {
             LoadDataAsync();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+            return base.OnBackButtonPressed();
         }
     }
 }
