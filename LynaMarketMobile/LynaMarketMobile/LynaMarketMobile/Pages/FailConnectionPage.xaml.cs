@@ -16,5 +16,10 @@ namespace LynaMarketMobile.Pages
         {
             InitializeComponent();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

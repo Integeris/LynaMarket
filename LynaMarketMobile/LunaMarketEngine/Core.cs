@@ -1228,7 +1228,7 @@ namespace LunaMarketEngine
                         Disconnect?.Invoke();
                         isDisconectd = true;
                     }
-                    
+
                     System.Threading.Thread.Sleep(500);
                 }
             }
@@ -1243,10 +1243,7 @@ namespace LunaMarketEngine
         {
             try
             {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
+                connection.Close();
             }
             catch (Exception ex)
             {
@@ -1295,10 +1292,10 @@ namespace LunaMarketEngine
             }
 
             command.CommandText = selectQuery.ToString();
-            OpenConnection(command.Connection);
 
             try
             {
+                OpenConnection(command.Connection);
                 MySqlDataReader reader = await command.ExecuteReaderAsync();
 
                 while (reader.Read())
@@ -1324,6 +1321,8 @@ namespace LunaMarketEngine
             }
             catch (Exception) { }
 
+            command.Connection.Dispose();
+            command.Dispose();
             return objectList;
         }
 
@@ -1362,10 +1361,10 @@ namespace LunaMarketEngine
             }
 
             command.CommandText = selectQuery.ToString();
-            OpenConnection(command.Connection);
 
             try
             {
+                OpenConnection(command.Connection);
                 MySqlDataReader reader = await command.ExecuteReaderAsync();
                 reader.Read();
 
@@ -1386,6 +1385,9 @@ namespace LunaMarketEngine
                 CloseConnection(command.Connection);
             }
             catch (Exception) { }
+
+            command.Connection.Dispose();
+            command.Dispose();
 
             return obj;
         }
@@ -1427,10 +1429,10 @@ namespace LunaMarketEngine
 
             command.CommandText = countQuery.ToString();
             long count;
-            OpenConnection(mySqlConnection);
 
             try
             {
+                OpenConnection(mySqlConnection);
                 count = (long)await command.ExecuteScalarAsync();
                 CloseConnection(mySqlConnection);
             }
@@ -1438,6 +1440,9 @@ namespace LunaMarketEngine
             {
                 count = 0;
             }
+
+            command.Connection.Dispose();
+            command.Dispose();
 
             return count;
         }
@@ -1472,11 +1477,11 @@ namespace LunaMarketEngine
 
             command.CommandText = addQuery.ToString();
 
-            OpenConnection(mySqlConnection);
             int id;
 
             try
             {
+                OpenConnection(mySqlConnection);
                 id = Convert.ToInt32(await command.ExecuteScalarAsync());
                 CloseConnection(mySqlConnection);
             }
@@ -1484,6 +1489,9 @@ namespace LunaMarketEngine
             {
                 id = -1;
             }
+
+            command.Connection.Dispose();
+            command.Dispose();
 
             return id;
         }
@@ -1521,6 +1529,8 @@ namespace LunaMarketEngine
 
             command.CommandText = updateQuery.ToString();
             SendDataAsync(command);
+            command.Connection.Dispose();
+            command.Dispose();
         }
 
         /// <summary>
@@ -1555,6 +1565,8 @@ namespace LunaMarketEngine
 
             command.CommandText= deleteQuery.ToString();
             SendDataAsync(command);
+            command.Connection.Dispose();
+            command.Dispose();
         }
 
         /// <summary>
@@ -1563,10 +1575,9 @@ namespace LunaMarketEngine
         /// <param name="command">Команда.</param>
         internal static async void SendDataAsync(MySqlCommand command)
         {
-            OpenConnection(command.Connection);
-
             try
             {
+                OpenConnection(command.Connection);
                 await command.ExecuteNonQueryAsync();
                 CloseConnection(command.Connection);
             }
