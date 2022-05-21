@@ -374,7 +374,7 @@ namespace LunaMarketEngine
             get => maxStringLen;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Степень совпадения предложения не может быть меньше 1.");
                 }

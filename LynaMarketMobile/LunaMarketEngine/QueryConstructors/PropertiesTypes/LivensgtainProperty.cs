@@ -98,7 +98,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
             get => maxStringLen;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Степень совпадения предложения не может быть меньше 1.");
                 }
@@ -196,7 +196,7 @@ namespace LunaMarketEngine.QueryConstructors.PropertiesTypes
         /// <returns>Блок Having для растояния Ливенштейна.</returns>
         public string GetHavingBlock()
         {
-            return $"{columnName} <= {MaxStringLenName}";
+            return $"{columnName} < {MaxStringLenName}";
         }
 
         /// <summary>
