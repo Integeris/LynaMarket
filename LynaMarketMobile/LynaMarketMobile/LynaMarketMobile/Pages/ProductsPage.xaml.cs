@@ -24,7 +24,7 @@ namespace LynaMarketMobile.Pages
             FromAmount = 1,
             Deleted = false,
             MaxWordLen = 2,
-            MaxStringLen = 10,
+            MaxStringLen = 0,
             Skip = 0,
             Take = 5,
             SortingProperties = new List<SortingProperty>()
