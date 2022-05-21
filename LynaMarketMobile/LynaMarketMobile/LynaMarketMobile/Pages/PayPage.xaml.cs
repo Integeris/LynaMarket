@@ -81,6 +81,34 @@ namespace LynaMarketMobile.Pages
 
         private async void ApplyButtonOnClicked(object sender, EventArgs e)
         {
+            try
+            {
+                List<Product> products = new List<Product>();
+                products = BasketManager.BasketProductViews.AsParallel().Select(async basketProduct =>
+                {
+                    Product product = await Core.GetProductAsync(basketProduct.IdProduct);
+
+                    if (product.Amount < basketProduct.Amount)
+                    {
+                        throw new Exception($"К сожелению, товара '{product.Title}' не осталось в количестве '{basketProduct.Amount}.\nОсталось всего {product.Amount} шт.'");
+                    }
+
+                    return product;
+                }).Select(task => task.Result).ToList();
+
+                foreach (var item in products)
+                {
+                    Core.UpdateProduct(item.IdProduct, item.IdManufacturer, item.IdProductCategory, item.IdColor, item.IdMaterial, item.Title,
+                        item.Price, item.Amount - BasketManager.BasketProductViews.FirstOrDefault(i => item.IdProduct == i.IdProduct).Amount, item.Height,
+                        item.Width, item.Depth, item.Description, item.Deleted);
+                }
+            }
+            catch (Exception ex)
+            {
+                InfoViewer.ShowError(this, ex.Message);
+                NavigationManager.PopPage();
+            }
+
             if (String.IsNullOrWhiteSpace(AddressEntry.Text))
             {
                 InfoViewer.ShowError(this, "Адрес доставки не введён.");

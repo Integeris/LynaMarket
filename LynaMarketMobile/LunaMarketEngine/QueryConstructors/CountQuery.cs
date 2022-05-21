@@ -147,7 +147,7 @@ namespace LunaMarketEngine.QueryConstructors
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.AppendLine("SELECT COUNT(*)");
-            stringBuilder.AppendLine($"FROM {tableName}");
+            stringBuilder.AppendLine($"FROM `{tableName}`");
 
             if (staticProperties != null || betweenProperties != null || multiProperties != null)
             {

@@ -61,9 +61,12 @@ namespace LynaMarketMobile.Pages
 
         private async void LoadData()
         {
-            MainNavigator.IsEnabled = false;
-            Device.BeginInvokeOnMainThread(() => ProductsListView.BeginRefresh());
-            ProductsListView.ItemsSource = null;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MainNavigator.IsEnabled = false;
+                ProductsListView.BeginRefresh();
+                ProductsListView.ItemsSource = null;
+            });
 
             if (!String.IsNullOrWhiteSpace(MainSearchBar.Text))
             {
@@ -120,8 +123,11 @@ namespace LynaMarketMobile.Pages
                 ProductsListView.ItemsSource = productViews;
             });
 
-            MainNavigator.IsEnabled = true;
-            Device.BeginInvokeOnMainThread(() => ProductsListView.EndRefresh());
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MainNavigator.IsEnabled = true;
+                ProductsListView.EndRefresh();
+            });
         }
 
         private void SortButtonOnClicked(object sender, EventArgs e)

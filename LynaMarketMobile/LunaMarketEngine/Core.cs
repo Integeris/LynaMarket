@@ -807,10 +807,13 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение списка заказов.
         /// </summary>
+        /// <param name="staticProperties">Параметры поиска.</param>
+        /// <param name="skip">Пропустить.</param>
+        /// <param name="take">Взять</param>
         /// <returns>Список заказов.</returns>
-        public static async Task<List<Order>> GetOrdersAsync()
+        public static async Task<List<Order>> GetOrdersAsync(List<StaticProperty> staticProperties = null, int skip = 0, int take = Int32.MaxValue)
         {
-            return await GetObjectsListAsync<Order>();
+            return await GetObjectsListAsync<Order>(staticProperties, skip: skip, take: take);
         }
 
         /// <summary>
@@ -826,6 +829,16 @@ namespace LunaMarketEngine
             };
 
             return await GetObjectAsync<Order>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение количества заказов.
+        /// </summary>
+        /// <param name="staticProperties">Параметры поиска.</param>
+        /// <returns>Количество заказов.</returns>
+        public static async Task<long> GetOrdersCountAsync(List<StaticProperty> staticProperties)
+        {
+            return await GetObjectsCount<Order>(staticProperties);
         }
 
         /// <summary>
@@ -1491,7 +1504,6 @@ namespace LunaMarketEngine
             }
 
             command.Connection.Dispose();
-            command.Dispose();
 
             return id;
         }
@@ -1529,8 +1541,6 @@ namespace LunaMarketEngine
 
             command.CommandText = updateQuery.ToString();
             SendDataAsync(command);
-            command.Connection.Dispose();
-            command.Dispose();
         }
 
         /// <summary>
@@ -1566,7 +1576,6 @@ namespace LunaMarketEngine
             command.CommandText= deleteQuery.ToString();
             SendDataAsync(command);
             command.Connection.Dispose();
-            command.Dispose();
         }
 
         /// <summary>

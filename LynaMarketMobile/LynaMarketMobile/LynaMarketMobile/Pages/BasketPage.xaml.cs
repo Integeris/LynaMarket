@@ -82,8 +82,6 @@ namespace LynaMarketMobile.Pages
 
         private void PayButtonOnClicked(object sender, EventArgs e)
         {
-            List<Product> products = new List<Product>();
-
             try
             {
                 if (!CurrentCustomer.Authorizated)
@@ -94,18 +92,6 @@ namespace LynaMarketMobile.Pages
                 {
                     throw new Exception("Вы не выбрали ни одного товара.");
                 }
-
-                products = BasketManager.BasketProductViews.AsParallel().Select(async basketProduct =>
-                {
-                    Product product = await Core.GetProductAsync(basketProduct.IdProduct);
-
-                    if (product.Amount < basketProduct.Amount)
-                    {
-                        throw new Exception($"К сожелению, товара '{product.Title}' не осталось в количестве '{basketProduct.Amount}.\nОсталось всего {product.Amount} шт.'");
-                    }
-
-                    return product;
-                }).Select(task => task.Result).ToList();
             }
             catch (Exception ex)
             {
@@ -118,14 +104,23 @@ namespace LynaMarketMobile.Pages
             NavigationManager.PushPage(payPage);
         }
 
-        private void PayPageOnDisappearing(object sender, EventArgs e)
+        private async void PayPageOnDisappearing(object sender, EventArgs e)
         {
             PayPage payPage = (PayPage)sender;
 
             if (payPage.Result)
             {
+                Customer customer = await Core.GetCustomerAsync(CurrentCustomer.IdCustomer);
+                MailSender mailSender = new MailSender(customer.Email)
+                {
+                    Subject = "ООО <<Луна>>. Спасибо за покупку в нашем магазине!",
+                    Body = "Спасибо Вам за покупку в нашем магазине. Наш администратор свяжется с Вами. Оплата заказа только после получения!"
+                };
+
+                mailSender.SendAsync();
+
                 BasketManager.BasketProductViews.Clear();
-                InfoViewer.ShowInfo(App.Current.MainPage, "Вы успешно оформили заказ.");
+                InfoViewer.ShowInfo(App.Current.MainPage, "Вы успешно оформили заказ. Администратор магазина свяжется с вами. Оплата заказа только после получения!");
             }
         }
     }

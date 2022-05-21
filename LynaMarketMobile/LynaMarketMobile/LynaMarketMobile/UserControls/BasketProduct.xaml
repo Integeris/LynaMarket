@@ -27,11 +27,17 @@
                    FontSize="20"
                    VerticalOptions="CenterAndExpand"
                    Text="{Binding Price, StringFormat='{}{0} руб.'}"/>
-            
+
             <Label Grid.Row="1" 
                    Grid.Column="1"
-                   FontSize="18"
-                   Text="{Binding Title}"/>
+                   FontSize="18">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} - {1} шт.">
+                        <Binding Path="Title"/>
+                        <Binding Path="MaxAmount"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
 
             <StackLayout Grid.Row="2"
                          Grid.Column="1"

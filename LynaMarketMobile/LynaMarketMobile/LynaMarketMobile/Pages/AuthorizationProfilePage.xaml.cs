@@ -60,5 +60,10 @@ namespace LynaMarketMobile.Pages
                 InfoViewer.ShowInfo(Application.Current.MainPage, "Данные успешно изменены.");
             }
         }
+
+        private void HistoryButtonOnClicked(object sender, EventArgs e)
+        {
+            NavigationManager.PushPage(new HistoryPage());
+        }
     }
 }

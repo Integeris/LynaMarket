@@ -36,6 +36,10 @@
             <Button x:Name="ExitButton" 
                     Text="Выйти из аккаунта"
                     Clicked="ExitButtonOnClicked"/>
+
+            <Button x:Name="HistoryButton" 
+                    Text="История заказов"
+                    Clicked="HistoryButtonOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
