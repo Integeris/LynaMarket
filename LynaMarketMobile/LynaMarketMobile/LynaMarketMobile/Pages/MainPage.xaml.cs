@@ -62,6 +62,8 @@ namespace LynaMarketMobile.Pages
                 {
                     news.Add(item);
                 }
+
+                ((NavigationPage)Application.Current.MainPage).ForceLayout();
             });
         }
 
@@ -73,7 +75,7 @@ namespace LynaMarketMobile.Pages
         private void ListViewOnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             ListView listView = (ListView)sender;
-            CatalogContentView.HeightRequest = listView.RowHeight * (e.ItemIndex + 1);
+            CatalogContentView.HeightRequest = listView.RowHeight * (e.ItemIndex + 1) + 5;
         }
 
         private void NewsButtonOnClicked(object sender, EventArgs e)

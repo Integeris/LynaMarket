@@ -808,12 +808,14 @@ namespace LunaMarketEngine
         /// Получение списка заказов.
         /// </summary>
         /// <param name="staticProperties">Параметры поиска.</param>
+        /// <param name="sortingProperties">Параметры сортировки.</param>
         /// <param name="skip">Пропустить.</param>
         /// <param name="take">Взять</param>
         /// <returns>Список заказов.</returns>
-        public static async Task<List<Order>> GetOrdersAsync(List<StaticProperty> staticProperties = null, int skip = 0, int take = Int32.MaxValue)
+        public static async Task<List<Order>> GetOrdersAsync(List<StaticProperty> staticProperties = default, List<SortingProperty> sortingProperties = default, 
+            int skip = 0, int take = Int32.MaxValue)
         {
-            return await GetObjectsListAsync<Order>(staticProperties, skip: skip, take: take);
+            return await GetObjectsListAsync<Order>(staticProperties, sortingProperties: sortingProperties, skip: skip, take: take);
         }
 
         /// <summary>

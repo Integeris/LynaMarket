@@ -45,6 +45,11 @@ namespace LynaMarketMobile.Pages
 				new StaticProperty("IdCustomer", CurrentCustomer.IdCustomer)
 			};
 
+			List<SortingProperty> sortingProperties = new List<SortingProperty>()
+			{
+				new SortingProperty("IdOrder", false)
+			};
+
 			int navigatorPage = MainNavigator.CurrentPage;
 			int itemsCount = (int)await Core.GetOrdersCountAsync(staticProperties);
 
@@ -61,7 +66,7 @@ namespace LynaMarketMobile.Pages
 			}
 
 			int skip = ((navigatorPage < pageCount ? navigatorPage : pageCount) - 1) * itemsOnPage;
-			List<Order> orders = await Core.GetOrdersAsync(staticProperties, skip, itemsOnPage);
+			List<Order> orders = await Core.GetOrdersAsync(staticProperties, sortingProperties, skip, itemsOnPage);
 
 			if (orders.Count == 0)
 			{
