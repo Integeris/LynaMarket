@@ -40,12 +40,26 @@
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <ContentView>
-                                <ImageButton x:Name="NewsButton"
+                                <!--<ImageButton x:Name="NewsButton"
                                              CornerRadius="10"
                                              BorderColor="#2c2c2c"
                                              BorderWidth="1"
                                              Source="{Binding Photo}"
-                                             Clicked="NewsButtonOnClicked"/>
+                                             Clicked="NewsButtonOnClicked"/>-->
+                                <Frame HasShadow="True" 
+                                       CornerRadius="10"
+                                       BorderColor="#2c2c2c"
+                                       Padding="1">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="NewsButtonOnClicked"/>
+                                    </Frame.GestureRecognizers>
+                                    <Frame HasShadow="False"
+                                           CornerRadius="10"
+                                           Padding="0">
+                                        <Image Source="{Binding Photo}"
+                                           Aspect="AspectFill"/>
+                                    </Frame>
+                                </Frame>
                             </ContentView>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>

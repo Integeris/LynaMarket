@@ -19,13 +19,10 @@ namespace LynaMarketMobile.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        private readonly ObservableCollection<NewsView> news = new ObservableCollection<NewsView>();
-
         public MainPage()
         {
             InitializeComponent();
 
-            NewsCarouselView.ItemsSource = news;
             LoadDataAsync();
         }
 
@@ -36,12 +33,13 @@ namespace LynaMarketMobile.Pages
 
         private async void LoadData()
         {
+            CatalogPage catalogPage = new CatalogPage();
+            catalogPage.CloseCatalog += CatalogPageOnCloseCatalog;
+            ListView listView = (ListView)catalogPage.Content.FindByName("CatalogListView");
+            listView.ItemAppearing += ListViewOnItemAppearing;
+
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                CatalogPage catalogPage = new CatalogPage();
-                catalogPage.CloseCatalog += CatalogPageOnCloseCatalog;
-                ListView listView = (ListView)catalogPage.Content.FindByName("CatalogListView");
-                listView.ItemAppearing += ListViewOnItemAppearing;
                 CatalogContentView.Content = listView;
             });
 
@@ -55,15 +53,7 @@ namespace LynaMarketMobile.Pages
 
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                NewsCarouselView.Position = 0;
-                news.Clear();
-
-                foreach (var item in newNews)
-                {
-                    news.Add(item);
-                }
-
-                ((NavigationPage)Application.Current.MainPage).ForceLayout();
+                NewsCarouselView.ItemsSource = newNews;
             });
         }
 
