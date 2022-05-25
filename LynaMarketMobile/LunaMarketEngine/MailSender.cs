@@ -144,7 +144,11 @@ namespace LunaMarketEngine
                 Credentials = new NetworkCredential(fromAddress, password),
             };
 
-            await smtpClient.SendMailAsync(message);
+            try
+            {
+                await smtpClient.SendMailAsync(message);
+            }
+            catch (Exception) { }
         }
     }
 }

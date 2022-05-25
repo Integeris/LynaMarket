@@ -40,12 +40,6 @@
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <ContentView>
-                                <!--<ImageButton x:Name="NewsButton"
-                                             CornerRadius="10"
-                                             BorderColor="#2c2c2c"
-                                             BorderWidth="1"
-                                             Source="{Binding Photo}"
-                                             Clicked="NewsButtonOnClicked"/>-->
                                 <Frame HasShadow="True" 
                                        CornerRadius="10"
                                        BorderColor="#2c2c2c"

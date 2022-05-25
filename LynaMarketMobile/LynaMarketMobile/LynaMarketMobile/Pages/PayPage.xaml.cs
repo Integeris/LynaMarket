@@ -115,38 +115,46 @@ namespace LynaMarketMobile.Pages
                 return;
             }
 
-            ApplyButton.IsEnabled = false;
-            AddressEntry.IsEnabled = false;
-            SelectAddressButton.IsEnabled = false;
-
-            DeliveryType deliveryType = (DeliveryType)DevelopTypeListView.SelectedItem;
-            OrderStatus orderStatus = await Core.GetOrderStatusAsync("В обработке");
-
-            Order order = new Order()
+            try
             {
-                Adress = AddressEntry.Text,
-                Date = DateTime.Now,
-                IdDeliveryType = deliveryType.IdDeliveryType,
-                IdOrderStatus = orderStatus.IdOrderStatus,
-                IdCustomer = CurrentCustomer.IdCustomer
-            };
+                ApplyButton.IsEnabled = false;
+                AddressEntry.IsEnabled = false;
+                SelectAddressButton.IsEnabled = false;
 
-            int idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdDeliveryType, order.Date, order.Adress);
+                DeliveryType deliveryType = (DeliveryType)DevelopTypeListView.SelectedItem;
+                OrderStatus orderStatus = await Core.GetOrderStatusAsync("В обработке");
 
-            foreach (BasketProductView item in BasketManager.BasketProductViews)
-            {
-                OrderProduct orderProduct = new OrderProduct()
+                Order order = new Order()
                 {
-                    IdProduct = item.IdProduct,
-                    IdOrder = idOrder,
-                    Price = item.Price,
-                    Amount = item.Amount
+                    Adress = AddressEntry.Text,
+                    Date = DateTime.Now,
+                    IdDeliveryType = deliveryType.IdDeliveryType,
+                    IdOrderStatus = orderStatus.IdOrderStatus,
+                    IdCustomer = CurrentCustomer.IdCustomer
                 };
 
-                await Core.AddOrderProduct(orderProduct.IdOrder, orderProduct.IdProduct, orderProduct.Price, orderProduct.Amount);
+                int idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdDeliveryType, order.Date, order.Adress);
+
+                foreach (BasketProductView item in BasketManager.BasketProductViews)
+                {
+                    OrderProduct orderProduct = new OrderProduct()
+                    {
+                        IdProduct = item.IdProduct,
+                        IdOrder = idOrder,
+                        Price = item.ProductPrice,
+                        Amount = item.Amount
+                    };
+
+                    await Core.AddOrderProduct(orderProduct.IdOrder, orderProduct.IdProduct, orderProduct.Price, orderProduct.Amount);
+                }
+
+                Result = true;
+            }
+            catch (Exception ex)
+            {
+                InfoViewer.ShowError(this, ex.Message);
             }
 
-            Result = true;
             NavigationManager.PopPage();
         }
     }

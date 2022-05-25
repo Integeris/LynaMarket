@@ -49,6 +49,7 @@ namespace LynaMarketMobile.Pages
                 UpdateAddButton();
                 this.BindingContext = Product;
                 MainImagePicker.Images = photos;
+                AddButton.IsEnabled = true;
             });
         }
 

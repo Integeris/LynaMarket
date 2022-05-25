@@ -27,6 +27,7 @@
                            FontSize="20"
                            FontAttributes="Bold"/>
                     <Button x:Name="AddButton"
+                            IsEnabled="False"
                             HeightRequest="45"
                             WidthRequest="200"
                             HorizontalOptions="EndAndExpand" 

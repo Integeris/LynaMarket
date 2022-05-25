@@ -43,12 +43,12 @@ namespace LynaMarketMobile.Pages
                 IdOrder = order.IdOrder,
                 OrderStatus = (await order.GetOrderStatusAsync()).Title,
                 DeliveryType = (await order.GetDeliveryTypeAsync()).Title,
-                Address = order.Adress
+                Address = order.Adress,
+                Price = 0
             };
             
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.BindingContext = orderView;
                 this.Title = $"№{order.IdOrder} – {order.Date}";
             });
 
@@ -62,10 +62,12 @@ namespace LynaMarketMobile.Pages
                     item.Price, item.Amount, product.Description, (await product.GetProductPhotoAsync()).FirstOrDefault().Image);
 
                 productViews.Add(productListView);
+                orderView.Price += item.Amount * item.Price;
             }
 
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
+                this.BindingContext = orderView;
                 ProductsListView.ItemsSource = productViews;
                 ProductsListView.EndRefresh();
             });

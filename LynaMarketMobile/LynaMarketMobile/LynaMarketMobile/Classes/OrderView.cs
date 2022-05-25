@@ -28,5 +28,10 @@ namespace LynaMarketMobile.Classes
         /// Адресс.
         /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Полная цена.
+        /// </summary>
+        public decimal Price { get; set; }
     }
 }

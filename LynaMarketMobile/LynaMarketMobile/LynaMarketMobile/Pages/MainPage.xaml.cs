@@ -54,6 +54,7 @@ namespace LynaMarketMobile.Pages
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 NewsCarouselView.ItemsSource = newNews;
+                ((NavigationPage)Application.Current.MainPage).ForceLayout();
             });
         }
 

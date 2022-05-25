@@ -8,6 +8,7 @@
             <Label Text="{Binding OrderStatus, StringFormat='Статус: {0}'}"/>
             <Label Text="{Binding DeliveryType, StringFormat='Тип доставки: {0}'}"/>
             <Label Text="{Binding Address, StringFormat='Адрес: {0}'}"/>
+            <Label Text="{Binding Price, StringFormat='Итоговая стоимость: {0} руб.'}"/>
             <Label Text="Товары:"/>
             
             <ListView x:Name="ProductsListView"
