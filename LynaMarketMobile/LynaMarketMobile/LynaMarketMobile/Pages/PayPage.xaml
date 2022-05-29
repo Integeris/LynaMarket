@@ -27,7 +27,8 @@
     <ContentPage.Content>
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
@@ -48,6 +49,10 @@
                         Clicked="SelectAddressButtonOnClicked"/>
             </StackLayout>
             <StackLayout Grid.Row="2">
+                <Label Text="Способ оплаты:"/>
+                <ListView x:Name="PaymentMethodListView"/>
+            </StackLayout>
+            <StackLayout Grid.Row="3">
                 <Label x:Name="CostLabel"
                        Text="{Binding ., StringFormat='Итоговая цена: {0} руб.'}"/>
                 <Button x:Name="ApplyButton" 

@@ -310,6 +310,150 @@ namespace LunaMarketEngine
         }
 
         /// <summary>
+        /// Получение списка статусов оплаты.
+        /// </summary>
+        /// <returns>Список статусов оплаты.</returns>
+        public static async Task<List<PayStatus>> GetPayStatusesAsync()
+        {
+            return await GetObjectsListAsync<PayStatus>();
+        }
+
+        /// <summary>
+        /// Получение статуса оплаты.
+        /// </summary>
+        /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
+        /// <returns>Статус оплаты.</returns>
+        public static async Task<PayStatus> GetPayStatusAsync(int idPayStatus)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPayStatus", idPayStatus)
+            };
+
+            return await GetObjectAsync<PayStatus>(staticProperties);
+        }
+
+        /// <summary>
+        /// Добавление статуса оплаты.
+        /// </summary>
+        /// <param name="title">Название статуса оплаты.</param>
+        public static Task<int> AddPayStatus(string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            return AddObjectAsync<PayStatus>(staticProperties);
+        }
+
+        /// <summary>
+        /// Изменение статуса оплаты.
+        /// </summary>
+        /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
+        /// <param name="title">Название статуса оплаты.</param>
+        public static void UpdatePayStatus(int idPayStatus, string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPayStatus", idPayStatus)
+            };
+
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            UpdateObject<PayStatus>(setStaticProperties, staticProperties);
+        }
+
+        /// <summary>
+        /// Удаление статуса оплаты.
+        /// </summary>
+        /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
+        public static void DeletePayStatus(int idPayStatus)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPayStatus", idPayStatus)
+            };
+
+            DeleteObject<PayStatus>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение списка способов оплаты.
+        /// </summary>
+        /// <returns>Список способов оплаты.</returns>
+        public static async Task<List<PaymentMethod>> GetPaymentMethodsAsync()
+        {
+            return await GetObjectsListAsync<PaymentMethod>();
+        }
+
+        /// <summary>
+        /// Получение способа оплаты.
+        /// </summary>
+        /// <param name="idPaymentMethod">Идентификатор способа оплаты.</param>
+        /// <returns>Способа оплаты.</returns>
+        public static async Task<PaymentMethod> GetPaymentMethodAsync(int idPaymentMethod)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPaymentMethod", idPaymentMethod)
+            };
+
+            return await GetObjectAsync<PaymentMethod>(staticProperties);
+        }
+
+        /// <summary>
+        /// Добавление способа оплаты.
+        /// </summary>
+        /// <param name="title">Название способа оплаты.</param>
+        public static Task<int> AddPaymentMethod(string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            return AddObjectAsync<PaymentMethod>(staticProperties);
+        }
+
+        /// <summary>
+        /// Изменение способа оплаты.
+        /// </summary>
+        /// <param name="idPaymentMethod">Идентификатор способа оплаты.</param>
+        /// <param name="title">Название способа оплаты.</param>
+        public static void UpdatePaymentMethod(int idPaymentMethod, string title)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPaymentMethod", idPaymentMethod)
+            };
+
+            List<StaticProperty> setStaticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("Title", title)
+            };
+
+            UpdateObject<PaymentMethod>(setStaticProperties, staticProperties);
+        }
+
+        /// <summary>
+        /// Удаление статуса оплаты.
+        /// </summary>
+        /// <param name="idPaymentMethod">Идентификатор способа оплаты.</param>
+        public static void DeletePaymentMethod(int idPaymentMethod)
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPaymentMethod", idPaymentMethod)
+            };
+
+            DeleteObject<PaymentMethod>(staticProperties);
+        }
+
+        /// <summary>
         /// Получение списка адресов офисов.
         /// </summary>
         /// <returns>Список адресов.</returns>
@@ -565,16 +709,24 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение заказчика.
         /// </summary>
-        /// <param name="login">Логин.</param>
+        /// <param name="loginOrEmail">Логин или почта.</param>
         /// <returns>Заказчик.</returns>
-        public static async Task<Customer> GetCustomerAsync(string login)
+        public static async Task<Customer> GetCustomerAsync(string loginOrEmail)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                new StaticProperty("Login", login)
+                new StaticProperty("Login", loginOrEmail)
             };
 
-            return await GetObjectAsync<Customer>(staticProperties);
+            Customer customer = await GetObjectAsync<Customer>(staticProperties);
+
+            if (customer == null)
+            {
+                staticProperties[0].ColumnName = "Email";
+                customer = await GetObjectAsync<Customer>(staticProperties);
+            }
+
+            return customer;
         }
 
         /// <summary>
@@ -848,15 +1000,19 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idCustomer">Идентификатор заказчика.</param>
         /// <param name="idOrderStatus">Идентификатор статуса заказа.</param>
+        /// <param name="idPaymentMethod">Идентификатор способа оплаты</param>
+        /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
         /// <param name="adress">Адрес доставки.</param>
-        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
+        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string adress)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
                 new StaticProperty("IdCustomer", idCustomer),
                 new StaticProperty("idOrderStatus", idOrderStatus),
+                new StaticProperty("IdPaymentMethod", idPaymentMethod),
+                new StaticProperty("IdPayStatus", idPayStatus),
                 new StaticProperty("idDeliveryType", idDeliveryType),
                 new StaticProperty("Date", date),
                 new StaticProperty("Adress", adress)
@@ -871,10 +1027,12 @@ namespace LunaMarketEngine
         /// <param name="idOrder">Идентификатор заказа.</param>
         /// <param name="idCustomer">Идентификатор заказчика.</param>
         /// <param name="idOrderStatus">Идентификатор статуса заказа.</param>
+        /// <param name="idPaymentMethod">Идентификатор способа оплаты</param>
+        /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
         /// <param name="adress">Адрес доставки.</param>
-        public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idDeliveryType, DateTime date, string adress)
+        public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string adress)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -885,6 +1043,8 @@ namespace LunaMarketEngine
             {
                 new StaticProperty("IdCustomer", idCustomer),
                 new StaticProperty("idOrderStatus", idOrderStatus),
+                new StaticProperty("IdPaymentMethod", idPaymentMethod),
+                new StaticProperty("IdPayStatus", idPayStatus),
                 new StaticProperty("idDeliveryType", idDeliveryType),
                 new StaticProperty("Date", date),
                 new StaticProperty("Adress", adress)

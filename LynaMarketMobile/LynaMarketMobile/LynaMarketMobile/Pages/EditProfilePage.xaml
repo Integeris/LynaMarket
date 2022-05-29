@@ -48,7 +48,7 @@
                 <Label Text=":"/>
             </StackLayout>
             <Entry x:Name="EmailEntry"
-                   Keyboard="Email"/>
+                   Style="{StaticResource EmailEntry}"/>
 
             <Label Text="Имя:"/>
             <Entry x:Name="FirstNameEntry"/>

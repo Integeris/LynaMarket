@@ -20,6 +20,16 @@ namespace LynaMarketMobile.Classes
         public string OrderStatus { get; set; }
 
         /// <summary>
+        /// Название метода оплаты.
+        /// </summary>
+        public string PaymentMethod { get; set; }
+
+        /// <summary>
+        /// Статус оплаты.
+        /// </summary>
+        public string PayStatus { get; set; }
+
+        /// <summary>
         /// Тип доставки.
         /// </summary>
         public string DeliveryType { get; set; }

@@ -36,10 +36,12 @@ namespace LynaMarketMobile.Pages
         private async void LoadData()
         {
             List<DeliveryType> deliveryTypes = await Core.GetDeliveryTypesAsync();
+            List<PaymentMethod> paymentMethods = await Core.GetPaymentMethodsAsync();
 
             this.Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 DevelopTypeListView.ItemsSource = deliveryTypes;
+                PaymentMethodListView.ItemsSource= paymentMethods;
             });
         }
 
@@ -83,6 +85,36 @@ namespace LynaMarketMobile.Pages
         {
             try
             {
+                if (String.IsNullOrWhiteSpace(AddressEntry.Text))
+                {
+                    throw new Exception("Адрес доставки не введён.");
+                }
+                else if (PaymentMethodListView.SelectedItem == null)
+                {
+                    throw new Exception("Выберите способ оплаты.");
+                }
+            }
+            catch (Exception ex)
+            {
+                InfoViewer.ShowError(this, ex.Message);
+                return;
+            }
+
+            try
+            {
+                ApplyButton.IsEnabled = false;
+                AddressEntry.IsEnabled = false;
+                SelectAddressButton.IsEnabled = false;
+
+                if (((PaymentMethod)PaymentMethodListView.SelectedItem).IdPaymentMethod == 1)
+                {
+                    // Если оплата онлайн
+                }
+                else
+                {
+                    // Если другое.
+                }
+
                 List<Product> products = new List<Product>();
                 products = BasketManager.BasketProductViews.AsParallel().Select(async basketProduct =>
                 {
@@ -109,19 +141,10 @@ namespace LynaMarketMobile.Pages
                 NavigationManager.PopPage();
             }
 
-            if (String.IsNullOrWhiteSpace(AddressEntry.Text))
-            {
-                InfoViewer.ShowError(this, "Адрес доставки не введён.");
-                return;
-            }
-
             try
             {
-                ApplyButton.IsEnabled = false;
-                AddressEntry.IsEnabled = false;
-                SelectAddressButton.IsEnabled = false;
-
                 DeliveryType deliveryType = (DeliveryType)DevelopTypeListView.SelectedItem;
+                PaymentMethod paymentMethod = (PaymentMethod)PaymentMethodListView.SelectedItem;
                 OrderStatus orderStatus = await Core.GetOrderStatusAsync("В обработке");
 
                 Order order = new Order()
@@ -129,11 +152,13 @@ namespace LynaMarketMobile.Pages
                     Adress = AddressEntry.Text,
                     Date = DateTime.Now,
                     IdDeliveryType = deliveryType.IdDeliveryType,
+                    IdPaymentMethod = paymentMethod.IdPaymentMethod,
+                    IdPayStatus = 1,
                     IdOrderStatus = orderStatus.IdOrderStatus,
                     IdCustomer = CurrentCustomer.IdCustomer
                 };
 
-                int idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdDeliveryType, order.Date, order.Adress);
+                int idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdPaymentMethod, order.IdPayStatus, order.IdDeliveryType, order.Date, order.Adress);
 
                 foreach (BasketProductView item in BasketManager.BasketProductViews)
                 {

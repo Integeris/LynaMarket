@@ -63,6 +63,10 @@ namespace LynaMarketMobile.Pages
                 {
                     throw new Exception("Введите почту корректно.");
                 }
+                else if (await Core.GetCustomerAsync(EmailEntry.Text) != null)
+                {
+                    throw new Exception("Такой пользователь уже существует.");
+                }
                 else if (!(Regex.IsMatch(FirstNameEntry.Text, namesTemplate) || String.IsNullOrWhiteSpace(FirstNameEntry.Text)))
                 {
                     throw new Exception("Введите своё имя корректно.");

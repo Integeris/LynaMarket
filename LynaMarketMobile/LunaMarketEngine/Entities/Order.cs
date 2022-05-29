@@ -29,6 +29,16 @@ namespace LunaMarketEngine.Entities
         public int IdOrderStatus { get; set; }
 
         /// <summary>
+        /// Идентификатор способа оплаты.
+        /// </summary>
+        public int IdPaymentMethod { get; set; }
+
+        /// <summary>
+        /// Идентификатор статуса оплаты.
+        /// </summary>
+        public int IdPayStatus { get; set; }
+
+        /// <summary>
         /// Идентификатор типа доставки.
         /// </summary>
         public int IdDeliveryType { get; set; }
@@ -69,6 +79,34 @@ namespace LunaMarketEngine.Entities
             };
 
             return await Core.GetObjectAsync<Customer>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение статуса оплаты.
+        /// </summary>
+        /// <returns>Статус оплаты.</returns>
+        public async Task<PayStatus> GetPayStatus()
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPayStatus", IdPayStatus)
+            };
+
+            return await Core.GetObjectAsync<PayStatus>(staticProperties);
+        }
+
+        /// <summary>
+        /// Получение способа оплаты.
+        /// </summary>
+        /// <returns>Способ оплаты.</returns>
+        public async Task<PaymentMethod> GetPaymentMethod()
+        {
+            List<StaticProperty> staticProperties = new List<StaticProperty>()
+            {
+                new StaticProperty("IdPaymentMethod", IdPaymentMethod)
+            };
+
+            return await Core.GetObjectAsync<PaymentMethod>(staticProperties);
         }
 
         /// <summary>

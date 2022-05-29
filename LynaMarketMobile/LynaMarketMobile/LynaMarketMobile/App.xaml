@@ -145,6 +145,12 @@
                 <Setter Property="BackgroundColor" Value="{DynamicResource EntryPlaceholderColorColor}"/>
                 <Setter Property="Spacing" Value="0"/>
             </Style>
+            
+            <!-- Entry Email -->
+            <Style x:Key="EmailEntry" TargetType="Entry">
+                <Setter Property="Keyboard" Value="Email"/>
+                <Setter Property="MaxLength" Value="256"/>
+            </Style>
 
             <!-- Label название компании -->
             <Style x:Key="LogoLabel" TargetType="Label">
