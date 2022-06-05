@@ -19,6 +19,9 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style TargetType="Image">
+                <Setter Property="WidthRequest" Value="95"/>
+            </Style>
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
             </Style>
@@ -29,8 +32,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="130"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="125"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="130"/>
             </Grid.RowDefinitions>
 
             <StackLayout>
@@ -52,12 +56,24 @@
                 <Label Text="Способ оплаты:"/>
                 <ListView x:Name="PaymentMethodListView"/>
             </StackLayout>
-            <StackLayout Grid.Row="3">
+            <StackLayout Grid.Row="3"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         VerticalOptions="StartAndExpand">
+                <Image Source="visa.png"/>
+                <Image Source="mir.png"/>
+                <Image Source="mastercard.png"/>
+                <Image Source="jcb.png"/>
+            </StackLayout>
+            <StackLayout Grid.Row="4">
                 <Label x:Name="CostLabel"
                        Text="{Binding ., StringFormat='Итоговая цена: {0} руб.'}"/>
                 <Button x:Name="ApplyButton" 
                         Text="Оформить"
                         Clicked="ApplyButtonOnClicked"/>
+                <Button x:Name="PayInfoButton" 
+                        Text="Порядок оплаты"
+                        Clicked="PayInfoButtonOnClicked"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

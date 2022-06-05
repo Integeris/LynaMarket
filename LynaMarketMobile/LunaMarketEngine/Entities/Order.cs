@@ -51,7 +51,7 @@ namespace LunaMarketEngine.Entities
         /// <summary>
         /// Адресс.
         /// </summary>
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         /// <summary>
         /// Получение статусаа заказа.

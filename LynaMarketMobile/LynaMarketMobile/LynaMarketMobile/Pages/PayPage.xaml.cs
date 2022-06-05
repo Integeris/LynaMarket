@@ -1,12 +1,13 @@
 ﻿using LunaMarketEngine;
 using LunaMarketEngine.Entities;
+using LunaMarketEngine.Payment;
 using LynaMarketMobile.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -106,16 +107,10 @@ namespace LynaMarketMobile.Pages
                 AddressEntry.IsEnabled = false;
                 SelectAddressButton.IsEnabled = false;
 
-                if (((PaymentMethod)PaymentMethodListView.SelectedItem).IdPaymentMethod == 1)
-                {
-                    // Если оплата онлайн
-                }
-                else
-                {
-                    // Если другое.
-                }
+                Customer customer = await Core.GetCustomerAsync(CurrentCustomer.IdCustomer);
 
                 List<Product> products = new List<Product>();
+
                 products = BasketManager.BasketProductViews.AsParallel().Select(async basketProduct =>
                 {
                     Product product = await Core.GetProductAsync(basketProduct.IdProduct);
@@ -128,52 +123,79 @@ namespace LynaMarketMobile.Pages
                     return product;
                 }).Select(task => task.Result).ToList();
 
-                foreach (var item in products)
-                {
-                    Core.UpdateProduct(item.IdProduct, item.IdManufacturer, item.IdProductCategory, item.IdColor, item.IdMaterial, item.Title,
-                        item.Price, item.Amount - BasketManager.BasketProductViews.FirstOrDefault(i => item.IdProduct == i.IdProduct).Amount, item.Height,
-                        item.Width, item.Depth, item.Description, item.Deleted);
-                }
-            }
-            catch (Exception ex)
-            {
-                InfoViewer.ShowError(this, ex.Message);
-                NavigationManager.PopPage();
-            }
-
-            try
-            {
                 DeliveryType deliveryType = (DeliveryType)DevelopTypeListView.SelectedItem;
                 PaymentMethod paymentMethod = (PaymentMethod)PaymentMethodListView.SelectedItem;
                 OrderStatus orderStatus = await Core.GetOrderStatusAsync("В обработке");
 
-                Order order = new Order()
-                {
-                    Adress = AddressEntry.Text,
-                    Date = DateTime.Now,
-                    IdDeliveryType = deliveryType.IdDeliveryType,
-                    IdPaymentMethod = paymentMethod.IdPaymentMethod,
-                    IdPayStatus = 1,
-                    IdOrderStatus = orderStatus.IdOrderStatus,
-                    IdCustomer = CurrentCustomer.IdCustomer
-                };
+                int idOrder = -1;
 
-                int idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdPaymentMethod, order.IdPayStatus, order.IdDeliveryType, order.Date, order.Adress);
-
-                foreach (BasketProductView item in BasketManager.BasketProductViews)
+                try
                 {
-                    OrderProduct orderProduct = new OrderProduct()
+                    Order order = new Order()
                     {
-                        IdProduct = item.IdProduct,
-                        IdOrder = idOrder,
-                        Price = item.ProductPrice,
-                        Amount = item.Amount
+                        Address = AddressEntry.Text,
+                        Date = DateTime.Now,
+                        IdDeliveryType = deliveryType.IdDeliveryType,
+                        IdPaymentMethod = paymentMethod.IdPaymentMethod,
+                        IdPayStatus = 2,
+                        IdOrderStatus = orderStatus.IdOrderStatus,
+                        IdCustomer = customer.IdCustomer
                     };
 
-                    await Core.AddOrderProduct(orderProduct.IdOrder, orderProduct.IdProduct, orderProduct.Price, orderProduct.Amount);
-                }
+                    idOrder = await Core.AddOrder(order.IdCustomer, order.IdOrderStatus, order.IdPaymentMethod, order.IdPayStatus, 
+                        order.IdDeliveryType, order.Date, order.Address);
 
-                Result = true;
+                    decimal amount = 0;
+
+                    foreach (BasketProductView item in BasketManager.BasketProductViews)
+                    {
+                        OrderProduct orderProduct = new OrderProduct()
+                        {
+                            IdProduct = item.IdProduct,
+                            IdOrder = idOrder,
+                            Price = item.ProductPrice,
+                            Amount = item.Amount
+                        };
+
+                        amount += orderProduct.Price * orderProduct.Amount;
+                        await Core.AddOrderProduct(orderProduct.IdOrder, orderProduct.IdProduct, orderProduct.Price, orderProduct.Amount);
+                    }
+
+                    if (((PaymentMethod)PaymentMethodListView.SelectedItem).IdPaymentMethod == 1)
+                    {
+                        // Если оплата онлайн
+                        SberClient sberClient = new SberClient();
+                        RegistrationResponce registrationResponce = sberClient.RegistrationOrder(idOrder, (int)(amount * 100), customer.Phone, customer.Email);
+
+                        if (registrationResponce.ErrorCode != null && registrationResponce.ErrorCode != "0")
+                        {
+                            throw new Exception(registrationResponce.ErrorMessage);
+                        }
+
+                        await Browser.OpenAsync(registrationResponce.FormUrl);
+
+                        Core.UpdateOrder(idOrder, customer.IdCustomer, orderStatus.IdOrderStatus, paymentMethod.IdPaymentMethod, 
+                            2, deliveryType.IdDeliveryType, DateTime.Now, AddressEntry.Text);
+                    }
+
+                    foreach (var item in products)
+                    {
+                        Core.UpdateProduct(item.IdProduct, item.IdManufacturer, item.IdProductCategory, item.IdColor, item.IdMaterial, item.Title,
+                                item.Price, item.Amount - BasketManager.BasketProductViews.FirstOrDefault(i => item.IdProduct == i.IdProduct).Amount, item.Height,
+                                item.Width, item.Depth, item.Description, item.Deleted);
+                    }
+
+                    Result = true;
+                }
+                catch (Exception ex)
+                {
+                    if (idOrder != -1)
+                    {
+                        Core.DeleteOrder(idOrder);
+                    }
+
+                    throw ex;
+                }
             }
             catch (Exception ex)
             {
@@ -181,6 +203,11 @@ namespace LynaMarketMobile.Pages
             }
 
             NavigationManager.PopPage();
+        }
+
+        private void PayInfoButtonOnClicked(object sender, EventArgs e)
+        {
+            NavigationManager.PushPage(new PayInfoPage());
         }
     }
 }

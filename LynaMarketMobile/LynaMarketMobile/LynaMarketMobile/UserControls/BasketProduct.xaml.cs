@@ -56,7 +56,7 @@ namespace LynaMarketMobile.UserControls
                     value = context.MaxAmount;
                     AmountEntry.Text = value.ToString();
                 }
-                else
+                else if (value < 0)
                 {
                     throw new Exception();
                 }

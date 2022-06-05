@@ -2,15 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LynaMarketMobile.Pages.OrderPage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextType" Value="Html"/>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <Label Text="{Binding IdOrder, StringFormat='Идентификатор: {0}'}"/>
-            <Label Text="{Binding OrderStatus, StringFormat='Статус: {0}'}"/>
-            <Label Text="{Binding PaymentMethod, StringFormat='Способ оплаты: {0}'}"/>
-            <Label Text="{Binding PayStatus, StringFormat='Статус оплаты: {0}'}"/>
-            <Label Text="{Binding DeliveryType, StringFormat='Тип доставки: {0}'}"/>
-            <Label Text="{Binding Address, StringFormat='Адрес: {0}'}"/>
-            <Label Text="{Binding Price, StringFormat='Итоговая стоимость: {0} руб.'}"/>
+            <Label Text="{Binding IdOrder, StringFormat='&lt;b>Идентификатор&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding OrderStatus, StringFormat='&lt;b>Статус&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding PaymentMethod, StringFormat='&lt;b>Способ оплаты&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding PayStatus, StringFormat='&lt;b>Статус оплаты&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding DeliveryType, StringFormat='&lt;b>Тип доставки&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding Address, StringFormat='&lt;b>Адрес&lt;/b>: {0}.'}"/>
+            <Label Text="{Binding Price, StringFormat='&lt;b>Итоговая стоимость&lt;/b>: {0} руб.'}"/>
             <Label Text="Товары:"/>
             
             <ListView x:Name="ProductsListView"

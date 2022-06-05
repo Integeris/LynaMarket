@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.UserLicencePage"
+             Title="Пользовательское соглашение">
+    <ContentPage.Content>
+        <WebView x:Name="MainWebView"
+                 Source="https://drive.google.com/viewerng/viewer?embedded=true&amp;url=https://luna-m.ru/pdf/userLicence.pdf"/>
+    </ContentPage.Content>
+</ContentPage>

@@ -8,6 +8,7 @@
                 <ResourceDictionary>
                     <Style TargetType="Entry">
                         <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="IsTextPredictionEnabled" Value="False"/>
                     </Style>
                 </ResourceDictionary>
             </StackLayout.Resources>

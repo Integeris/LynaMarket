@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LynaMarketMobile.Pages.PayInfoPage"
+             Title="Порядок оплаты">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SelectedLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="0, 15, 0, 0"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="WidthRequest" Value="95"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10">
+                <Label Text="    Для оплаты (ввода реквизитов Вашей карты) Вы будете перенаправлены на платёжный шлюз ПАО СБЕРБАНК. Соединение с платёжным шлюзом и передача информации осуществляется в защищённом режиме с использованием протокола шифрования SSL. В случае если Ваш банк поддерживает технологию безопасного проведения интернет-платежей Verified By Visa, MasterCard SecureCode, MIR Accept, J-Secure для проведения платежа также может потребоваться ввод специального пароля."/>
+                <Label Text="    Настоящий сайт поддерживает 256-битное шифрование. Конфиденциальность сообщаемой персональной информации обеспечивается ПАО СБЕРБАНК. Введённая информация не будет предоставлена третьим лицам за исключением случаев, предусмотренных законодательством РФ. Проведение платежей по банковским картам осуществляется в строгом соответствии с требованиями платёжных систем МИР, Visa Int., MasterCard Europe Sprl, JCB."/>
+                <Label Style="{StaticResource SelectedLabel}" 
+                       Text="Наличный расчет:"/>
+                <Label Text="    Если товар доставляется курьером, то оплата осуществляется наличными курьеру в руки. При получении товара обязательно проверьте комплектацию товара, наличие гарантийного талона и чека."/>
+                <Label Style="{StaticResource SelectedLabel}"
+                       Text="Банковской картой:"/>
+                <Label Text="    Для выбора оплаты товара с помощью банковской карты на соответствующей странице необходимо нажать кнопку Оплата заказа банковской картой. Оплата происходит через ПАО СБЕРБАНК с использованием банковских карт следующих платёжных систем:"/>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             VerticalOptions="StartAndExpand">
+                    <Image Source="visa.png"/>
+                    <Image Source="mir.png"/>
+                    <Image Source="mastercard.png"/>
+                    <Image Source="jcb.png"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

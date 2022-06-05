@@ -45,7 +45,7 @@ namespace LynaMarketMobile.Pages
                 PaymentMethod = (await order.GetPaymentMethod()).Title,
                 PayStatus = (await order.GetPayStatus()).Title,
                 DeliveryType = (await order.GetDeliveryTypeAsync()).Title,
-                Address = order.Adress,
+                Address = order.Address,
                 Price = 0
             };
             

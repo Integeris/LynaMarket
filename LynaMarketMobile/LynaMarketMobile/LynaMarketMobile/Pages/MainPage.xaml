@@ -75,6 +75,9 @@
                         <Button x:Name="AboutProgramButton" 
                                 Text="О программе"
                                 Clicked="AboutProgramButtonOnClicked"/>
+                        <Button x:Name="UserLicenceButton"
+                                Text="Пользовательское соглашение"
+                                Clicked="UserLicenceButtonOnClicked"/>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

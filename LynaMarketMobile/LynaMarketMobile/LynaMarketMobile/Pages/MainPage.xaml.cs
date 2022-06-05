@@ -108,5 +108,13 @@ namespace LynaMarketMobile.Pages
         {
             LoadDataAsync();
         }
+
+        private void UserLicenceButtonOnClicked(object sender, EventArgs e)
+        {
+            UserLicencePage userLicencePage = new UserLicencePage();
+            userLicencePage.Disappearing += AboutOnDisappearing;
+
+            NavigationManager.PushPage(userLicencePage);
+        }
     }
 }

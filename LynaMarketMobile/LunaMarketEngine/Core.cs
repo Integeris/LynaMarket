@@ -1004,8 +1004,8 @@ namespace LunaMarketEngine
         /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
-        /// <param name="adress">Адрес доставки.</param>
-        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string adress)
+        /// <param name="address">Адрес доставки.</param>
+        public static async Task<int> AddOrder(int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string address)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1015,7 +1015,7 @@ namespace LunaMarketEngine
                 new StaticProperty("IdPayStatus", idPayStatus),
                 new StaticProperty("idDeliveryType", idDeliveryType),
                 new StaticProperty("Date", date),
-                new StaticProperty("Adress", adress)
+                new StaticProperty("Address", address)
             };
 
             return await AddObjectAsync<Order>(staticProperties);
@@ -1031,8 +1031,8 @@ namespace LunaMarketEngine
         /// <param name="idPayStatus">Идентификатор статуса оплаты.</param>
         /// <param name="idDeliveryType">Идентификатор типа доставкит.</param>
         /// <param name="date">Дата создания заказа.</param>
-        /// <param name="adress">Адрес доставки.</param>
-        public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string adress)
+        /// <param name="address">Адрес доставки.</param>
+        public static void UpdateOrder(int idOrder, int idCustomer, int idOrderStatus, int idPaymentMethod, int idPayStatus, int idDeliveryType, DateTime date, string address)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1047,7 +1047,7 @@ namespace LunaMarketEngine
                 new StaticProperty("IdPayStatus", idPayStatus),
                 new StaticProperty("idDeliveryType", idDeliveryType),
                 new StaticProperty("Date", date),
-                new StaticProperty("Adress", adress)
+                new StaticProperty("Address", address)
             };
 
             UpdateObject<Order>(setStaticProperties, staticProperties);

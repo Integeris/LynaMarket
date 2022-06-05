@@ -116,15 +116,34 @@ namespace LynaMarketMobile.Pages
                     MailSender mailSender = new MailSender(customer.Email)
                     {
                         Subject = "ООО <<Луна>>. Спасибо за покупку в нашем магазине!",
-                        Body = "Спасибо Вам за покупку в нашем магазине. Наш администратор свяжется с Вами. Оплата заказа только после получения!"
+                        Body = "Спасибо Вам за покупку в нашем магазине. Надеюсь, Вам понравятся наши товары."
                     };
 
                     mailSender.SendAsync();
 
                     BasketManager.BasketProductViews.Clear();
-                    InfoViewer.ShowInfo((NavigationPage)App.Current.MainPage, "Вы успешно оформили заказ. Администратор магазина свяжется с вами. Оплата заказа только после получения!");
+                    InfoViewer.ShowInfo((NavigationPage)App.Current.MainPage, "Вы успешно оформили заказ. Надеюсь, Вам понравятся наши товары.");
                 }
                 catch (Exception) { }
+            }
+        }
+
+        private async void ContentPageOnAppearing(object sender, EventArgs e)
+        {
+            for (int i = 0; i < BasketManager.BasketProductViews.Count; i++)
+            {
+                Product product = await Core.GetProductAsync(BasketManager.BasketProductViews[i].IdProduct);
+                BasketManager.BasketProductViews[i] = new BasketProductView()
+                {
+                    IdProduct = product.IdProduct,
+                    ProductPrice = product.Price,
+                    Title = product.Title,
+                    Image = (await product.GetProductPhotoAsync()).FirstOrDefault().Image,
+                    Amount = 1,
+                    MaxAmount = product.Amount
+                };
+
+                BasketManager.BasketProductViews[i].OnPropertyChanged();
             }
         }
     }
