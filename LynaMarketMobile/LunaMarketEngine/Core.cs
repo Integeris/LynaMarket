@@ -709,13 +709,13 @@ namespace LunaMarketEngine
         /// <summary>
         /// Получение заказчика.
         /// </summary>
-        /// <param name="loginOrEmail">Логин или почта.</param>
+        /// <param name="loginOrEmailOrPhone">Логин или почта или пароль.</param>
         /// <returns>Заказчик.</returns>
-        public static async Task<Customer> GetCustomerAsync(string loginOrEmail)
+        public static async Task<Customer> GetCustomerAsync(string loginOrEmailOrPhone)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
-                new StaticProperty("Login", loginOrEmail)
+                new StaticProperty("Login", loginOrEmailOrPhone)
             };
 
             Customer customer = await GetObjectAsync<Customer>(staticProperties);
@@ -723,6 +723,12 @@ namespace LunaMarketEngine
             if (customer == null)
             {
                 staticProperties[0].ColumnName = "Email";
+                customer = await GetObjectAsync<Customer>(staticProperties);
+            }
+
+            if (customer == null)
+            {
+                staticProperties[0].ColumnName = "Phone";
                 customer = await GetObjectAsync<Customer>(staticProperties);
             }
 
