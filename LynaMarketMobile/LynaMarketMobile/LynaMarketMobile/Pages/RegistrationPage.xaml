@@ -64,6 +64,9 @@
             <Button x:Name="RegistrationButton" 
                     Text="Зарегистрироваться"
                     Clicked="RegistrationButtonOnClicked"/>
+            <Button x:Name="CondidencePlitic"
+                    Text="Конфиденциальные данные"
+                    Clicked="CondidencePliticOnClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -111,7 +111,7 @@ namespace LynaMarketMobile.Pages
 
         private void UserLicenceButtonOnClicked(object sender, EventArgs e)
         {
-            UserLicencePage userLicencePage = new UserLicencePage();
+            PDFPage userLicencePage = new PDFPage("Пользовательское соглашение", "https://luna-m.ru/pdf/userLicence.pdf");
             userLicencePage.Disappearing += AboutOnDisappearing;
 
             NavigationManager.PushPage(userLicencePage);

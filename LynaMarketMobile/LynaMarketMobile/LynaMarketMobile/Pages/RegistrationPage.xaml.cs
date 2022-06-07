@@ -109,5 +109,11 @@ namespace LynaMarketMobile.Pages
                 InfoViewer.ShowError(this, "Вы не зарегистрировались.");
             }
         }
+
+        private void CondidencePliticOnClicked(object sender, EventArgs e)
+        {
+            PDFPage confidencePage = new PDFPage("Политика конфиденциальности", "https://luna-m.ru/pdf/privacy.pdf");
+            NavigationManager.PushPage(confidencePage);
+        }
     }
 }
