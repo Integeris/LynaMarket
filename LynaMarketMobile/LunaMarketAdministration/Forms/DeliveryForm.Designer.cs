@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeliveryForm));
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.deliveryTextBox = new System.Windows.Forms.TextBox();
-            this.actionDeliveryButton = new System.Windows.Forms.Button();
+            this.actionStatusButton = new System.Windows.Forms.Button();
             this.actionDeliveryComboBox = new System.Windows.Forms.ComboBox();
             this.selectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -61,14 +62,14 @@
             this.deliveryTextBox.Size = new System.Drawing.Size(166, 29);
             this.deliveryTextBox.TabIndex = 7;
             // 
-            // actionDeliveryButton
+            // actionStatusButton
             // 
-            this.actionDeliveryButton.Location = new System.Drawing.Point(28, 181);
-            this.actionDeliveryButton.Name = "actionDeliveryButton";
-            this.actionDeliveryButton.Size = new System.Drawing.Size(130, 30);
-            this.actionDeliveryButton.TabIndex = 6;
-            this.actionDeliveryButton.UseVisualStyleBackColor = true;
-            this.actionDeliveryButton.Click += new System.EventHandler(this.ActionDeliveryButtonOnClick);
+            this.actionStatusButton.Location = new System.Drawing.Point(28, 181);
+            this.actionStatusButton.Name = "actionStatusButton";
+            this.actionStatusButton.Size = new System.Drawing.Size(130, 30);
+            this.actionStatusButton.TabIndex = 6;
+            this.actionStatusButton.UseVisualStyleBackColor = true;
+            this.actionStatusButton.Click += new System.EventHandler(this.ActionDeliveryButtonOnClick);
             // 
             // actionDeliveryComboBox
             // 
@@ -103,11 +104,16 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deliveryTextBox);
-            this.Controls.Add(this.actionDeliveryButton);
+            this.Controls.Add(this.actionStatusButton);
             this.Controls.Add(this.actionDeliveryComboBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(212, 261);
+            this.MinimumSize = new System.Drawing.Size(212, 261);
             this.Name = "DeliveryForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Доставка";
             this.Load += new System.EventHandler(this.DeliveryFormOnLoad);
             this.ResumeLayout(false);
@@ -120,7 +126,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox deliveryTextBox;
-        private System.Windows.Forms.Button actionDeliveryButton;
+        private System.Windows.Forms.Button actionStatusButton;
         private System.Windows.Forms.ComboBox actionDeliveryComboBox;
         private System.Windows.Forms.Button selectButton;
     }

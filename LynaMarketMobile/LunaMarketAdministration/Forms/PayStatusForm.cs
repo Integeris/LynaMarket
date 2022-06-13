@@ -13,49 +13,50 @@ using System.Windows.Forms;
 
 namespace LunaMarketAdministration.Forms
 {
-    public partial class DeliveryForm : Form
+    public partial class PayStatusForm : Form
     {
-        public DeliveryForm()
+        public PayStatusForm()
         {
             InitializeComponent();
         }
 
-        private void ActionDeliveryComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
+        private void ActionPayStatusComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (actionDeliveryComboBox.SelectedIndex)
+            switch (actionPayStatusComboBox.SelectedIndex)
             {
                 case 0:
-                    actionStatusButton.Text = "Добавить";
+                    actionPayStatusButton.Text = "Добавить";
                     selectButton.Visible = false;
+                    payStatusTextBox.Text = null;
+                    Database.IdPayStatus = 0;
                     break;
                 case 1:
-                    actionStatusButton.Text = "Изменить";
+                    actionPayStatusButton.Text = "Изменить";
                     selectButton.Visible = true;
+                    payStatusTextBox.Text = null;
+                    Database.IdPayStatus = 0;
                     break;
                 case 2:
-                    actionStatusButton.Text = "Удалить";
+                    actionPayStatusButton.Text = "Удалить";
                     selectButton.Visible = true;
+                    payStatusTextBox.Text = null;
+                    Database.IdPayStatus = 0;
                     break;
             }
-        }
-
-        private void DeliveryFormOnLoad(object sender, EventArgs e)
-        {
-            actionDeliveryComboBox.SelectedIndex = 0;
         }
 
         private async void SelectButtonOnClick(object sender, EventArgs e)
         {
             try
             {
-                Database.IdDelivery = 0;
-                Database.Type = "Delivery";
+                Database.IdPayMethod = 0;
+                Database.Type = "PayStatus";
                 SelectForm selectForm = new SelectForm();
                 selectForm.ShowDialog();
-                if (Database.IdDelivery != 0)
+                if (Database.IdPayStatus != 0)
                 {
-                    DeliveryType delivery = await Core.GetDeliveryTypeAsync(Database.IdDelivery);
-                    deliveryTextBox.Text = delivery.Title;
+                    PayStatus payStatus = await Core.GetPayStatusAsync(Database.IdPayStatus);
+                    payStatusTextBox.Text = payStatus.Title;
                 }
             }
             catch (Exception ex)
@@ -64,16 +65,16 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private async void ActionDeliveryButtonOnClick(object sender, EventArgs e)
+        private async void ActionPayStatusButtonOnClick(object sender, EventArgs e)
         {
-            switch (actionDeliveryComboBox.SelectedIndex)
+            switch (actionPayStatusComboBox.SelectedIndex)
             {
                 case 0:
-                    int id = await Core.AddDeliveryType(deliveryTextBox.Text);
+                    int id = await Core.AddPayStatus(payStatusTextBox.Text);
                     if (id != 0)
                     {
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        payStatusTextBox.Text = null;
+                        Database.IdPayStatus = 0;
                         MessageBox.Show("Запись добавлена.");
                     }
                     else
@@ -82,11 +83,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
                 case 1:
-                    if (Database.IdDelivery != 0)
+                    if (Database.IdPayStatus != 0)
                     {
-                        Core.UpdateDeliveryType(Database.IdDelivery, deliveryTextBox.Text);
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        Core.UpdatePayStatus(Database.IdPayStatus, payStatusTextBox.Text);
+                        payStatusTextBox.Text = null;
+                        Database.IdPayStatus = 0;
                     }
                     else
                     {
@@ -94,11 +95,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
                 case 2:
-                    if (Database.IdDelivery != 0)
+                    if (Database.IdPayStatus != 0)
                     {
-                        Core.DeleteDeliveryType(Database.IdDelivery);
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        Core.DeletePayStatus(Database.IdPayStatus);
+                        payStatusTextBox.Text = null;
+                        Database.IdPayMethod = 0;
                     }
                     else
                     {
@@ -106,6 +107,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
             }
+        }
+
+        private void PayStatusForm_Load(object sender, EventArgs e)
+        {
+            actionPayStatusComboBox.SelectedIndex = 0;
         }
     }
 }

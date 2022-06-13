@@ -231,6 +231,106 @@ namespace LunaMarketAdministration.Classes
                     List<Product> products = await Core.GetProductsAsync();
                     dataGridView.DataSource = products;
                     break;
+                case "Office":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdOfficeAddress";
+                    dataGridView.Columns[0].Name = "IdOfficeAddressColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<OfficeAddress> office = await Core.GetOfficeAddressesAsync();
+                    dataGridView.DataSource = office;
+                    break;
+                case "OrderStatus":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdOrderStatus";
+                    dataGridView.Columns[0].Name = "IdOrderStatusColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<OrderStatus> orderStatuses = await Core.GetOrderStatusesAsync();
+                    dataGridView.DataSource = orderStatuses;
+                    break;
+                case "PayMethod":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdPaymentMethod";
+                    dataGridView.Columns[0].Name = "IdPaymentMethod";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<PaymentMethod> paymentMethods = await Core.GetPaymentMethodsAsync();
+                    dataGridView.DataSource = paymentMethods;
+                    break;
+                case "PayStatus":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdPayStatus";
+                    dataGridView.Columns[0].Name = "IdPayStatus";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Название";
+                    dataGridView.Columns[1].DataPropertyName = "Title";
+                    dataGridView.Columns[1].Name = "TitleColumn";
+
+                    List<PayStatus> payStatuses = await Core.GetPayStatusesAsync();
+                    dataGridView.DataSource = payStatuses;
+                    break;
+                case "Order":
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[0].HeaderText = "Код";
+                    dataGridView.Columns[0].DataPropertyName = "IdOrder";
+                    dataGridView.Columns[0].Name = "IdOrderColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[1].HeaderText = "Заказчик";
+                    dataGridView.Columns[1].DataPropertyName = "IdCustomer";
+                    dataGridView.Columns[1].Name = "IdCustomerColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[2].HeaderText = "Статус заказа";
+                    dataGridView.Columns[2].DataPropertyName = "IdOrderStatus";
+                    dataGridView.Columns[2].Name = "IdOrderStatusColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[3].HeaderText = "Метод оплаты";
+                    dataGridView.Columns[3].DataPropertyName = "IdPaymentMethod";
+                    dataGridView.Columns[3].Name = "IdPaymentMethodColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[4].HeaderText = "Статус оплаты";
+                    dataGridView.Columns[4].DataPropertyName = "IdPayStatus";
+                    dataGridView.Columns[4].Name = "IdPayStatusColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[5].HeaderText = "Способ доставки";
+                    dataGridView.Columns[5].DataPropertyName = "IdDeliveryType";
+                    dataGridView.Columns[5].Name = "IdDeliveryTypeColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[6].HeaderText = "Дата";
+                    dataGridView.Columns[6].DataPropertyName = "Date";
+                    dataGridView.Columns[6].Name = "DateColumn";
+
+                    dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+                    dataGridView.Columns[7].HeaderText = "Адрес";
+                    dataGridView.Columns[7].DataPropertyName = "Address";
+                    dataGridView.Columns[7].Name = "AddressColumn";
+
+                    List<Order> orders = await Core.GetOrdersAsync();
+                    dataGridView.DataSource = orders;
+                    break;
                 default:
                     break;
             }

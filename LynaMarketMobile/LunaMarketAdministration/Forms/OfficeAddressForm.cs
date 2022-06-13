@@ -13,49 +13,44 @@ using System.Windows.Forms;
 
 namespace LunaMarketAdministration.Forms
 {
-    public partial class DeliveryForm : Form
+    public partial class OfficeAddressForm : Form
     {
-        public DeliveryForm()
+        public OfficeAddressForm()
         {
             InitializeComponent();
         }
 
-        private void ActionDeliveryComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
+        private void ActionComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (actionDeliveryComboBox.SelectedIndex)
+            switch (actionComboBox.SelectedIndex)
             {
                 case 0:
-                    actionStatusButton.Text = "Добавить";
+                    actionButton.Text = "Добавить";
                     selectButton.Visible = false;
                     break;
                 case 1:
-                    actionStatusButton.Text = "Изменить";
+                    actionButton.Text = "Изменить";
                     selectButton.Visible = true;
                     break;
                 case 2:
-                    actionStatusButton.Text = "Удалить";
+                    actionButton.Text = "Удалить";
                     selectButton.Visible = true;
                     break;
             }
-        }
-
-        private void DeliveryFormOnLoad(object sender, EventArgs e)
-        {
-            actionDeliveryComboBox.SelectedIndex = 0;
         }
 
         private async void SelectButtonOnClick(object sender, EventArgs e)
         {
             try
             {
-                Database.IdDelivery = 0;
-                Database.Type = "Delivery";
+                Database.IdOfficeAddress = 0;
+                Database.Type = "Office";
                 SelectForm selectForm = new SelectForm();
                 selectForm.ShowDialog();
-                if (Database.IdDelivery != 0)
+                if (Database.IdOfficeAddress != 0)
                 {
-                    DeliveryType delivery = await Core.GetDeliveryTypeAsync(Database.IdDelivery);
-                    deliveryTextBox.Text = delivery.Title;
+                    OfficeAddress officeAddress = await Core.GetOfficeAddressAsync(Database.IdOfficeAddress);
+                    addressTextBox.Text = officeAddress.Title;
                 }
             }
             catch (Exception ex)
@@ -64,16 +59,16 @@ namespace LunaMarketAdministration.Forms
             }
         }
 
-        private async void ActionDeliveryButtonOnClick(object sender, EventArgs e)
+        private async void ActionButtonOnClick(object sender, EventArgs e)
         {
-            switch (actionDeliveryComboBox.SelectedIndex)
+            switch (actionComboBox.SelectedIndex)
             {
                 case 0:
-                    int id = await Core.AddDeliveryType(deliveryTextBox.Text);
+                    int id = await Core.AddOfficeAddress(addressTextBox.Text);
                     if (id != 0)
                     {
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        addressTextBox.Text = null;
+                        Database.IdOfficeAddress = 0;
                         MessageBox.Show("Запись добавлена.");
                     }
                     else
@@ -82,11 +77,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
                 case 1:
-                    if (Database.IdDelivery != 0)
+                    if (Database.IdOfficeAddress != 0)
                     {
-                        Core.UpdateDeliveryType(Database.IdDelivery, deliveryTextBox.Text);
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        Core.UpdateOfficeAddress(Database.IdOfficeAddress, addressTextBox.Text);
+                        addressTextBox.Text = null;
+                        Database.IdOfficeAddress = 0;
                     }
                     else
                     {
@@ -94,11 +89,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
                 case 2:
-                    if (Database.IdDelivery != 0)
+                    if (Database.IdOfficeAddress != 0)
                     {
-                        Core.DeleteDeliveryType(Database.IdDelivery);
-                        deliveryTextBox.Text = null;
-                        Database.IdDelivery = 0;
+                        Core.DeleteOfficeAddress(Database.IdOfficeAddress);
+                        addressTextBox.Text = null;
+                        Database.IdOfficeAddress = 0;
                     }
                     else
                     {
@@ -106,6 +101,11 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
             }
+        }
+
+        private void OfficeAddressFormOnLoad(object sender, EventArgs e)
+        {
+            actionComboBox.SelectedIndex = 0;
         }
     }
 }

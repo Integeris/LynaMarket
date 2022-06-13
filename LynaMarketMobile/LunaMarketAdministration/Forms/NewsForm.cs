@@ -57,16 +57,23 @@ namespace LunaMarketAdministration.Forms
                     imagePath = "";
                     editButton.Text = "Изменить";
                     selectNewsButton.Visible = true;
+                    Database.СlearingTextBoxes(this);
+                    Database.СlearingPictureBox(imagePictureBox);
+                    Database.СlearingPictureBox(imagePictureBox);
                     break;
                 case 2:
                     imagePath = "";
                     editButton.Text = "Удалить";
                     selectNewsButton.Visible = true;
+                    Database.СlearingPictureBox(imagePictureBox);
+                    Database.СlearingPictureBox(imagePictureBox);
                     break;
                 default:
                     imagePath = "";
                     editButton.Text = "Добавить";
                     selectNewsButton.Visible = false;
+                    Database.СlearingPictureBox(imagePictureBox);
+                    Database.СlearingPictureBox(imagePictureBox);
                     break;
             }
         }
@@ -97,8 +104,9 @@ namespace LunaMarketAdministration.Forms
             switch (actionComboBox.SelectedIndex)
             {
                 case 0:
-                    if (imagePath != "")
+                    if ((imagePath != "") && (Database.CheckingTextBoxes(this) == 0))
                     {
+                        byte[] a = File.ReadAllBytes(imagePath);
                         await Core.AddNews(titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
                         code = 0;
                         titleTextBox.Text = null;
@@ -111,10 +119,9 @@ namespace LunaMarketAdministration.Forms
                     {
                         MessageBox.Show("Вы не выбрали картинку!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
                     break;
                 case 1:
-                    if ((imagePath == "") && (code == 0) && (Database.IdNews != 0))
+                    if ((imagePath == "") && (code == 0) && (Database.IdNews != 0) && (Database.CheckingTextBoxes(this) == 0))
                     {
                         Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, news.Photo, descriptionTextBox.Text);
                         code = 0;
@@ -130,7 +137,7 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        if (Database.IdNews != 0)
+                        if ((Database.IdNews != 0) && (Database.CheckingTextBoxes(this) == 0))
                         {
                             Core.UpdateNews(Database.IdNews, titleTextBox.Text, DateTime.Now, File.ReadAllBytes(imagePath), descriptionTextBox.Text);
                             code = 0;
@@ -142,7 +149,7 @@ namespace LunaMarketAdministration.Forms
                         }
                         else
                         {
-                            MessageBox.Show("вы ничего не выбрали");
+                            MessageBox.Show("Вы ничего не выбрали!");
                         }
                     }
                     break;

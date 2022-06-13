@@ -107,6 +107,42 @@
     <Compile Include="Forms\NewsForm.Designer.cs">
       <DependentUpon>NewsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OfficeAddressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OfficeAddressForm.Designer.cs">
+      <DependentUpon>OfficeAddressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrderForm.Designer.cs">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrderProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrderProductForm.Designer.cs">
+      <DependentUpon>OrderProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrderStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrderStatusForm.Designer.cs">
+      <DependentUpon>OrderStatusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PayMethodForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PayMethodForm.Designer.cs">
+      <DependentUpon>PayMethodForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PayStatusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PayStatusForm.Designer.cs">
+      <DependentUpon>PayStatusForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ProductCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +180,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewsForm.resx">
       <DependentUpon>NewsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OfficeAddressForm.resx">
+      <DependentUpon>OfficeAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrderForm.resx">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrderProductForm.resx">
+      <DependentUpon>OrderProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrderStatusForm.resx">
+      <DependentUpon>OrderStatusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PayMethodForm.resx">
+      <DependentUpon>PayMethodForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PayStatusForm.resx">
+      <DependentUpon>PayStatusForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductCategoryForm.resx">
       <DependentUpon>ProductCategoryForm.cs</DependentUpon>
@@ -189,6 +243,18 @@
       <Project>{01670149-c13c-4cd4-86be-311d19984f62}</Project>
       <Name>LunaMarketEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlusSignIcon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\260-2603638_arrows-round-trip-green-png-image-repeated-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

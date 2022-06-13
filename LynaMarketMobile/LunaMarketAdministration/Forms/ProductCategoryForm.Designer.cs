@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductCategoryForm));
             this.label4 = new System.Windows.Forms.Label();
             this.categoryTextBox = new System.Windows.Forms.TextBox();
             this.actionCategoryButton = new System.Windows.Forms.Button();
@@ -112,8 +113,13 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.actionCategoryComboBox);
             this.Font = new System.Drawing.Font("Magnolia Script", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(261, 306);
+            this.MinimumSize = new System.Drawing.Size(261, 306);
             this.Name = "ProductCategoryForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Категория";
             this.Load += new System.EventHandler(this.ProductCategoryFormOnLoad);
             this.ResumeLayout(false);

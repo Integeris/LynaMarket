@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerForm));
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.loginTextBox = new System.Windows.Forms.TextBox();
@@ -58,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 9);
+            this.label1.Location = new System.Drawing.Point(66, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 21);
             this.label1.TabIndex = 13;
@@ -74,7 +75,7 @@
             // 
             // actionCustomerButton
             // 
-            this.actionCustomerButton.Location = new System.Drawing.Point(69, 485);
+            this.actionCustomerButton.Location = new System.Drawing.Point(57, 488);
             this.actionCustomerButton.Name = "actionCustomerButton";
             this.actionCustomerButton.Size = new System.Drawing.Size(162, 30);
             this.actionCustomerButton.TabIndex = 11;
@@ -89,7 +90,7 @@
             "Добавление",
             "Изменение",
             "Удаление"});
-            this.actionDeliveryComboBox.Location = new System.Drawing.Point(69, 33);
+            this.actionDeliveryComboBox.Location = new System.Drawing.Point(68, 33);
             this.actionDeliveryComboBox.Name = "actionDeliveryComboBox";
             this.actionDeliveryComboBox.Size = new System.Drawing.Size(162, 29);
             this.actionDeliveryComboBox.TabIndex = 10;
@@ -177,7 +178,7 @@
             // 
             // selectCustomerButton
             // 
-            this.selectCustomerButton.Location = new System.Drawing.Point(57, 68);
+            this.selectCustomerButton.Location = new System.Drawing.Point(55, 68);
             this.selectCustomerButton.Name = "selectCustomerButton";
             this.selectCustomerButton.Size = new System.Drawing.Size(183, 30);
             this.selectCustomerButton.TabIndex = 25;
@@ -207,9 +208,14 @@
             this.Controls.Add(this.actionCustomerButton);
             this.Controls.Add(this.actionDeliveryComboBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(299, 566);
+            this.MinimumSize = new System.Drawing.Size(299, 566);
             this.Name = "CustomerForm";
-            this.Text = "CustomerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Пользователь";
             this.Load += new System.EventHandler(this.CustomerFormOnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();

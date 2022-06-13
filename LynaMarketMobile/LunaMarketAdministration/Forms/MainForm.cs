@@ -65,5 +65,41 @@ namespace LunaMarketAdministration.Forms
             ProductForm productForm = new ProductForm();
             productForm.ShowDialog();
         }
+
+        private void EditOfficeAddressButtonOnClick(object sender, EventArgs e)
+        {
+            OfficeAddressForm officeAddressForm = new OfficeAddressForm();
+            officeAddressForm.ShowDialog();
+        }
+
+        private void EditOrderStatusButtonOnClick(object sender, EventArgs e)
+        {
+            OrderStatusForm orderStatusForm = new OrderStatusForm();
+            orderStatusForm.ShowDialog();
+        }
+
+        private void EditPayMethodButtonOnClick(object sender, EventArgs e)
+        {
+            PayMethodForm payMethodForm = new PayMethodForm();
+            payMethodForm.ShowDialog();
+        }
+
+        private void EditPayStatusButtonOnClick(object sender, EventArgs e)
+        {
+            PayStatusForm payStatusForm = new PayStatusForm();
+            payStatusForm.ShowDialog();
+        }
+
+        private void EditOrderProductButtonOnClick(object sender, EventArgs e)
+        {
+            OrderProductForm orderProductForm = new OrderProductForm();
+            orderProductForm.ShowDialog();
+        }
+
+        private void EditOrderButtonOnClick(object sender, EventArgs e)
+        {
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
+        }
     }
 }

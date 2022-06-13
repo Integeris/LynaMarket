@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LookForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.selectMaterialButton = new System.Windows.Forms.Button();
@@ -37,12 +38,12 @@
             this.actionMaterialButton = new System.Windows.Forms.Button();
             this.actionMaterialComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.selectColorButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.colorTextBox = new System.Windows.Forms.TextBox();
             this.actionColorButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.actionColorComboBox = new System.Windows.Forms.ComboBox();
-            this.selectColorButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -149,6 +150,16 @@
             this.tabPage2.Text = "Цвет";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // selectColorButton
+            // 
+            this.selectColorButton.Location = new System.Drawing.Point(31, 97);
+            this.selectColorButton.Name = "selectColorButton";
+            this.selectColorButton.Size = new System.Drawing.Size(130, 30);
+            this.selectColorButton.TabIndex = 8;
+            this.selectColorButton.Text = "Выбрать";
+            this.selectColorButton.UseVisualStyleBackColor = true;
+            this.selectColorButton.Click += new System.EventHandler(this.SelectColorButtonOnClick);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -197,16 +208,6 @@
             this.actionColorComboBox.TabIndex = 1;
             this.actionColorComboBox.SelectedIndexChanged += new System.EventHandler(this.ActionColorComboBoxOnSelectedIndexChanged);
             // 
-            // selectColorButton
-            // 
-            this.selectColorButton.Location = new System.Drawing.Point(31, 97);
-            this.selectColorButton.Name = "selectColorButton";
-            this.selectColorButton.Size = new System.Drawing.Size(130, 30);
-            this.selectColorButton.TabIndex = 8;
-            this.selectColorButton.Text = "Выбрать";
-            this.selectColorButton.UseVisualStyleBackColor = true;
-            this.selectColorButton.Click += new System.EventHandler(this.SelectColorButtonOnClick);
-            // 
             // LookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -215,9 +216,14 @@
             this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(219, 338);
+            this.MinimumSize = new System.Drawing.Size(219, 338);
             this.Name = "LookForm";
-            this.Text = "Материал/Цвет";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Внешний вид";
             this.Load += new System.EventHandler(this.LookFormOnLoad);
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
