@@ -70,31 +70,6 @@ namespace LunaMarketAdministration.Forms
                     selectButton.DialogResult = DialogResult.OK;
                     this.Close();
                     break;
-                case "Office":
-                    Database.IdOfficeAddress = (int)dataGridView.CurrentRow.Cells[0].Value;
-                    selectButton.DialogResult = DialogResult.OK;
-                    this.Close();
-                    break;
-                case "OrderStatus":
-                    Database.IdOrderStatus = (int)dataGridView.CurrentRow.Cells[0].Value;
-                    selectButton.DialogResult = DialogResult.OK;
-                    this.Close();
-                    break;
-                case "PayMethod":
-                    Database.IdPayMethod = (int)dataGridView.CurrentRow.Cells[0].Value;
-                    selectButton.DialogResult = DialogResult.OK;
-                    this.Close();
-                    break;
-                case "PayStatus":
-                    Database.IdPayStatus = (int)dataGridView.CurrentRow.Cells[0].Value;
-                    selectButton.DialogResult = DialogResult.OK;
-                    this.Close();
-                    break;
-                case "Order":
-                    Database.IdOrder = (int)dataGridView.CurrentRow.Cells[0].Value;
-                    selectButton.DialogResult = DialogResult.OK;
-                    this.Close();
-                    break;
                 default:
                     break;
             }

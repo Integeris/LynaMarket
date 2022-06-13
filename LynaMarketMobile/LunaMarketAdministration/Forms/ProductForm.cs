@@ -21,28 +21,14 @@ namespace LunaMarketAdministration.Forms
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Путь к изображению.
-        /// </summary>
         private string imagePath = null;
-
-        /// <summary>
-        /// Идентификатор изображения.
-        /// </summary>
-        private int idPhoto = 0;
-
-        Product product = null;
-
-        ImageList imageList = new ImageList();
-
-        List<ProductPhoto> productPhotos = new List<ProductPhoto>();
-
-        List<string> imagesPath = new List<string>();
 
         private void ProductFormOnLoad(object sender, EventArgs e)
         {
             actionComboBox.SelectedIndex = 0;
             productPictureBox.Image = Properties.Resources.no;
+            //selectProductButton.Visible = true;
+            //ListViewItem listViewItem = new ListViewItem(new );
         }
 
         private void ActionComboBoxOnSelectedIndexChanged(object sender, EventArgs e)
@@ -52,38 +38,26 @@ namespace LunaMarketAdministration.Forms
                 case 1:
                     editButton.Text = "Изменить";
                     selectProductButton.Visible = true;
-                    Database.ClearFields();
-                    Database.СlearingTextBoxes(this);
-                    Database.СlearingNumericUpDowns(this);
                     Database.СlearingPictureBox(productPictureBox);
+                    Database.CheckingTextBoxes(this);
+                    Database.СlearingNumericUpDowns(this);
                     imagePath = null;
-                    listView.Items.Clear();
-                    imageList.Images.Clear();
-                    imagesPath.Clear();
                     break;
                 case 2:
                     editButton.Text = "Удалить";
                     selectProductButton.Visible = true;
-                    Database.ClearFields();
-                    Database.СlearingTextBoxes(this);
-                    Database.СlearingNumericUpDowns(this);
                     Database.СlearingPictureBox(productPictureBox);
+                    Database.CheckingTextBoxes(this);
+                    Database.СlearingNumericUpDowns(this);
                     imagePath = null;
-                    listView.Items.Clear();
-                    imageList.Images.Clear();
-                    imagesPath.Clear();
                     break;
                 default:
                     editButton.Text = "Добавить";
                     selectProductButton.Visible = false;
-                    Database.ClearFields();
-                    Database.СlearingTextBoxes(this);
-                    Database.СlearingNumericUpDowns(this);
                     Database.СlearingPictureBox(productPictureBox);
+                    Database.CheckingTextBoxes(this);
+                    Database.СlearingNumericUpDowns(this);
                     imagePath = null;
-                    listView.Items.Clear();
-                    imageList.Images.Clear();
-                    imagesPath.Clear();
                     break;
             }
         }
@@ -111,20 +85,11 @@ namespace LunaMarketAdministration.Forms
             {
                 Database.IdProduct = 0;
                 Database.Type = "Product";
-
-                listView.Clear();
-                imageList.Images.Clear();
-
                 SelectForm selectForm = new SelectForm();
                 selectForm.ShowDialog();
                 if (Database.IdProduct != 0)
                 {
-                    product = await Core.GetProductAsync(Database.IdProduct);
-
-                    Database.IdManufacturer = product.IdManufacturer;
-                    Database.IdMaterial = product.IdMaterial;
-                    Database.IdColor = product.IdColor;
-                    Database.IdCategory = product.IdProductCategory;
+                    Product product = await Core.GetProductAsync(Database.IdProduct);
 
                     Manufacturer manufacturer = await Core.GetManufacturerAnsyc(product.IdManufacturer);
                     manufacturerTextBox.Text = manufacturer.Title;
@@ -135,7 +100,7 @@ namespace LunaMarketAdministration.Forms
                     LunaMarketEngine.Entities.Color color = await Core.GetColorAsync(product.IdColor);
                     colorTextBox.Text = color.Title;
 
-                    Material material = await Core.GetMaterialAsync(product.IdMaterial);
+                    Material material = await Core.GetMaterialAsync(product.IdMaterial); 
                     materialTextBox.Text = material.Title;
 
                     titleTextBox.Text = product.Title;
@@ -146,22 +111,13 @@ namespace LunaMarketAdministration.Forms
                     amontNumericUpDown.Value = product.Amount;
                     descriptionTextBox.Text = product.Description;
 
-                    productPhotos = await product.GetProductPhotoAsync();
+                    //int count = product.ProductPhotos.Count;
+                    //MessageBox.Show(count.ToString());
 
-                    imageList.ImageSize = new Size(50, 50);
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[i].Image))
-                        {
-                            imageList.Images.Add(Bitmap.FromStream(memoryStream));
-                        }
-                    }
-                    listView.LargeImageList = imageList;
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        listView.Items.Add("", i);
-                    }
+                    //using (MemoryStream memoryStream = new MemoryStream(pr.Photo))
+                    //{
+                    //    productPictureBox.Image = Bitmap.FromStream(memoryStream);
+                    //}
                 }
             }
             catch (Exception ex)
@@ -177,22 +133,12 @@ namespace LunaMarketAdministration.Forms
                 case 0:
                     if ((Database.CheckingTextBoxes(this) == 0) && (Database.CheckingNumericUpDowns(this) == 0) && (imagePath != ""))
                     {
-                        int idProduct = await Core.AddProduct(Database.IdManufacturer, Database.IdCategory, Database.IdColor, Database.IdMaterial,
-                            titleTextBox.Text, priceNumericUpDown.Value, (int)amontNumericUpDown.Value, (int)heightNumericUpDown.Value,
+                        int idProduct = await Core.AddProduct(Database.IdManufacturer, Database.IdCategory,
+                            Database.IdColor, Database.IdMaterial, titleTextBox.Text, priceNumericUpDown.Value, (int)amontNumericUpDown.Value,(int)heightNumericUpDown.Value,
                             (int)widthNumericUpDown.Value, (int)depthNumericUpDown.Value, descriptionTextBox.Text);
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            await Core.AddProductPhoto(idProduct, File.ReadAllBytes(imagesPath[i]));
-                        }
-
-                        string text = (idProduct != 0) ? "Товар добавлен." : "Товар не добавлен.";
+                        int idPhoto = await Core.AddProductPhoto(idProduct, File.ReadAllBytes(imagePath));
+                        string text = ((idProduct != 0) && (idPhoto != 0)) ? "Товар добавлен." : "Товар не добавлен.";
                         MessageBox.Show(text);
-                        Database.ClearFields();
-                        Database.СlearingTextBoxes(this);
-                        Database.СlearingNumericUpDowns(this);
-                        Database.СlearingPictureBox(productPictureBox);
-                        Database.ClearLists(listView, imagesPath, imageList);
                     }
                     else
                     {
@@ -200,20 +146,10 @@ namespace LunaMarketAdministration.Forms
                     }
                     break;
                 case 1:
-                    if ((Database.CheckingTextBoxes(this) == 0) && (Database.CheckingNumericUpDowns(this) == 0) && (Database.IdProduct != 0))
-                    {
-                        Core.UpdateProduct(Database.IdProduct, Database.IdManufacturer, Database.IdCategory, Database.IdColor,
-                            Database.IdMaterial, titleTextBox.Text, priceNumericUpDown.Value, (int)amontNumericUpDown.Value,
-                            (int)heightNumericUpDown.Value, (int)widthNumericUpDown.Value, (int)depthNumericUpDown.Value,
-                            descriptionTextBox.Text);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Заполните все поля!");
-                    }
+                    //Core.UpdateProduct(Database.IdProduct, );
+
                     break;
                 case 2:
-                    Core.DeleteProduct(Database.IdProduct);
                     break;
             }
         }
@@ -295,221 +231,6 @@ namespace LunaMarketAdministration.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void ListViewOnItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            switch (actionComboBox.SelectedIndex)
-            {
-                case 0:
-                    if ((imagesPath != null) && (listView.SelectedIndices.Count != 0))
-                    {
-                        idPhoto = listView.SelectedIndices[0];
-                        productPictureBox.Image = Image.FromFile(imagesPath[idPhoto]);
-                    }
-                    else
-                    {
-                        idPhoto = 0;
-                        productPictureBox.Image = Properties.Resources.no;
-                    }
-                    break;
-                case 1:
-                    if ((listView.SelectedIndices.Count != 0) && (productPhotos.Count != 0))
-                    {
-                        idPhoto = listView.SelectedIndices[0];
-
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[idPhoto].Image))
-                        {
-                            productPictureBox.Image = Bitmap.FromStream(memoryStream);
-                        }
-                    }
-                    else
-                    {
-                        idPhoto = 0;
-                        productPictureBox.Image = Properties.Resources.no;
-                    }
-                    break;
-                case 2:
-                    if ((listView.SelectedIndices.Count != 0) && (productPhotos.Count != 0))
-                    {
-                        idPhoto = listView.SelectedIndices[0];
-
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[idPhoto].Image))
-                        {
-                            productPictureBox.Image = Bitmap.FromStream(memoryStream);
-                        }
-                    }
-                    else
-                    {
-                        Database.IdproductPhoto = 0;
-                        productPictureBox.Image = Properties.Resources.no;
-                    }
-                    break;
-            }
-        }
-
-        private async void AddPictureBoxOnClick(object sender, EventArgs e)
-        {
-            switch (actionComboBox.SelectedIndex)
-            {
-                case 0:
-                    imageList.ImageSize = new Size(50, 50);
-                    if (Database.IdProduct == 0)
-                    {
-                        listView.Clear();
-                        imageList.Images.Clear();
-                        imagesPath.Add(imagePath);
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            imageList.Images.Add(Image.FromFile(imagesPath[i]));
-                        }
-                        listView.LargeImageList = imageList;
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            listView.Items.Add(i.ToString(), i);
-                        }
-                    }
-                    break;
-                case 1:
-                    await Core.AddProductPhoto(product.IdProduct, File.ReadAllBytes(imagePath));
-                    listView.Clear();
-                    imageList.Images.Clear();
-
-                    product = await Core.GetProductAsync(product.IdProduct);
-                    productPhotos = await product.GetProductPhotoAsync();
-
-                    imageList.ImageSize = new Size(50, 50);
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[i].Image))
-                        {
-                            imageList.Images.Add(Bitmap.FromStream(memoryStream));
-                        }
-                    }
-                    listView.LargeImageList = imageList;
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        listView.Items.Add(i.ToString(), i);
-                    }
-                    break;
-                case 2:
-                    break;
-            }
-        }
-
-        private async void DeletePictureBoxOnClick(object sender, EventArgs e)
-        {
-            switch (actionComboBox.SelectedIndex)
-            {
-                case 0:
-                    imageList.ImageSize = new Size(50, 50);
-                    if (Database.IdProduct == 0)
-                    {
-                        listView.Clear();
-                        imageList.Images.Clear();
-                        imagesPath.RemoveAt(idPhoto);
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            imageList.Images.Add(Image.FromFile(imagesPath[i]));
-                        }
-                        listView.LargeImageList = imageList;
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            listView.Items.Add(i.ToString(), i);
-                        }
-                    }
-                    break;
-                case 1:
-                    Core.DeleteProductPhoto(productPhotos[idPhoto].IdProductPhoto);
-
-                    listView.Clear();
-                    imageList.Images.Clear();
-
-                    product = await Core.GetProductAsync(product.IdProduct);
-                    productPhotos = await product.GetProductPhotoAsync();
-
-                    imageList.ImageSize = new Size(50, 50);
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[i].Image))
-                        {
-                            imageList.Images.Add(Bitmap.FromStream(memoryStream));
-                        }
-                    }
-
-                    listView.LargeImageList = imageList;
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        listView.Items.Add(i.ToString(), i);
-                    }
-                    break;
-                case 2:
-                    break;
-            }
-        }
-
-        private async void UpdatePictureBoxOnClick(object sender, EventArgs e)
-        {
-            switch (actionComboBox.SelectedIndex)
-            {
-                case 0:
-                    imageList.ImageSize = new Size(50, 50);
-                    if (Database.IdProduct == 0)
-                    {
-                        listView.Clear();
-                        imageList.Images.Clear();
-                        imagesPath[idPhoto] = imagePath;
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            imageList.Images.Add(Image.FromFile(imagesPath[i]));
-                        }
-                        listView.LargeImageList = imageList;
-
-                        for (int i = 0; i < imagesPath.Count; i++)
-                        {
-                            listView.Items.Add(i.ToString(), i);
-                        }
-                    }
-                    break;
-                case 1:
-                    Core.UpdateProductPhoto(productPhotos[idPhoto].IdProductPhoto, Database.IdProduct, File.ReadAllBytes(imagePath));
-
-                    listView.Clear();
-                    imageList.Images.Clear();
-
-                    product = await Core.GetProductAsync(product.IdProduct);
-                    productPhotos = await product.GetProductPhotoAsync();
-
-                    imageList.ImageSize = new Size(50, 50);
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream(productPhotos[i].Image))
-                        {
-                            imageList.Images.Add(Bitmap.FromStream(memoryStream));
-                        }
-                    }
-
-                    listView.LargeImageList = imageList;
-
-                    for (int i = 0; i < productPhotos.Count; i++)
-                    {
-                        listView.Items.Add(i.ToString(), i);
-                    }
-                    break;
-                case 2:
-                    listView.Clear();
-                    imageList.Images.Clear();
-                    break;
             }
         }
     }

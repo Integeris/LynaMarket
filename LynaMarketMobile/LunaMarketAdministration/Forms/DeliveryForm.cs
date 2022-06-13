@@ -25,15 +25,15 @@ namespace LunaMarketAdministration.Forms
             switch (actionDeliveryComboBox.SelectedIndex)
             {
                 case 0:
-                    actionStatusButton.Text = "Добавить";
+                    actionDeliveryButton.Text = "Добавить";
                     selectButton.Visible = false;
                     break;
                 case 1:
-                    actionStatusButton.Text = "Изменить";
+                    actionDeliveryButton.Text = "Изменить";
                     selectButton.Visible = true;
                     break;
                 case 2:
-                    actionStatusButton.Text = "Удалить";
+                    actionDeliveryButton.Text = "Удалить";
                     selectButton.Visible = true;
                     break;
             }

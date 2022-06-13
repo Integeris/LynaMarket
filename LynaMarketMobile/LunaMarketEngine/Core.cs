@@ -925,7 +925,7 @@ namespace LunaMarketEngine
                 new StaticProperty("Title", title)
             };
 
-            return await AddObjectAsync<OrderStatus>(staticProperties);
+            return await AddObjectAsync<OrderProduct>(staticProperties);
         }
 
         /// <summary>
@@ -1124,9 +1124,11 @@ namespace LunaMarketEngine
         /// </summary>
         /// <param name="idOrder">Идентификатор заказа.</param>
         /// <param name="idProduct">Идентификатор товара.</param>
+        /// <param name="newIdOrder">Новый идентификатор заказа.</param>
+        /// <param name="newIdProduct">Новый идентификатор товара.</param>
         /// <param name="price">Цена.</param>
         /// <param name="amount">Количество.</param>
-        public static void UpdateOrderProduct(int idOrder, int idProduct, decimal price, int amount)
+        public static void UpdateOrderProduct(int idOrder, int idProduct, int newIdOrder, int newIdProduct, decimal price, int amount)
         {
             List<StaticProperty> staticProperties = new List<StaticProperty>()
             {
@@ -1136,6 +1138,8 @@ namespace LunaMarketEngine
 
             List<StaticProperty> setStaticProperties = new List<StaticProperty>()
             {
+                new StaticProperty("IdOrder", newIdOrder),
+                new StaticProperty("IdProduct", newIdProduct),
                 new StaticProperty("Price", price),
                 new StaticProperty("Amount", amount)
             };
@@ -1739,6 +1743,7 @@ namespace LunaMarketEngine
 
             command.CommandText= deleteQuery.ToString();
             SendDataAsync(command);
+            command.Connection.Dispose();
         }
 
         /// <summary>

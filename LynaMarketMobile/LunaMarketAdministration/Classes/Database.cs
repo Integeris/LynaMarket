@@ -60,36 +60,6 @@ namespace LunaMarketAdministration.Classes
         public static int IdproductPhoto = 0;
 
         /// <summary>
-        /// Код адреса офиса.
-        /// </summary>
-        public static int IdOfficeAddress = 0;
-
-        /// <summary>
-        /// Код статуса заказа.
-        /// </summary>
-        public static int IdOrderStatus = 0;
-        
-        /// <summary>
-        /// Код статуса оплаты.
-        /// </summary>
-        public static int IdPayStatus = 0;
-
-        /// <summary>
-        /// Код метода оплаты.
-        /// </summary>
-        public static int IdPayMethod = 0;
-
-        /// <summary>
-        /// Код заказа.
-        /// </summary>
-        public static int IdOrder = 0;
-
-        /// <summary>
-        /// Код заказанного товара.
-        /// </summary>
-        public static int IdOrderProduct = 0;
-
-        /// <summary>
         /// Проверка заполнения текстовых полей.
         /// </summary>
         /// <param name="form">Название формы.</param>
@@ -172,19 +142,6 @@ namespace LunaMarketAdministration.Classes
             IdCustomer = 0;
             IdProduct = 0;
             IdproductPhoto = 0;
-        }
-
-        /// <summary>
-        /// Очистка элементов формы.
-        /// </summary>
-        /// <param name="listView">Элемент управления ListView.</param>
-        /// <param name="list">Список.</param>
-        /// <param name="imageList">Список изображений.</param>
-        public static void ClearLists(ListView listView, List<string> list, ImageList imageList)
-        { 
-            listView.Items.Clear();
-            imageList.Images.Clear();
-            list.Clear();
         }
     }
 }

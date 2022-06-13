@@ -95,7 +95,7 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Заполните все поля!");
+                        MessageBox.Show("Вы дебил!");
                     }
                     break;
                 case 2:
@@ -107,7 +107,7 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Вы ничего не выбрали!");
+                        MessageBox.Show("Вы дебил!");
                     }
                     break;
             }
@@ -141,7 +141,7 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Выберите материал!");
+                        MessageBox.Show("Капец вы дебилы! Я кнопку выбрать для кого делал?");
                     }
                     break;
                 case 2:
@@ -153,7 +153,7 @@ namespace LunaMarketAdministration.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Выберите материал!");
+                        MessageBox.Show("Капец вы дебилы! Я кнопку выбрать для кого делал?");
                     }
                     break;
             }

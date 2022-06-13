@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductForm));
             this.actionComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.selectManufacturerButton = new System.Windows.Forms.Button();
@@ -57,6 +56,7 @@
             this.materialTextBox = new System.Windows.Forms.TextBox();
             this.selectMaterialButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
+            this.productPictureBox = new System.Windows.Forms.PictureBox();
             this.selectImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,18 +65,11 @@
             this.label16 = new System.Windows.Forms.Label();
             this.selectProductButton = new System.Windows.Forms.Button();
             this.listView = new System.Windows.Forms.ListView();
-            this.updatePictureBox = new System.Windows.Forms.PictureBox();
-            this.deletePictureBox = new System.Windows.Forms.PictureBox();
-            this.addPictureBox = new System.Windows.Forms.PictureBox();
-            this.productPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.widthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.depthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.amontNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.priceNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.updatePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.deletePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.addPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -293,7 +286,6 @@
             // 
             this.categoryTextBox.Location = new System.Drawing.Point(371, 33);
             this.categoryTextBox.Name = "categoryTextBox";
-            this.categoryTextBox.ReadOnly = true;
             this.categoryTextBox.Size = new System.Drawing.Size(152, 29);
             this.categoryTextBox.TabIndex = 26;
             this.categoryTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -302,7 +294,6 @@
             // 
             this.manufacturerTextBox.Location = new System.Drawing.Point(195, 33);
             this.manufacturerTextBox.Name = "manufacturerTextBox";
-            this.manufacturerTextBox.ReadOnly = true;
             this.manufacturerTextBox.Size = new System.Drawing.Size(150, 29);
             this.manufacturerTextBox.TabIndex = 27;
             this.manufacturerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -311,7 +302,6 @@
             // 
             this.colorTextBox.Location = new System.Drawing.Point(19, 176);
             this.colorTextBox.Name = "colorTextBox";
-            this.colorTextBox.ReadOnly = true;
             this.colorTextBox.Size = new System.Drawing.Size(150, 29);
             this.colorTextBox.TabIndex = 29;
             this.colorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -330,7 +320,6 @@
             // 
             this.materialTextBox.Location = new System.Drawing.Point(195, 176);
             this.materialTextBox.Name = "materialTextBox";
-            this.materialTextBox.ReadOnly = true;
             this.materialTextBox.Size = new System.Drawing.Size(150, 29);
             this.materialTextBox.TabIndex = 31;
             this.materialTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -354,11 +343,20 @@
             this.editButton.UseVisualStyleBackColor = true;
             this.editButton.Click += new System.EventHandler(this.EditButtonOnClick);
             // 
+            // productPictureBox
+            // 
+            this.productPictureBox.Location = new System.Drawing.Point(139, 296);
+            this.productPictureBox.Name = "productPictureBox";
+            this.productPictureBox.Size = new System.Drawing.Size(208, 225);
+            this.productPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.productPictureBox.TabIndex = 33;
+            this.productPictureBox.TabStop = false;
+            // 
             // selectImageButton
             // 
-            this.selectImageButton.Location = new System.Drawing.Point(159, 527);
+            this.selectImageButton.Location = new System.Drawing.Point(139, 527);
             this.selectImageButton.Name = "selectImageButton";
-            this.selectImageButton.Size = new System.Drawing.Size(226, 32);
+            this.selectImageButton.Size = new System.Drawing.Size(208, 32);
             this.selectImageButton.TabIndex = 34;
             this.selectImageButton.Text = "Выбрать изображение";
             this.selectImageButton.UseVisualStyleBackColor = true;
@@ -424,54 +422,9 @@
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(19, 296);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(118, 225);
+            this.listView.Size = new System.Drawing.Size(98, 225);
             this.listView.TabIndex = 41;
             this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListViewOnItemSelectionChanged);
-            // 
-            // updatePictureBox
-            // 
-            this.updatePictureBox.Image = global::LunaMarketAdministration.Properties.Resources._260_2603638_arrows_round_trip_green_png_image_repeated_icon;
-            this.updatePictureBox.InitialImage = null;
-            this.updatePictureBox.Location = new System.Drawing.Point(64, 527);
-            this.updatePictureBox.Name = "updatePictureBox";
-            this.updatePictureBox.Size = new System.Drawing.Size(29, 27);
-            this.updatePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.updatePictureBox.TabIndex = 44;
-            this.updatePictureBox.TabStop = false;
-            this.updatePictureBox.Click += new System.EventHandler(this.UpdatePictureBoxOnClick);
-            // 
-            // deletePictureBox
-            // 
-            this.deletePictureBox.Image = global::LunaMarketAdministration.Properties.Resources.delete1;
-            this.deletePictureBox.InitialImage = null;
-            this.deletePictureBox.Location = new System.Drawing.Point(108, 527);
-            this.deletePictureBox.Name = "deletePictureBox";
-            this.deletePictureBox.Size = new System.Drawing.Size(29, 27);
-            this.deletePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.deletePictureBox.TabIndex = 43;
-            this.deletePictureBox.TabStop = false;
-            this.deletePictureBox.Click += new System.EventHandler(this.DeletePictureBoxOnClick);
-            // 
-            // addPictureBox
-            // 
-            this.addPictureBox.Image = global::LunaMarketAdministration.Properties.Resources.PlusSignIcon;
-            this.addPictureBox.Location = new System.Drawing.Point(12, 527);
-            this.addPictureBox.Name = "addPictureBox";
-            this.addPictureBox.Size = new System.Drawing.Size(38, 27);
-            this.addPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.addPictureBox.TabIndex = 42;
-            this.addPictureBox.TabStop = false;
-            this.addPictureBox.Click += new System.EventHandler(this.AddPictureBoxOnClick);
-            // 
-            // productPictureBox
-            // 
-            this.productPictureBox.Location = new System.Drawing.Point(159, 296);
-            this.productPictureBox.Name = "productPictureBox";
-            this.productPictureBox.Size = new System.Drawing.Size(188, 225);
-            this.productPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.productPictureBox.TabIndex = 33;
-            this.productPictureBox.TabStop = false;
             // 
             // ProductForm
             // 
@@ -479,9 +432,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(742, 566);
-            this.Controls.Add(this.updatePictureBox);
-            this.Controls.Add(this.deletePictureBox);
-            this.Controls.Add(this.addPictureBox);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.selectProductButton);
             this.Controls.Add(this.label16);
@@ -520,13 +470,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.actionComboBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(758, 605);
-            this.MinimumSize = new System.Drawing.Size(758, 605);
             this.Name = "ProductForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Товары";
             this.Load += new System.EventHandler(this.ProductFormOnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.heightNumericUpDown)).EndInit();
@@ -534,9 +479,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.depthNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.amontNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.priceNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.updatePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.deletePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.addPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -581,8 +523,5 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button selectProductButton;
         private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.PictureBox addPictureBox;
-        private System.Windows.Forms.PictureBox deletePictureBox;
-        private System.Windows.Forms.PictureBox updatePictureBox;
     }
 }

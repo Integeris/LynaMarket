@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManufacturerForm));
             this.label4 = new System.Windows.Forms.Label();
             this.manufacturerTextBox = new System.Windows.Forms.TextBox();
             this.actionManufacturerButton = new System.Windows.Forms.Button();
@@ -107,13 +106,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.actionManufacturerComboBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(225, 268);
-            this.MinimumSize = new System.Drawing.Size(225, 268);
             this.Name = "ManufacturerForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Производители";
             this.Load += new System.EventHandler(this.ManufacturerFormOnLoad);
             this.ResumeLayout(false);

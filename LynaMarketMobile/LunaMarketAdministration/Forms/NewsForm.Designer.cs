@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewsForm));
             this.selectImageButton = new System.Windows.Forms.Button();
             this.titleTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,9 +43,9 @@
             // 
             // selectImageButton
             // 
-            this.selectImageButton.Location = new System.Drawing.Point(403, 170);
+            this.selectImageButton.Location = new System.Drawing.Point(12, 324);
             this.selectImageButton.Name = "selectImageButton";
-            this.selectImageButton.Size = new System.Drawing.Size(169, 55);
+            this.selectImageButton.Size = new System.Drawing.Size(204, 28);
             this.selectImageButton.TabIndex = 1;
             this.selectImageButton.Text = "Выбрать изображение";
             this.selectImageButton.UseVisualStyleBackColor = true;
@@ -54,7 +53,7 @@
             // 
             // titleTextBox
             // 
-            this.titleTextBox.Location = new System.Drawing.Point(12, 143);
+            this.titleTextBox.Location = new System.Drawing.Point(341, 96);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(231, 29);
             this.titleTextBox.TabIndex = 2;
@@ -62,7 +61,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(68, 119);
+            this.label1.Location = new System.Drawing.Point(406, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 21);
             this.label1.TabIndex = 3;
@@ -70,16 +69,16 @@
             // 
             // descriptionTextBox
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(9, 214);
+            this.descriptionTextBox.Location = new System.Drawing.Point(341, 152);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(353, 138);
+            this.descriptionTextBox.Size = new System.Drawing.Size(231, 160);
             this.descriptionTextBox.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 187);
+            this.label2.Location = new System.Drawing.Point(410, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 21);
             this.label2.TabIndex = 5;
@@ -87,7 +86,7 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(417, 311);
+            this.editButton.Location = new System.Drawing.Point(452, 324);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(120, 28);
             this.editButton.TabIndex = 6;
@@ -120,16 +119,16 @@
             // 
             // imagePictureBox
             // 
-            this.imagePictureBox.Location = new System.Drawing.Point(278, 37);
+            this.imagePictureBox.Location = new System.Drawing.Point(12, 72);
             this.imagePictureBox.Name = "imagePictureBox";
-            this.imagePictureBox.Size = new System.Drawing.Size(294, 112);
+            this.imagePictureBox.Size = new System.Drawing.Size(294, 240);
             this.imagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imagePictureBox.TabIndex = 0;
             this.imagePictureBox.TabStop = false;
             // 
             // selectNewsButton
             // 
-            this.selectNewsButton.Location = new System.Drawing.Point(12, 72);
+            this.selectNewsButton.Location = new System.Drawing.Point(369, 36);
             this.selectNewsButton.Name = "selectNewsButton";
             this.selectNewsButton.Size = new System.Drawing.Size(178, 28);
             this.selectNewsButton.TabIndex = 9;
@@ -153,13 +152,8 @@
             this.Controls.Add(this.selectImageButton);
             this.Controls.Add(this.imagePictureBox);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 400);
-            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "NewsForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новости";
             this.Load += new System.EventHandler(this.NewsFormOnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.imagePictureBox)).EndInit();
