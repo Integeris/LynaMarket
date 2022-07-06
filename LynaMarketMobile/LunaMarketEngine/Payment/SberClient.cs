@@ -18,12 +18,12 @@ namespace LunaMarketEngine.Payment
         /// <summary>
         /// Логин пользователя.
         /// </summary>
-        private readonly string userName = "t290110501475-api";
+        private readonly string userName = "логин";
 
         /// <summary>
         /// Пароль.
         /// </summary>
-        private readonly string password = "F1Q9JK5v";
+        private readonly string password = "пароль";
 
         /// <summary>
         /// Язык.
