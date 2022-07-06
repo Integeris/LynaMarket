@@ -41,7 +41,7 @@ namespace LunaMarketEngine
         /// <summary>
         /// Пароль.
         /// </summary>
-        private string password = "nikt20012006";
+        private string password = "пароль";
 
         /// <summary>
         /// Порт.
