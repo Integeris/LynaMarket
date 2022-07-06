@@ -29,12 +29,12 @@ namespace LunaMarketEngine
         /// <summary>
         /// Пользователь.
         /// </summary>
-        private static readonly string user = "nikt20hr_mainbd";
+        private static readonly string user = "логин";
 
         /// <summary>
         /// Пароль.
         /// </summary>
-        private static readonly string password  = "Nikt2001";
+        private static readonly string password  = "пароль";
 
         /// <summary>
         /// Строка подключения.
